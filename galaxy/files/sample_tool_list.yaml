@@ -1,0 +1,20 @@
+tools:
+- name: 'column_maker'
+  owner: 'devteam'
+  tool_panel_section_id: 'textutil'
+- name: 'tabular_to_fasta'
+  owner: 'devteam'
+  tool_panel_section_id: 'convert'
+  revisions:
+  - '0b4e36026794'  # v1.1.0
+- name: 'ncbi_blast_plus'
+  owner: 'devteam'
+  tool_panel_section_id: 'NCBI_BLAST_PLUS'
+  revisions:
+  - 7f3c448e119b #0.1.07
+
+- name: 'trimmomatic'
+  owner: 'pjbriggs'
+  tool_panel_section_id: 'cleaned_data'
+  revisions:
+  - 53af7b5b1b56

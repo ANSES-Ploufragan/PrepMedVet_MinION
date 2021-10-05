@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<auth>
+  <authenticator>
+    <type>ldap</type>
+    <options>
+      <allow-register>true</allow-register>
+      <auto-register>true</auto-register>
+      <allow-password-change>true</allow-password-change>
+      <server>ldap://splfdc.afssa.fr:389</server>
+      <search-fields>sAMAccountName,mail</search-fields>
+      <search-base>DC=afssa,DC=fr</search-base>
+      <search-filter>(&amp;(objectClass=user)(sAMAccountName={username}))</search-filter>
+      <!--      <search-filter>(&amp;(objectClass=user)(mail={email}))</search-filter> -->
+      <search-user>svc-plf-galaxy</search-user>
+      <search-password>anses@1234</search-password>
+
+      <bind-user>{sAMAccountName}@afssa.fr</bind-user>
+      <bind-password>{password}</bind-password>
+      <auto-register-username>{sAMAccountName}</auto-register-username>
+      <auto-register-email>{mail}</auto-register-email>
+
+    </options>
+  </authenticator>
+  <!--
+  <authenticator>
+        <type>localdb</type>
+        <options>
+            <allow-password-change>true</allow-password-change>
+        </options>
+  </authenticator>
+  -->
+</auth>

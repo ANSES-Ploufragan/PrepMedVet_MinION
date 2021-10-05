@@ -1,0 +1,1636 @@
+tools:
+- name: 'bam_to_sam'
+  tool_panel_section_id: 'ngs_samtools_box'
+  owner: 'devteam'
+  revisions:
+  - c09a20532957
+- name: 'pileup_interval'
+  tool_panel_section_id: 'ngs_samtools_box'
+  owner: 'devteam'
+  revisions:
+  - 0b4181be05c8
+- name: 'bam_to_sam'
+  tool_panel_section_id: 'ngs_samtools_box'
+  owner: 'devteam'
+  revisions:
+  - c1419fa820c6
+- name: 'tcoffee'
+  tool_panel_section_id: 'phylogeny_alignement'
+  owner: 'ayllon'
+  revisions:
+  - e65eb41717b4
+- name: 'clustalw'
+  tool_panel_section_id: 'phylogeny_alignement'
+  owner: 'devteam'
+  revisions:
+  - 7cc64024fe92
+- name: 'muscle'
+  tool_panel_section_id: 'phylogeny_alignement'
+  owner: 'crs4'
+  revisions:
+  - ec6f5279dc01
+- name: 'beast'
+  tool_panel_section_id: 'construct_tree'
+  owner: 'malex'
+  revisions:
+  - 2ca3df65222b
+- name: 'bowtie2'
+  tool_panel_section_id: 'ngs_mapping'
+  owner: 'devteam'
+  revisions:
+  - ceb6467e276c
+- name: 'fastqc'
+  tool_panel_section_id: 'ngs_qc'
+  owner: 'devteam'
+  revisions:
+  - 2d094334f61e
+- name: 'tmap_wrapper'
+  tool_panel_section_id: 'ngs_mapping'
+  owner: 'nilshomer'
+  revisions:
+  - 40ade4f81a30
+- name: 'blast2html'
+  tool_panel_section_id: 'ncbi_blast_suite'
+  owner: 'jankanis'
+  revisions:
+  - 82b8c9722996
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'emboss_5'
+  tool_panel_section_id: 'emboos_tool_suite'
+  owner: 'devteam'
+  revisions:
+  - b810c96613ee
+- name: 'regex_replace'
+  tool_panel_section_id: 'textutil'
+  owner: 'kellrott'
+  revisions:
+  - 9a77d5fca67c
+- name: 'concatenate_multiple_datasets'
+  tool_panel_section_id: 'textutil'
+  owner: 'mvdbeek'
+  revisions:
+  - 201c568972c3
+- name: 'krona'
+  tool_panel_section_id: 'plots'
+  owner: 'ondovb'
+  revisions:
+  - 42c899125802
+- name: 'krona'
+  tool_panel_section_id: 'plots'
+  owner: 'ondovb'
+  revisions:
+  - 42c899125802
+- name: 'bowtie2'
+  tool_panel_section_id: 'ngs_mapping'
+  owner: 'devteam'
+  revisions:
+  - a9d4f71dbfb0
+- name: 'bwa'
+  tool_panel_section_id: 'ngs_mapping'
+  owner: 'devteam'
+  revisions:
+  - 546ada4a9f43
+- name: 'bwa'
+  tool_panel_section_id: 'ngs_mapping'
+  owner: 'devteam'
+  revisions:
+  - 546ada4a9f43
+- name: 'bam_to_sam'
+  tool_panel_section_id: 'ngs_samtools_box'
+  owner: 'devteam'
+  revisions:
+  - af7c50162f0b
+- name: 'ncbi_blast_plus'
+  tool_panel_section_id: 'ncbi_blast_suite'
+  owner: 'devteam'
+  revisions:
+  - 7f3c448e119b
+- name: 'ncbi_blast_plus'
+  tool_panel_section_id: 'ncbi_blast_suite'
+  owner: 'devteam'
+  revisions:
+  - 7f3c448e119b
+- name: 'ncbi_blast_plus'
+  tool_panel_section_id: 'ncbi_blast_suite'
+  owner: 'devteam'
+  revisions:
+  - 7f3c448e119b
+- name: 'ncbi_blast_plus'
+  tool_panel_section_id: 'ncbi_blast_suite'
+  owner: 'devteam'
+  revisions:
+  - 7f3c448e119b
+- name: 'ncbi_blast_plus'
+  tool_panel_section_id: 'ncbi_blast_suite'
+  owner: 'devteam'
+  revisions:
+  - 7f3c448e119b
+- name: 'ncbi_blast_plus'
+  tool_panel_section_id: 'ncbi_blast_suite'
+  owner: 'devteam'
+  revisions:
+  - 7f3c448e119b
+- name: 'ncbi_blast_plus'
+  tool_panel_section_id: 'ncbi_blast_suite'
+  owner: 'devteam'
+  revisions:
+  - 7f3c448e119b
+- name: 'ncbi_blast_plus'
+  tool_panel_section_id: 'ncbi_blast_suite'
+  owner: 'devteam'
+  revisions:
+  - 7f3c448e119b
+- name: 'ncbi_blast_plus'
+  tool_panel_section_id: 'ncbi_blast_suite'
+  owner: 'devteam'
+  revisions:
+  - 7f3c448e119b
+- name: 'ncbi_blast_plus'
+  tool_panel_section_id: 'ncbi_blast_suite'
+  owner: 'devteam'
+  revisions:
+  - 7f3c448e119b
+- name: 'ncbi_blast_plus'
+  tool_panel_section_id: 'ncbi_blast_suite'
+  owner: 'devteam'
+  revisions:
+  - 7f3c448e119b
+- name: 'ncbi_blast_plus'
+  tool_panel_section_id: 'ncbi_blast_suite'
+  owner: 'devteam'
+  revisions:
+  - 7f3c448e119b
+- name: 'ncbi_blast_plus'
+  tool_panel_section_id: 'ncbi_blast_suite'
+  owner: 'devteam'
+  revisions:
+  - 7f3c448e119b
+- name: 'ncbi_blast_plus'
+  tool_panel_section_id: 'ncbi_blast_suite'
+  owner: 'devteam'
+  revisions:
+  - 7f3c448e119b
+- name: 'ncbi_blast_plus'
+  tool_panel_section_id: 'ncbi_blast_suite'
+  owner: 'devteam'
+  revisions:
+  - 7f3c448e119b
+- name: 'beast'
+  tool_panel_section_id: 'construct_tree'
+  owner: 'malex'
+  revisions:
+  - 2ca3df65222b
+- name: 'samtools_mpileup'
+  tool_panel_section_id: 'ngs_samtools_box'
+  owner: 'devteam'
+  revisions:
+  - bfc4517aa037
+- name: 'sam_to_bam'
+  tool_panel_section_id: 'ngs_samtools_box'
+  owner: 'devteam'
+  revisions:
+  - 881e16ad05c6
+- name: 'samtools_flagstat'
+  tool_panel_section_id: 'ngs_samtools_box'
+  owner: 'devteam'
+  revisions:
+  - 0072bf593791
+- name: 'blast2html'
+  tool_panel_section_id: 'ncbi_blast_suite'
+  owner: 'jankanis'
+  revisions:
+  - 82b8c9722996
+- name: 'bowtie2'
+  tool_panel_section_id: 'ngs_mapping'
+  owner: 'devteam'
+  revisions:
+  - a9d4f71dbfb0
+- name: 'lava_lamp'
+  tool_panel_section_id: 'pcr'
+  owner: 'ehirchaud'
+  revisions:
+  - 78774328affc
+- name: 'phylo_converter'
+  tool_panel_section_id: 'convert'
+  owner: 'ehirchaud'
+  revisions:
+  - 32df2b114a37
+- name: 'filter_by_fasta_ids'
+  tool_panel_section_id: 'filter'
+  owner: 'galaxyp'
+  revisions:
+  - 463ebeccb854
+- name: 'samtools_rmdup'
+  tool_panel_section_id: 'ngs_samtools_box'
+  owner: 'devteam'
+  revisions:
+  - fe83e6f8e65e
+- name: 'samtools_slice_bam'
+  tool_panel_section_id: 'ngs_samtools_box'
+  owner: 'devteam'
+  revisions:
+  - 74a8d2d60258
+- name: 'samtools_phase'
+  tool_panel_section_id: 'ngs_samtools_box'
+  owner: 'devteam'
+  revisions:
+  - cba1944e3ed0
+- name: 'samtools_flagstat'
+  tool_panel_section_id: 'ngs_samtools_box'
+  owner: 'devteam'
+  revisions:
+  - a3dd61e7bec1
+- name: 'samtools_mpileup'
+  tool_panel_section_id: 'ngs_samtools_box'
+  owner: 'devteam'
+  revisions:
+  - 973fea5b4bdf
+- name: 'sam_to_bam'
+  tool_panel_section_id: 'ngs_samtools_box'
+  owner: 'devteam'
+  revisions:
+  - c73bf16b45df
+- name: 'pileup_interval'
+  tool_panel_section_id: 'ngs_samtools_box'
+  owner: 'devteam'
+  revisions:
+  - ef11139d4545
+- name: 'bwa'
+  tool_panel_section_id: 'ngs_mapping'
+  owner: 'devteam'
+  revisions:
+  - 546ada4a9f43
+- name: 'bwa'
+  tool_panel_section_id: 'ngs_mapping'
+  owner: 'devteam'
+  revisions:
+  - 546ada4a9f43
+- name: 'blast2html'
+  tool_panel_section_id: 'ncbi_blast_suite'
+  owner: 'jankanis'
+  revisions:
+  - 82b8c9722996
+- name: 'muscle'
+  tool_panel_section_id: 'phylogeny_alignement'
+  owner: 'crs4'
+  revisions:
+  - 533b3b2a1e66
+- name: 'gblocks'
+  tool_panel_section_id: 'phylogeny_alignement'
+  owner: 'plucas'
+  revisions:
+  - 82751f622abc
+- name: 'gmaj'
+  tool_panel_section_id: 'phylogeny_alignement'
+  owner: 'devteam'
+  revisions:
+  - 2cd5ee197ec7
+- name: 'cut_name'
+  tool_panel_section_id: 'textutil'
+  owner: 'plucas'
+  revisions:
+  - b37ec8dd161e
+- name: 'phyml'
+  tool_panel_section_id: 'construct_tree'
+  owner: 'vlefort'
+  revisions:
+  - 6dd988b4b760
+- name: 'jmodeltest'
+  tool_panel_section_id: 'construct_tree'
+  owner: 'plucas'
+  revisions:
+  - b148282d0554
+- name: 'fasta_to_fastqsanger'
+  tool_panel_section_id: 'convert'
+  owner: 'plucas'
+  revisions:
+  - b427a038ae47
+- name: 'treevector'
+  tool_panel_section_id: 'construct_tree'
+  owner: 'plucas'
+  revisions:
+  - 00ce447b2890
+- name: 'ncbi_blast_plus'
+  tool_panel_section_id: 'ncbi_blast_suite'
+  owner: 'devteam'
+  revisions:
+  - 3034ce97dd33
+- name: 'ncbi_blast_plus'
+  tool_panel_section_id: 'ncbi_blast_suite'
+  owner: 'devteam'
+  revisions:
+  - 3034ce97dd33
+- name: 'ncbi_blast_plus'
+  tool_panel_section_id: 'ncbi_blast_suite'
+  owner: 'devteam'
+  revisions:
+  - 3034ce97dd33
+- name: 'ncbi_blast_plus'
+  tool_panel_section_id: 'ncbi_blast_suite'
+  owner: 'devteam'
+  revisions:
+  - 3034ce97dd33
+- name: 'ncbi_blast_plus'
+  tool_panel_section_id: 'ncbi_blast_suite'
+  owner: 'devteam'
+  revisions:
+  - 3034ce97dd33
+- name: 'ncbi_blast_plus'
+  tool_panel_section_id: 'ncbi_blast_suite'
+  owner: 'devteam'
+  revisions:
+  - 3034ce97dd33
+- name: 'ncbi_blast_plus'
+  tool_panel_section_id: 'ncbi_blast_suite'
+  owner: 'devteam'
+  revisions:
+  - 3034ce97dd33
+- name: 'ncbi_blast_plus'
+  tool_panel_section_id: 'ncbi_blast_suite'
+  owner: 'devteam'
+  revisions:
+  - 3034ce97dd33
+- name: 'ncbi_blast_plus'
+  tool_panel_section_id: 'ncbi_blast_suite'
+  owner: 'devteam'
+  revisions:
+  - 3034ce97dd33
+- name: 'ncbi_blast_plus'
+  tool_panel_section_id: 'ncbi_blast_suite'
+  owner: 'devteam'
+  revisions:
+  - 3034ce97dd33
+- name: 'ncbi_blast_plus'
+  tool_panel_section_id: 'ncbi_blast_suite'
+  owner: 'devteam'
+  revisions:
+  - 3034ce97dd33
+- name: 'ncbi_blast_plus'
+  tool_panel_section_id: 'ncbi_blast_suite'
+  owner: 'devteam'
+  revisions:
+  - 3034ce97dd33
+- name: 'ncbi_blast_plus'
+  tool_panel_section_id: 'ncbi_blast_suite'
+  owner: 'devteam'
+  revisions:
+  - 3034ce97dd33
+- name: 'ncbi_blast_plus'
+  tool_panel_section_id: 'ncbi_blast_suite'
+  owner: 'devteam'
+  revisions:
+  - 3034ce97dd33
+- name: 'ncbi_blast_plus'
+  tool_panel_section_id: 'ncbi_blast_suite'
+  owner: 'devteam'
+  revisions:
+  - 3034ce97dd33
+- name: 'fasta_ncbi'
+  tool_panel_section_id: 'getext'
+  owner: 'ehirchaud'
+  revisions:
+  - cfb0c6aaab5f
+- name: 'pcr_markers'
+  tool_panel_section_id: 'pcr'
+  owner: 'john-mccallum'
+  revisions:
+  - f201e8c6e004
+- name: 'pcr_markers'
+  tool_panel_section_id: 'pcr'
+  owner: 'john-mccallum'
+  revisions:
+  - f201e8c6e004
+- name: 'pcr_markers'
+  tool_panel_section_id: 'pcr'
+  owner: 'john-mccallum'
+  revisions:
+  - f201e8c6e004
+- name: 'pcr_markers'
+  tool_panel_section_id: 'pcr'
+  owner: 'john-mccallum'
+  revisions:
+  - f201e8c6e004
+- name: 'pcr_markers'
+  tool_panel_section_id: 'pcr'
+  owner: 'john-mccallum'
+  revisions:
+  - f201e8c6e004
+- name: 'pcr_markers'
+  tool_panel_section_id: 'pcr'
+  owner: 'john-mccallum'
+  revisions:
+  - f201e8c6e004
+- name: 'pcr_markers'
+  tool_panel_section_id: 'pcr'
+  owner: 'john-mccallum'
+  revisions:
+  - f201e8c6e004
+- name: 'pcr_markers'
+  tool_panel_section_id: 'pcr'
+  owner: 'john-mccallum'
+  revisions:
+  - f201e8c6e004
+- name: 'pcr_markers'
+  tool_panel_section_id: 'pcr'
+  owner: 'john-mccallum'
+  revisions:
+  - f201e8c6e004
+- name: 'pcr_markers'
+  tool_panel_section_id: 'pcr'
+  owner: 'john-mccallum'
+  revisions:
+  - f201e8c6e004
+- name: 'pcr_markers'
+  tool_panel_section_id: 'pcr'
+  owner: 'john-mccallum'
+  revisions:
+  - f201e8c6e004
+- name: 'pcr_markers'
+  tool_panel_section_id: 'pcr'
+  owner: 'john-mccallum'
+  revisions:
+  - f201e8c6e004
+- name: 'pilon'
+  tool_panel_section_id: 'assembly'
+  owner: 'iuc'
+  revisions:
+  - fe0dc27e6327
+- name: 'readseq'
+  tool_panel_section_id: 'convert'
+  owner: 'gandres'
+  revisions:
+  - 1a40d002fdc4
+- name: 'bp_genbank2gff3'
+  tool_panel_section_id: 'convert'
+  owner: 'iuc'
+  revisions:
+  - 48228f4ad1d5
+- name: 'add_non_blast_match'
+  tool_panel_section_id: 'textutil'
+  owner: 'ehirchaud'
+  revisions:
+  - 357f75d11c2f
+- name: 'extract_all_segments'
+  tool_panel_section_id: 'textutil'
+  owner: 'plucas'
+  revisions:
+  - 59da85d5f646
+- name: 'filter_segment'
+  tool_panel_section_id: 'textutil'
+  owner: 'plucas'
+  revisions:
+  - 22958aebbdcd
+- name: 'argalaxy_tools'
+  tool_panel_section_id: 'argalaxy'
+  owner: 'davidvanzessen'
+  revisions:
+  - a70dbcfa5d8a
+- name: 'distriblast'
+  tool_panel_section_id: 'plots'
+  owner: 'plucas'
+  revisions:
+  - f5ec69e32408
+- name: 'shm_csr'
+  tool_panel_section_id: 'argalaxy'
+  owner: 'davidvanzessen'
+  revisions:
+  - 3b5fe323f563
+- name: 'imgt_concatenate'
+  tool_panel_section_id: 'argalaxy'
+  owner: 'davidvanzessen'
+  revisions:
+  - dc86c36161d0
+- name: 'unzip_fastqc_archive'
+  tool_panel_section_id: 'unzip'
+  owner: 'plucas'
+  revisions:
+  - f20fb831dfeb
+- name: 'fastqc'
+  tool_panel_section_id: 'ngs_qc'
+  owner: 'devteam'
+  revisions:
+  - 9337dd1fbc66
+- name: 'trimmomatic'
+  tool_panel_section_id: 'ngs_clean_reads'
+  owner: 'pjbriggs'
+  revisions:
+  - 53af7b5b1b56
+- name: 'fastq_filter'
+  tool_panel_section_id: 'filter'
+  owner: 'devteam'
+  revisions:
+  - 06934412f56d
+- name: 'trimal'
+  tool_panel_section_id: 'phylogeny_alignement'
+  owner: 'plucas'
+  revisions:
+  - 94e4b6f13b57
+- name: 'typing_pipeline'
+  tool_panel_section_id: 'typing'
+  owner: 'plucas'
+  revisions:
+  - 45aaeef12829
+- name: 'fastq_quality_converter'
+  tool_panel_section_id: 'convert'
+  owner: 'devteam'
+  revisions:
+  - 74db4cffab1f
+- name: 'fastq_quality_converter'
+  tool_panel_section_id: 'convert'
+  owner: 'devteam'
+  revisions:
+  - 74db4cffab1f
+- name: 'clustalw'
+  tool_panel_section_id: 'phylogeny_alignement'
+  owner: 'devteam'
+  revisions:
+  - d6694932c5e0
+- name: 'fastqtofasta'
+  tool_panel_section_id: 'convert'
+  owner: 'devteam'
+  revisions:
+  - 4844c1810c16
+- name: 'circoletto'
+  tool_panel_section_id: 'ncbi_blast_suite'
+  owner: 'czouaoui'
+  revisions:
+  - b1dd300754cb
+- name: 'abundance_table_to_biom1'
+  tool_panel_section_id: 'convert_table'
+  owner: 'czouaoui'
+  revisions:
+  - 80877c2fc880
+- name: 'fastqc'
+  tool_panel_section_id: 'ngs_qc'
+  owner: 'devteam'
+  revisions:
+  - ff9530579d1f
+- name: 'bcftools'
+  tool_panel_section_id: 'bcf_tools_:_suite'
+  owner: 'iuc'
+  revisions:
+  - e5e78d1e09a6
+- name: 'vcftools_isec'
+  tool_panel_section_id: 'variant_analysis'
+  owner: 'devteam'
+  revisions:
+  - 026d0f104183
+- name: 'vcftools_annotate'
+  tool_panel_section_id: 'variant_analysis'
+  owner: 'devteam'
+  revisions:
+  - 57a6550df582
+- name: 'vcftools_slice'
+  tool_panel_section_id: 'variant_analysis'
+  owner: 'devteam'
+  revisions:
+  - 1363e5d4a8b8
+- name: 'vcftools_compare'
+  tool_panel_section_id: 'variant_analysis'
+  owner: 'devteam'
+  revisions:
+  - ad50c257e758
+- name: 'vcftools_merge'
+  tool_panel_section_id: 'variant_analysis'
+  owner: 'devteam'
+  revisions:
+  - 76ff5512748c
+- name: 'vcftools_subset'
+  tool_panel_section_id: 'variant_analysis'
+  owner: 'devteam'
+  revisions:
+  - 23436d1d0fa1
+- name: 'bcftools_call'
+  tool_panel_section_id: 'bcf_tools_:_suite'
+  owner: 'iuc'
+  revisions:
+  - b03984136ce4
+- name: 'pileup_to_vcf'
+  tool_panel_section_id: 'bcf_tools_:_suite'
+  owner: 'jjohnson'
+  revisions:
+  - c0a6e8f595ec
+- name: 'phe_samtools_mpileup'
+  tool_panel_section_id: 'ngs_samtools_box'
+  owner: 'ulfschaefer'
+  revisions:
+  - b13db9e677b4
+- name: 'bcftools_convert_from_vcf'
+  tool_panel_section_id: 'bcf_tools_:_suite'
+  owner: 'iuc'
+  revisions:
+  - 92c0aff8b53e
+- name: 'bcftools_consensus'
+  tool_panel_section_id: 'bcf_tools_:_suite'
+  owner: 'iuc'
+  revisions:
+  - 1829900b5dcd
+- name: 'bcftools_mpileup'
+  tool_panel_section_id: 'bcf_tools_:_suite'
+  owner: 'iuc'
+  revisions:
+  - 9c711df3258d
+- name: 'bamtools_split'
+  tool_panel_section_id: 'bam_tools_:_suite'
+  owner: 'devteam'
+  revisions:
+  - e2c1b62e1db1
+- name: 'jbrowse'
+  tool_panel_section_id: 'plots'
+  owner: 'iuc'
+  revisions:
+  - 836d1aa3e89a
+- name: 'jbrowse'
+  tool_panel_section_id: 'plots'
+  owner: 'iuc'
+  revisions:
+  - 836d1aa3e89a
+- name: 'multiqc'
+  tool_panel_section_id: 'ngs_qc'
+  owner: 'iuc'
+  revisions:
+  - e0f4a651c6b9
+- name: 'blastparser_and_hits'
+  tool_panel_section_id: 'ncbi_blast_suite'
+  owner: 'artbio'
+  revisions:
+  - 36103afa0934
+- name: 'split_file_on_column'
+  tool_panel_section_id: 'textutil'
+  owner: 'bgruening'
+  revisions:
+  - b60f2452580e
+- name: 'unique'
+  tool_panel_section_id: 'textutil'
+  owner: 'bgruening'
+  revisions:
+  - 7ce75adb93be
+- name: 'readseq'
+  tool_panel_section_id: 'convert'
+  owner: 'dereeper'
+  revisions:
+  - 225031d5c818
+- name: 'ncbi_blast_plus'
+  tool_panel_section_id: 'ncbi_blast_suite'
+  owner: 'devteam'
+  revisions:
+  - c877294f8025
+- name: 'ncbi_blast_plus'
+  tool_panel_section_id: 'ncbi_blast_suite'
+  owner: 'devteam'
+  revisions:
+  - c877294f8025
+- name: 'ncbi_blast_plus'
+  tool_panel_section_id: 'ncbi_blast_suite'
+  owner: 'devteam'
+  revisions:
+  - c877294f8025
+- name: 'ncbi_blast_plus'
+  tool_panel_section_id: 'ncbi_blast_suite'
+  owner: 'devteam'
+  revisions:
+  - c877294f8025
+- name: 'ncbi_blast_plus'
+  tool_panel_section_id: 'ncbi_blast_suite'
+  owner: 'devteam'
+  revisions:
+  - c877294f8025
+- name: 'ncbi_blast_plus'
+  tool_panel_section_id: 'ncbi_blast_suite'
+  owner: 'devteam'
+  revisions:
+  - c877294f8025
+- name: 'ncbi_blast_plus'
+  tool_panel_section_id: 'ncbi_blast_suite'
+  owner: 'devteam'
+  revisions:
+  - c877294f8025
+- name: 'ncbi_blast_plus'
+  tool_panel_section_id: 'ncbi_blast_suite'
+  owner: 'devteam'
+  revisions:
+  - c877294f8025
+- name: 'ncbi_blast_plus'
+  tool_panel_section_id: 'ncbi_blast_suite'
+  owner: 'devteam'
+  revisions:
+  - c877294f8025
+- name: 'ncbi_blast_plus'
+  tool_panel_section_id: 'ncbi_blast_suite'
+  owner: 'devteam'
+  revisions:
+  - c877294f8025
+- name: 'ncbi_blast_plus'
+  tool_panel_section_id: 'ncbi_blast_suite'
+  owner: 'devteam'
+  revisions:
+  - c877294f8025
+- name: 'ncbi_blast_plus'
+  tool_panel_section_id: 'ncbi_blast_suite'
+  owner: 'devteam'
+  revisions:
+  - c877294f8025
+- name: 'ncbi_blast_plus'
+  tool_panel_section_id: 'ncbi_blast_suite'
+  owner: 'devteam'
+  revisions:
+  - c877294f8025
+- name: 'ncbi_blast_plus'
+  tool_panel_section_id: 'ncbi_blast_suite'
+  owner: 'devteam'
+  revisions:
+  - c877294f8025
+- name: 'ncbi_blast_plus'
+  tool_panel_section_id: 'ncbi_blast_suite'
+  owner: 'devteam'
+  revisions:
+  - c877294f8025
+- name: 'split_file_to_collection'
+  tool_panel_section_id: 'textutil'
+  owner: 'bgruening'
+  revisions:
+  - de3c2c88e710
+- name: 'extract_fasta_subsequence'
+  tool_panel_section_id: 'fetchSeq'
+  owner: 'p.lucas'
+  revisions:
+  - 7eb623472582
+- name: 'prokka'
+  tool_panel_section_id: 'annotations'
+  owner: 'crs4'
+  revisions:
+  - eaee459f3d69
+- name: 'samtools_mpileup'
+  tool_panel_section_id: 'ngs_samtools_box'
+  owner: 'devteam'
+  revisions:
+  - fa7ad9b89f4a
+- name: 'normalize_dataset'
+  tool_panel_section_id: 'stats'
+  owner: 'bebatut'
+  revisions:
+  - 72633301cc0d
+- name: 'circos'
+  tool_panel_section_id: 'visualisation'
+  owner: 'iuc'
+  revisions:
+  - ae9994cf526f
+- name: 'vcftools_consensus'
+  tool_panel_section_id: 'fetchAlign'
+  owner: 'devteam'
+  revisions:
+  - 79f5d34da277
+- name: 'fasta_formatter'
+  tool_panel_section_id: 'textutil'
+  owner: 'devteam'
+  revisions:
+  - 859422bcb689
+- name: 'mafft_add_sequence'
+  tool_panel_section_id: 'phylogeny_alignement'
+  owner: 'p.lucas'
+  revisions:
+  - 836c7a8e563f
+- name: 'unicycler'
+  tool_panel_section_id: 'assembly'
+  owner: 'iuc'
+  revisions:
+  - 0a3a602cd1e3
+- name: 'snippy'
+  tool_panel_section_id: 'variant_analysis'
+  owner: 'iuc'
+  revisions:
+  - feb7e635c6af
+- name: 'snippy'
+  tool_panel_section_id: 'variant_analysis'
+  owner: 'iuc'
+  revisions:
+  - feb7e635c6af
+- name: 'shovill'
+  tool_panel_section_id: 'assembly'
+  owner: 'iuc'
+  revisions:
+  - 865119fcb694
+- name: 'ssuisserotyping_pipeline'
+  tool_panel_section_id: 'typing'
+  owner: 'p.lucas'
+  revisions:
+  - d30476d83afe
+- name: 'quast'
+  tool_panel_section_id: 'assembly'
+  owner: 'iuc'
+  revisions:
+  - f30d03867854
+- name: 'mafft'
+  tool_panel_section_id: 'phylogeny_alignement'
+  owner: 'rnateam'
+  revisions:
+  - c5908940967d
+- name: 'raxml'
+  tool_panel_section_id: 'phylogeny_alignement'
+  owner: 'iuc'
+  revisions:
+  - ba29b5e2a4be
+- name: 'roary'
+  tool_panel_section_id: 'ngs_mapping'
+  owner: 'iuc'
+  revisions:
+  - f1ccc8a6eb05
+- name: 'fasta_filter_by_length'
+  tool_panel_section_id: 'fetchSeq'
+  owner: 'devteam'
+  revisions:
+  - 2fd6033d0e9c
+- name: 'fastme'
+  tool_panel_section_id: 'SNIPlay3'
+  owner: 'dereeper'
+  revisions:
+  - e119d00db28c
+- name: 'plink'
+  tool_panel_section_id: 'SNIPlay3'
+  owner: 'dereeper'
+  revisions:
+  - f733bf4f49ca
+- name: 'mlmm'
+  tool_panel_section_id: 'SNIPlay3'
+  owner: 'dereeper'
+  revisions:
+  - 380b364980f9
+- name: 'snpeff_from_gff_vcf'
+  tool_panel_section_id: 'SNIPlay3'
+  owner: 'dereeper'
+  revisions:
+  - 633d264f8888
+- name: 'snmf'
+  tool_panel_section_id: 'SNIPlay3'
+  owner: 'dereeper'
+  revisions:
+  - e44eb2ba80ec
+- name: 'vcftools_filter_stats_diversity'
+  tool_panel_section_id: 'SNIPlay3'
+  owner: 'dereeper'
+  revisions:
+  - aad8f697f86b
+- name: 'vcftools_filter_stats_diversity'
+  tool_panel_section_id: 'SNIPlay3'
+  owner: 'dereeper'
+  revisions:
+  - aad8f697f86b
+- name: 'vcftools_filter_stats_diversity'
+  tool_panel_section_id: 'SNIPlay3'
+  owner: 'dereeper'
+  revisions:
+  - aad8f697f86b
+- name: 'tassel5'
+  tool_panel_section_id: 'SNIPlay3'
+  owner: 'dereeper'
+  revisions:
+  - e94b8b64929c
+- name: 'snpsift'
+  tool_panel_section_id: 'SNIPlay3'
+  owner: 'iuc'
+  revisions:
+  - 09d6806c609e
+- name: 'snpsift'
+  tool_panel_section_id: 'SNIPlay3'
+  owner: 'iuc'
+  revisions:
+  - 09d6806c609e
+- name: 'snpsift'
+  tool_panel_section_id: 'SNIPlay3'
+  owner: 'iuc'
+  revisions:
+  - 09d6806c609e
+- name: 'snpsift'
+  tool_panel_section_id: 'SNIPlay3'
+  owner: 'iuc'
+  revisions:
+  - 09d6806c609e
+- name: 'snpsift'
+  tool_panel_section_id: 'SNIPlay3'
+  owner: 'iuc'
+  revisions:
+  - 09d6806c609e
+- name: 'snpsift'
+  tool_panel_section_id: 'SNIPlay3'
+  owner: 'iuc'
+  revisions:
+  - 09d6806c609e
+- name: 'snpsift'
+  tool_panel_section_id: 'SNIPlay3'
+  owner: 'iuc'
+  revisions:
+  - 09d6806c609e
+- name: 'snpsift'
+  tool_panel_section_id: 'SNIPlay3'
+  owner: 'iuc'
+  revisions:
+  - 09d6806c609e
+- name: 'sniplay'
+  tool_panel_section_id: 'SNIPlay3'
+  owner: 'dereeper'
+  revisions:
+  - 31c23d943c29
+- name: 'sniplay'
+  tool_panel_section_id: 'SNIPlay3'
+  owner: 'dereeper'
+  revisions:
+  - 31c23d943c29
+- name: 'sniplay'
+  tool_panel_section_id: 'SNIPlay3'
+  owner: 'dereeper'
+  revisions:
+  - 31c23d943c29
+- name: 'sniplay'
+  tool_panel_section_id: 'SNIPlay3'
+  owner: 'dereeper'
+  revisions:
+  - 31c23d943c29
+- name: 'sniplay'
+  tool_panel_section_id: 'SNIPlay3'
+  owner: 'dereeper'
+  revisions:
+  - 31c23d943c29
+- name: 'sniplay'
+  tool_panel_section_id: 'SNIPlay3'
+  owner: 'dereeper'
+  revisions:
+  - 31c23d943c29
+- name: 'sniplay'
+  tool_panel_section_id: 'SNIPlay3'
+  owner: 'dereeper'
+  revisions:
+  - 31c23d943c29
+- name: 'sniplay'
+  tool_panel_section_id: 'SNIPlay3'
+  owner: 'dereeper'
+  revisions:
+  - 31c23d943c29
+- name: 'sniplay'
+  tool_panel_section_id: 'SNIPlay3'
+  owner: 'dereeper'
+  revisions:
+  - 31c23d943c29
+- name: 'sniplay'
+  tool_panel_section_id: 'SNIPlay3'
+  owner: 'dereeper'
+  revisions:
+  - 31c23d943c29
+- name: 'sniplay'
+  tool_panel_section_id: 'SNIPlay3'
+  owner: 'dereeper'
+  revisions:
+  - 31c23d943c29
+- name: 'viennarna_rnafold'
+  tool_panel_section_id: 'structure'
+  owner: 'rnateam'
+  revisions:
+  - bdb786715d28
+- name: 'extract_accession_and_country_genbank'
+  tool_panel_section_id: 'textutil'
+  owner: 'p.lucas'
+  revisions:
+  - e36d17637f33
+- name: 'extract_accession_and_country_genbank'
+  tool_panel_section_id: 'textutil'
+  owner: 'p.lucas'
+  revisions:
+  - e4a87ebbbed8
+- name: 'kraken2tax'
+  tool_panel_section_id: 'plots'
+  owner: 'devteam'
+  revisions:
+  - f03c7ba8d8bc
+- name: 'abricate'
+  tool_panel_section_id: 'typing'
+  owner: 'iuc'
+  revisions:
+  - 4efdca267d51
+- name: 'abricate'
+  tool_panel_section_id: 'typing'
+  owner: 'iuc'
+  revisions:
+  - 4efdca267d51
+- name: 'prokka'
+  tool_panel_section_id: 'annotations'
+  owner: 'crs4'
+  revisions:
+  - bf68eb663bc3
+- name: 'varscan_mpileup'
+  tool_panel_section_id: 'variant_analysis'
+  owner: 'iuc'
+  revisions:
+  - e3f170cc4f95
+- name: 'varscan_somatic'
+  tool_panel_section_id: 'variant_analysis'
+  owner: 'iuc'
+  revisions:
+  - a57606054bd7
+- name: 'varscan_copynumber'
+  tool_panel_section_id: 'variant_analysis'
+  owner: 'iuc'
+  revisions:
+  - 0bc56f894766
+- name: 'fasta_compute_length'
+  tool_panel_section_id: 'variant_analysis'
+  owner: 'devteam'
+  revisions:
+  - 7d37cfda8e00
+- name: 'coverage_stats'
+  tool_panel_section_id: 'ngs_samtools_box'
+  owner: 'peterjc'
+  revisions:
+  - 7254ece0c0ff
+- name: 'depth_of_coverage'
+  tool_panel_section_id: 'ngs_samtools_box'
+  owner: 'devteam'
+  revisions:
+  - c3f08370fc82
+- name: 'tabular_to_fasta'
+  tool_panel_section_id: 'convert'
+  owner: 'devteam'
+  revisions:
+  - 0a7799698fe5
+- name: 'regex_find_replace'
+  tool_panel_section_id: 'textutil'
+  owner: 'galaxyp'
+  revisions:
+  - ae8c4b2488e7
+- name: 'regex_find_replace'
+  tool_panel_section_id: 'textutil'
+  owner: 'galaxyp'
+  revisions:
+  - ae8c4b2488e7
+- name: 'seqsero_v1'
+  tool_panel_section_id: 'typing'
+  owner: 'estrain'
+  revisions:
+  - ab0802d77891
+- name: 'seqsero_v1'
+  tool_panel_section_id: 'typing'
+  owner: 'estrain'
+  revisions:
+  - ab0802d77891
+- name: 'prokka'
+  tool_panel_section_id: 'annotations'
+  owner: 'crs4'
+  revisions:
+  - 111884f0d912
+- name: 'staramr'
+  tool_panel_section_id: 'typing'
+  owner: 'nml'
+  revisions:
+  - 4b9a8031ab74
+- name: 'anarci'
+  tool_panel_section_id: 'docking'
+  owner: 'p.lucas'
+  revisions:
+  - 3d49bef78c3d
+- name: 'uniq_and_count'
+  tool_panel_section_id: 'textutil'
+  owner: 'p.lucas'
+  revisions:
+  - 8843bcb38558
+- name: 'abhaddock'
+  tool_panel_section_id: 'docking'
+  owner: 'p.lucas'
+  revisions:
+  - 59e22a98a99f
+- name: 'pdbtidy'
+  tool_panel_section_id: 'docking'
+  owner: 'p.lucas'
+  revisions:
+  - 9bef41a065e4
+- name: 'pdbselaltloc'
+  tool_panel_section_id: 'docking'
+  owner: 'p.lucas'
+  revisions:
+  - 76b2d2b1707e

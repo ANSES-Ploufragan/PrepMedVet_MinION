@@ -1,0 +1,56 @@
+---
+- hosts: galaxyservers
+  become: true
+
+      ##### parti gestion du proxy anses
+  tasks:
+    - name: copy proxy bashrc
+      copy:
+        src: files/proxy/proxy.sh
+        dest: /etc/profile.d/proxy.sh
+        owner: admin
+        group: admin
+        mode: '0755'
+
+    - name: copy proxy apt
+      copy:
+        src: files/proxy/80proxy
+        dest: /etc/apt/apt.conf.d/80proxy
+        owner: admin
+        group: admin
+        mode: '0755'
+
+- hosts: galaxyservers
+  become: true
+  handlers:
+      - name: galaxy restart
+        supervisorctl:
+            name: galaxy
+            state: restarted
+  pre_tasks:
+      - name: Install Dependencies
+        package:
+             name: ['python3-psycopg2', 'git', 'python3-virtualenv', 'make', 'acl','libsasl2-dev','python-dev', 'libldap2-dev', 'libssl-dev']
+
+      - name: Copy gitconfig to root
+        copy:
+            src: files/gitconfig
+            dest: /root/.gitconfig    
+            owner: root
+            group: root
+
+  roles:
+    - galaxyproject.postgresql
+    - role: natefoo.postgresql_objects
+      become: true
+      become_user: postgres
+    - galaxyproject.galaxy
+    - geerlingguy.pip
+    - usegalaxy-eu.supervisor
+    - geerlingguy.nginx
+
+  environment:
+          http_proxy: http://alfortproxy.afssa.fr:8080/
+          https_proxy: http://alfortproxy.afssa.fr:8080/
+          HTTP_proxy: http://alfortproxy.afssa.fr:8080/
+          HTTPS_PROXY: http://alfortproxy.afssa.fr:8080/

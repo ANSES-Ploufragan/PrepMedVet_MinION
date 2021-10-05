@@ -1,0 +1,8 @@
+ncbi_bos_taurus NCBI Bos Taurus {{ db_dir }}/bos_taurus/protein
+uniprot_bos_taurus       UniProt Bos Taurus     {{ db_dir }}/bos_taurus/protein_uniprot
+hsapiens_prot_GRCh38    Homo Sapiens Prot       {{ db_dir }}/EnsEMBL/homo_sapiens/prot/hsapiens_prot_GRCh38
+dmelanogaster_prot      Drosophila Melenagaster Prot    {{ db_dir }}/NCBI/drosophilia_melanogaster/dmelanogaster_prot
+aedes_prot      Aedes Aegypti Prot      {{ db_dir }}/vectorBase/aedes_aegypti/aedes_prot
+ixodes_prot     Ixodes Scapularis Prot  {{ db_dir }}/vectorBase/ixodes_scapularis/ixodes_prot
+nr      NR      {{ db_dir }}/nt_db/nr
+

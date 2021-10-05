@@ -1,0 +1,25 @@
+---
+
+- hosts: all 
+  become: true
+  become_user: root
+
+
+  tasks:
+
+          - name: create group galaxy
+            group:
+              name: galaxy
+              state: present
+              gid: 2006        
+
+          - name: Add user galaxy
+            user:
+              name: "galaxy"
+              uid: 2006
+              group: "galaxy"
+              system: yes 
+              shell: /bin/bash
+
+
+
