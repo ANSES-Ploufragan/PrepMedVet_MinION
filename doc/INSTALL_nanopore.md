@@ -211,9 +211,10 @@ cd fast-bonito
 python setup.py install
 ```
 
-* Error message obtained for first test:
+* Error message obtained for first test described [here](https://discuss.pytorch.org/t/received-0-items-of-ancdata-pytorch-0-4-0/19823) (Pytorch problem)
 * __solved__ by __adding__ at just before the fast-bonito command in bash script (can be set at the end of __~/.bashrc__):  
 ```ulimit -n 4096```
+
 
 # bonito
 
