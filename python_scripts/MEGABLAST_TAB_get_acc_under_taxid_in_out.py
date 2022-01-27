@@ -36,6 +36,7 @@ b_test_read_ncbi_taxonomy_retain_acc_under_taxid = False # ok 2022 01 21
 prog_tag = '[' + os.path.basename(__file__) + ']'
 
 # list of interesting taxid (fathers)
+taxidlist_f = ''
 taxidlist = []
 
 # store key taxid, value accesssion number for all records in krona tab file
@@ -62,10 +63,9 @@ b_acc_out_f = False
 min_nr_reads_by_accnr = 1
 
 parser = argparse.ArgumentParser()
-parser.add_argument("-t", "--taxid", dest='taxidlist',
-                    nargs='+',
-                    help="list of taxid of nodes/acc_nr we want to get (in) exclude (out) from mash tab results",
-                    metavar="INT")
+parser.add_argument("-t", "--taxid", dest='taxidlist_f',
+                    help="txt file with list of taxid of nodes/acc_nr we want to get (in) from mash tab results (one by line)",
+                    metavar="FILE")
 parser.add_argument("-r", "--megablast_tabular_f", dest='megablast_f',
                     help="megablast results tabular file (25 colums), including accession numbers in col 2",
                     metavar="FILE")
@@ -148,12 +148,16 @@ if(not b_test):
     if args.acc_out_f is not None:
         acc_out_f = os.path.abspath(args.acc_out_f)
         b_acc_out_f = True
-    if args.taxidlist is not None:
-        taxidlist = args.taxidlist
+    if args.taxidlist_f is not None:
+        taxidlist_f = os.path.abspath(args.taxidlist_f)
+        taxidlist_f_handle = open(taxidlist_f, "r")
+        for line in taxidlist_f_handle:
+            line = line.rstrip()
+            taxidlist.append(line)
+    else:
+        sys.exit("-taxidlist_f <taxid_file>n must be provided\n")
     if min_nr_reads_by_accnr is not None:
         min_nr_reads_by_accnr = args.min_nr_reads_by_accnr
-    else:
-        sys.exit("-taxidlist <taxid>n must be provided\n")
 
     if (not b_acc_in_f) and (not b_acc_out_f):
         sys.exit(prog_tag + "[Error] You must provide either --acc_in_f <file> or -acc_out_f <file>, none provided currently")
