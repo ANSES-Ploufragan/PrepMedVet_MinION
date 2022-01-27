@@ -1,0 +1,8 @@
+/galaxy/roles/**
+/sources/test_bonito/fast5/*.fast5
+/sources/test_fast-bonito/fast5/*.fast5
+/sources/test_guppy_gpu/fast5/*.fast5
+/sources/test_fast-bonito/output/*.fastq**
+/sources/test_guppy_gpu/output/*.fastq**
+/planemo/**
+/planemo_cmd/**
