@@ -122,7 +122,7 @@ if ((not b_test)and
                                 " ",
                                 "Then you won't need --test_all --load_ncbi_tax_f options\n\n",
                      "Example: "+ ' '.join(['./MEGABLAST_TAB_get_acc_under_taxid_in_out.py',
-                                                  '-t 10295 10293',
+                                                  '-t taxid_wanted_list.txt',
                                                   '-r megablast_out_f_25clmn.tsv',
                                                   '-i megablast_out_f_acc_in_taxid.tsv',
                                                   '-o megablast_out_f_acc_out_taxid.tsv']),"\n\n" ]))
