@@ -50,8 +50,8 @@ krona_tab_dir = ''
 tax_in = []
 
 # directory where are stored taxid.tsv files with accession numbers found under taxid in mash result
-acc_out_dir_in = ''
-acc_out_dir_out = ''
+# acc_out_dir_in = ''
+# acc_out_dir_out = ''
 
 # boolean to know if we dowload ncbi taxonomy file in current env
 b_load_ncbi_tax_f = False
@@ -83,11 +83,9 @@ parser.add_argument("-n", "--ncbi_tax_f", dest='ncbi_tax_f',
                     metavar="FILE")
 parser.add_argument("-l", "--load_ncbi_tax_f", dest='b_load_ncbi_tax_f',
                     help="[Optional] load ncbi tabular file with taxonomy organized to represent a tree in current env at default location (~/.etetoolkit/taxa.sqlite). Only needed for first run",
-#                    metavar="boolean",
                     action='store_true')
 parser.add_argument("-z", "--test_all", dest='b_test_all',
                     help="[Optional] run all tests. Additionally, with --load_ncbi_tax_f, allow to download ncbi ete3 tax db the first time you use the script",
-#                    metavar="boolean",
                     action='store_true')
 parser.set_defaults(b_load_ncbi_tax_f=False)
 parser.set_defaults(b_test_all=False)
@@ -296,7 +294,7 @@ def read_ncbi_taxonomy_retain_acc_under_taxid(taxidlist,  # list of taxids under
         except:
             warnings.warn(prog_tag+"[SQLite Integrity error/warning] due to redundant IDs")
 
-    all_tax_extract = set() #[]
+    all_tax_extract = set()
     for tax in taxidlist:
         # print("Tax id extracted now:"+tax)
         all_tax_extract.add(str(tax))
@@ -315,15 +313,15 @@ def read_ncbi_taxonomy_retain_acc_under_taxid(taxidlist,  # list of taxids under
     # print(krona_taxid_acc_f, " opened, line ", str(sys._getframe().f_lineno) )
 
     # get all tax ids of megablast result and all acc
-    all_mash_tax = set() #[]
+    all_mash_tax = set()
 
     h_megablast_tax = {}
     h_megablast_acc = {}
     for line in megablast_f_handle:
         line = line.rstrip()
-        # get mash taxid
+        # get megablast res taxid
         try:
-            research_tax, acc = line.split() # [1]
+            research_tax, acc = line.split()
             if research_tax not in h_megablast_tax:
                 h_megablast_tax[ research_tax ] = 1
             else:
@@ -360,11 +358,10 @@ def read_ncbi_taxonomy_retain_acc_under_taxid(taxidlist,  # list of taxids under
 
     megablast_f_handle.close()
     
-    # intersection of the two lists to get tax in mash results that are in the
+    # intersection of the two lists to get tax in megablast results that are in the
     # phylogeny of taxids provided by user
     tax_in_set = all_tax_extract.intersection(all_mash_tax)
     tax_in = natsorted(list(tax_in_set))
-    # write acc in for all taxid provided
 
     # remove all ncbi tax ids found to be under the one wanted by user
     # to the list of all mash taxids
@@ -374,7 +371,7 @@ def read_ncbi_taxonomy_retain_acc_under_taxid(taxidlist,  # list of taxids under
     # # verif ok
     # print("tax_in:")
     # print(', '.join(tax_in))
-#    sys.exit("tax_in check end")
+    # sys.exit("tax_in check end")
 
     # write output file of acc numbers included in taxid provided by user
     if b_acc_in_f:
@@ -396,28 +393,29 @@ def read_ncbi_taxonomy_retain_acc_under_taxid(taxidlist,  # list of taxids under
         print(prog_tag + ' '+ acc_out_f+" file created")
         
 if b_test_read_ncbi_taxonomy_retain_acc_under_taxid:
-    print("START b_test_load_h_taxid_acc")
+    print("START b_test_read_ncbi_taxonomy_retain_acc_under_taxid")
     print("load krona_taxid_acc_f")
     ncbi_tax_f = os.path.expanduser("~/.etetoolkit/taxa.sqlite")
     acc_in_f = "megablast_out_f_acc_in_taxid.tsv"
     acc_out_f = "megablast_out_f_acc_out_taxid.tsv"
-    taxidlist = ['10295', '10293'] # bovine herpes virus, alphaherpesvirinae
-#    taxidlist = ['10239'] # virus
+#     taxidlist = ['10295', '10293'] # bovine herpes virus, alphaherpesvirinae
+    taxidlist = ['10295'] # bovine herpes virus ok 2022 01 27
+#    taxidlist = ['10239'] # virus ok 2022 01 27
     min_nr_reads_by_accnr = 4
 
+    print("load krona_taxid_acc_f:"+krona_taxid_acc_f)
     load_h_taxid_acc(krona_taxid_acc_f)
-    for k, v in h_taxid_acc.items():
-        print(k, v)
+    # for k, v in h_taxid_acc.items():
+    #    print(k, v)
     print("load krona_taxid_acc_f: done")
-    if acc_out_dir_in is None:
-        acc_out_dir_in = ''
+
     read_ncbi_taxonomy_retain_acc_under_taxid(taxidlist,
                                               h_taxid_acc,
                                               ncbi_tax_f,
                                               krona_taxid_acc_f,
                                               acc_in_f,
                                               acc_out_f)
-    print("END b_test_load_h_taxid_acc")
+    print("END b_test_read_ncbi_taxonomy_retain_acc_under_taxid")
     sys.exit()
     
 # --------------------------------------------------------------------------
