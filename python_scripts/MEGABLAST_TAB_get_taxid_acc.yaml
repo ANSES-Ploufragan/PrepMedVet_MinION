@@ -1,0 +1,6 @@
+name: MEGABLAST_TAB_get_acc_under_taxid_in_out
+channels:
+  - defaults
+dependencies:
+  - python=2.7
+  - krona
