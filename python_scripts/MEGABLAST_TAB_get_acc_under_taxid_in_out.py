@@ -205,8 +205,8 @@ if b_test_creates_taxid_acc_f_from_megablast_res:
 def load_h_taxid_acc(krona_taxid_acc_f):
 
     if not path.exists(krona_taxid_acc_f):
-        sys.exit("Error ", krona_taxid_acc_f,
-                 " file does not exist, line ", str(sys._getframe().f_lineno) )
+        sys.exit("Error " + krona_taxid_acc_f +
+                 " file does not exist, line "+ str(sys._getframe().f_lineno) )
 
     # # ******************************************************************* 
     # # IF TAXID must be deduced
@@ -348,7 +348,7 @@ def read_ncbi_taxonomy_retain_acc_under_taxid(taxidlist,  # list of taxids under
         # updated because of missing acc
         except ValueError:
             # print("No taxid found for an acc in line ",line)
-            sys.exit("No taxid found for an acc in line ",line)
+            sys.exit("No taxid found for an acc in line " + line)
 
     print(prog_tag + " Number of different taxid in megablast_f results:"+ str(len(all_mash_tax)))
     # # verif ok
