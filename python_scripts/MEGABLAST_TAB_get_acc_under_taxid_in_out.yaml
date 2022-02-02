@@ -7,4 +7,3 @@ dependencies:
   - krona
   - natsort
   - pytz
-prefix: /home/touzain/miniconda3/envs/MEGABLAST_TAB_get_acc_under_taxid_in_out
