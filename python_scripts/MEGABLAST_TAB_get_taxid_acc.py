@@ -10,20 +10,13 @@
 # NOTE: to update krona tax in conda env, run:
 # ktUpdateTaxonomy.sh
 # ktUpdateTaxonomy.sh --accessions (this one NOT PROVIDED IN DOCUMENTATION)
-import argparse, os, sys, csv, re, warnings
+import argparse, os, sys, warnings
 # NEEDS to use krona conda environnement if access ktGetTaxIDFromAcc
 from os import path
-# from optparse import OptionParser
-from datetime import datetime #, timezone
-import pytz
-from natsort import natsorted
 
 # to be able to report line number in error messages
 import inspect
 frame = inspect.currentframe()
-
-# start_time = datetime.now(timezone.utc)
-start_time = datetime.now(pytz.utc)
 
 # debug
 b_test_creates_taxid_acc_f_from_megablast_res = False # ok 2022 01 21
@@ -146,9 +139,6 @@ def __main__():
     # creates taxid acc file from megablast result
     creates_taxid_acc_f_from_megablast_res(megablast_f, tax_acc_out_f)
 
-    stop_time = datetime.now(pytz.utc)
-    duration = stop_time - start_time
-    print("duration:",duration)
 #### MAIN END
 if __name__ == "__main__": __main__()
   
