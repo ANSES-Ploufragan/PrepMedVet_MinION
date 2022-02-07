@@ -37,7 +37,7 @@ krona_tab_dir = ''
 # taxid found under the taxid searched for
 tax_in = []
 
-# directory where are stored taxid.tsv files with accession numbers found under taxid in mash result
+# directory where are stored taxid.tsv files with accession numbers found under taxid in megablast result
 # acc_out_dir_in = ''
 # acc_out_dir_out = ''
 
@@ -52,7 +52,7 @@ min_nr_reads_by_accnr = 1
 
 parser = argparse.ArgumentParser()
 parser.add_argument("-t", "--taxid", dest='taxidlist_f',
-                    help="txt file with list of taxid of nodes/acc_nr we want to get (in) from mash tab results (one by line)",
+                    help="txt file with list of taxid of nodes/acc_nr we want to get (in) from megablast tab results (one by line)",
                     metavar="FILE")
 parser.add_argument("-r", "--taxid_acc_tabular_f", dest='taxid_acc_tabular_f',
                     help="taxid acc tabular file (output of MEGABLAST_TAB_get_taxid_acc.py ran on megablast 25 column tabular file)",
@@ -235,12 +235,12 @@ def read_ncbi_taxonomy_retain_acc_under_taxid(taxidlist,  # list of taxids under
     # print(', '.join(natsorted(all_tax_extract)))
     # sys.exit("all_tax_extract check end")
 
-    # read mash results with on each line one taxid and one accession number
+    # read megablast results with on each line one taxid and one accession number
     krona_taxid_acc_f_handle = open(krona_taxid_acc_f, "r")
     # print(krona_taxid_acc_f, " opened, line ", str(sys._getframe().f_lineno) )
 
     # get all tax ids of megablast result and all acc
-    all_mash_tax = set()
+    all_megablast_tax = set()
 
     h_megablast_tax = {}
     h_megablast_acc = {}
@@ -259,14 +259,14 @@ def read_ncbi_taxonomy_retain_acc_under_taxid(taxidlist,  # list of taxids under
                 # print("new acc:"+acc)
                 if  h_megablast_acc[acc] == min_nr_reads_by_accnr:
                     # print("num acc:"+acc+", "+ str(h_megablast_acc[acc]) + ": RECORDED")
-                    all_mash_tax.add(research_tax)
+                    all_megablast_tax.add(research_tax)
             elif h_megablast_acc[acc] < min_nr_reads_by_accnr:
                 h_megablast_acc[acc] = h_megablast_acc[acc] + 1
                 # print("num acc:"+acc+", "+ str(h_megablast_acc[acc]))
                 if  h_megablast_acc[acc] == min_nr_reads_by_accnr:
                     # print("num acc:"+acc+", "+ str(h_megablast_acc[acc]) + ": RECORDED")
-                    all_mash_tax.add(research_tax)
-            # print("add ",research_tax," in all_mash_tax")
+                    all_megablast_tax.add(research_tax)
+            # print("add ",research_tax," in all_megablast_tax")
             else:
                 h_megablast_tax[ research_tax ] = h_megablast_tax[ research_tax ] + 1
 
@@ -277,22 +277,22 @@ def read_ncbi_taxonomy_retain_acc_under_taxid(taxidlist,  # list of taxids under
             # print("No taxid found for an acc in line ",line)
             sys.exit("No taxid found for an acc in line ",line)
 
-    print(prog_tag + " Number of different taxid in krona_taxid_acc_f results:"+ str(len(all_mash_tax)))
+    print(prog_tag + " Number of different taxid in krona_taxid_acc_f results:"+ str(len(all_megablast_tax)))
     # # verif ok
-    # print("all_mash_tax:")
-    # print(', '.join(all_mash_tax))
-    # sys.exit("all_mash_tax check end")
+    # print("all_megablast_tax:")
+    # print(', '.join(all_megablast_tax))
+    # sys.exit("all_megablast_tax check end")
 
     krona_taxid_acc_f_handle.close()
     
     # intersection of the two lists to get tax in megablast results that are in the
     # phylogeny of taxids provided by user
-    tax_in_set = all_tax_extract.intersection(all_mash_tax)
+    tax_in_set = all_tax_extract.intersection(all_megablast_tax)
     tax_in = natsorted(list(tax_in_set))
 
     # remove all ncbi tax ids found to be under the one wanted by user
-    # to the list of all mash taxids
-    tax_out_set = all_mash_tax.difference(tax_in_set)
+    # to the list of all megablast taxids
+    tax_out_set = all_megablast_tax.difference(tax_in_set)
     tax_out = natsorted(list(tax_out_set))
 
     # # verif ok
@@ -309,7 +309,7 @@ def read_ncbi_taxonomy_retain_acc_under_taxid(taxidlist,  # list of taxids under
 
     # write output file of acc numbers NOT included in taxid provided by user
     if b_acc_out_f:
-        # all_mash_tax_list = natsorted(list(all_mash_tax))
+        # all_megablast_tax_list = natsorted(list(all_megablast_tax))
 
         # print("tax_out:")
         # print(', '.join(tax_out))
