@@ -8,20 +8,14 @@
 ###
 
 ### Libraries to import:
-import argparse, os, sys, csv, re, warnings
+import argparse, os, sys, csv, warnings
 from ete3 import NCBITaxa
 from os import path
-# from optparse import OptionParser
-from datetime import datetime #, timezone
-import pytz
 from natsort import natsorted
 
 # to be able to report line number in error messages
 import inspect
 frame = inspect.currentframe()
-
-# start_time = datetime.now(timezone.utc)
-start_time = datetime.now(pytz.utc)
 
 # debug
 b_test_load_h_taxid_acc = False # ok 2022 01 21
@@ -368,9 +362,6 @@ def __main__():
                                               acc_in_f,
                                               acc_out_f)
     # --------------------------------------------------------------------------
-    stop_time = datetime.now(pytz.utc)
-    duration = stop_time - start_time
-    print("duration:",duration)
 #### MAIN END
 if __name__ == "__main__": __main__()
   
