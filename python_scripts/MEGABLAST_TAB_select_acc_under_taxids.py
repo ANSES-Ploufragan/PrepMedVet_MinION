@@ -52,7 +52,7 @@ min_nr_reads_by_accnr = 1
 
 parser = argparse.ArgumentParser()
 parser.add_argument("-t", "--taxid", dest='taxidlist_f',
-                    help="txt file with list of taxid of nodes/acc_nr we want to get (in) from megablast tab results (one by line)",
+                    help="txt file with list of taxid to keep nodes/acc_nr we want to select (in) or remove (out) in taxid_acc_tabular_f tabular file. (One taxid per line)",
                     metavar="FILE")
 parser.add_argument("-r", "--taxid_acc_tabular_f", dest='taxid_acc_tabular_f',
                     help="taxid acc tabular file (output of MEGABLAST_TAB_get_taxid_acc.py ran on megablast 25 column tabular file)",
