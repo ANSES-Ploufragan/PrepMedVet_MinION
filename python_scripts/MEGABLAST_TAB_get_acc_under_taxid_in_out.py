@@ -64,7 +64,7 @@ min_nr_reads_by_accnr = 1
 
 parser = argparse.ArgumentParser()
 parser.add_argument("-t", "--taxid", dest='taxidlist_f',
-                    help="txt file with list of taxid of nodes/acc_nr we want to get (in) from mash tab results (one by line)",
+                    help="txt file with list of taxid to obtain nodes/acc_nr we want to get (in) or to avoid (out) from megablast results (one taxid per line)",
                     metavar="FILE")
 parser.add_argument("-r", "--megablast_tabular_f", dest='megablast_f',
                     help="megablast results tabular file (25 colums), including accession numbers in col 2",
