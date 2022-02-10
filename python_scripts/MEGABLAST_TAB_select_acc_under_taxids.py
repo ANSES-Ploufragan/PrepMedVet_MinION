@@ -48,6 +48,8 @@ b_test = False
 b_acc_in_f = False
 b_acc_out_f = False
 
+b_verbose = False
+
 min_nr_reads_by_accnr = 1
 
 parser = argparse.ArgumentParser()
@@ -75,9 +77,13 @@ parser.add_argument("-l", "--load_ncbi_tax_f", dest='b_load_ncbi_tax_f',
 parser.add_argument("-z", "--test_all", dest='b_test_all',
                     help="[Optional] run all tests. Additionally, with --load_ncbi_tax_f, allow to download ncbi ete3 tax db the first time you use the script",
                     action='store_true')
+parser.add_argument("-v", "--verbose", dest='b_verbose',
+                    help="[Optional] To have details on records when running",
+                    action='store_true')
 parser.set_defaults(b_load_ncbi_tax_f=False)
 parser.set_defaults(b_test_all=False)
 parser.set_defaults(min_nr_reads_by_accnr=1)
+parser.set_defaults(b_verbose=False)
 
 # get absolute path in case of files
 args = parser.parse_args()
@@ -97,7 +103,7 @@ else:
               b_test_read_ncbi_taxonomy_retain_acc_under_taxid)
 
 if ((not b_test)and
-    ((len(sys.argv) < 9) or (len(sys.argv) > 14))):
+    ((len(sys.argv) < 9) or (len(sys.argv) > 15))):
     print("\n".join(["To use this scripts, run:",
                                 "conda activate MEGABLAST_TAB_select_acc_under_taxids",
                                 "./MEGABLAST_TAB_select_acc_under_taxids.py --test_all --load_ncbi_tax_f",
@@ -114,33 +120,34 @@ if ((not b_test)and
     sys.exit(0)
 
 # print('args:', args)
-if(not b_test):
-    if args.taxid_acc_tabular_f is not None:
-        taxid_acc_tabular_f = os.path.abspath(args.taxid_acc_tabular_f)
-    else:
-        sys.exit("[Error] You must provide taxid_acc_tabular_f")
-    if args.ncbi_tax_f is not None:
-        ncbi_tax_f = os.path.abspath(args.ncbi_tax_f)
-    else:
-#        ncbi_tax_f = "/nfs/data/db/ete3/taxa.sqlite"
-        ncbi_tax_f = os.path.expanduser("~/.etetoolkit/taxa.sqlite")
-    if args.acc_in_f is not None:
-        acc_in_f = os.path.abspath(args.acc_in_f)
-        b_acc_in_f = True
-    if args.acc_out_f is not None:
-        acc_out_f = os.path.abspath(args.acc_out_f)
-        b_acc_out_f = True
-    if args.taxidlist_f is not None:
-        taxidlist_f = os.path.abspath(args.taxidlist_f)
-        taxidlist_f_handle = open(taxidlist_f, "r")
-        for line in taxidlist_f_handle:
-            line = line.rstrip()
-            taxidlist.append(line)
-    else:
-        sys.exit("-taxidlist_f <taxid_file>n must be provided\n")
-    if min_nr_reads_by_accnr is not None:
-        min_nr_reads_by_accnr = args.min_nr_reads_by_accnr
+# if(not b_test):
+if args.taxid_acc_tabular_f is not None:
+    taxid_acc_tabular_f = os.path.abspath(args.taxid_acc_tabular_f)
+elif(not b_test):
+    sys.exit("[Error] You must provide taxid_acc_tabular_f")
+if args.ncbi_tax_f is not None:
+    ncbi_tax_f = os.path.abspath(args.ncbi_tax_f)
+else:
+    # ncbi_tax_f = "/nfs/data/db/ete3/taxa.sqlite"
+    ncbi_tax_f = os.path.expanduser("~/.etetoolkit/taxa.sqlite")
+if args.acc_in_f is not None:
+    acc_in_f = os.path.abspath(args.acc_in_f)
+    b_acc_in_f = True
+if args.acc_out_f is not None:
+    acc_out_f = os.path.abspath(args.acc_out_f)
+    b_acc_out_f = True
+if args.taxidlist_f is not None:
+    taxidlist_f = os.path.abspath(args.taxidlist_f)
+    taxidlist_f_handle = open(taxidlist_f, "r")
+    for line in taxidlist_f_handle:
+        line = line.rstrip()
+        taxidlist.append(line)
+elif(not b_test):
+    sys.exit("-taxidlist_f <taxid_file>n must be provided\n")
+if min_nr_reads_by_accnr is not None:
+    min_nr_reads_by_accnr = int(args.min_nr_reads_by_accnr)
 
+if(not b_test):
     if (not b_acc_in_f) and (not b_acc_out_f):
         sys.exit(prog_tag + "[Error] You must provide either --acc_in_f <file> or -acc_out_f <file>, none provided currently")
 
@@ -200,7 +207,8 @@ def read_ncbi_taxonomy_retain_acc_under_taxid(taxidlist,  # list of taxids under
         sys.exit(prog_tag + "Error ", krona_taxid_acc_f,
                  " file does not exist, line ", str(sys._getframe().f_lineno) )
 
-    print("list of given taxid"+str(taxidlist))
+    print(prog_tag + " min_nr_reads_by_accnr:"+str(min_nr_reads_by_accnr))
+    print(prog_tag + " List of given taxid"+str(taxidlist))
     ### Output:
     if b_acc_in_f and acc_in_f:
         if path.exists(acc_in_f):
@@ -213,7 +221,7 @@ def read_ncbi_taxonomy_retain_acc_under_taxid(taxidlist,  # list of taxids under
         acc_out_f_handle = open(acc_out_f,"a")
 
     ncbi = NCBITaxa()   # Install ete3 db in local user file (.ete_toolkit/ directory)
-    print("try to load ncbi tax db file:"+ncbi_tax_f)
+    print(prog_tag + " Try to load ncbi tax db file:"+ncbi_tax_f)
     ncbi = NCBITaxa(dbfile=ncbi_tax_f)
     if (not os.path.isfile(ncbi_tax_f)) or b_load_ncbi_tax_f:
         try:
@@ -242,33 +250,38 @@ def read_ncbi_taxonomy_retain_acc_under_taxid(taxidlist,  # list of taxids under
     # get all tax ids of megablast result and all acc
     all_megablast_tax = set()
 
-    h_megablast_tax = {}
-    h_megablast_acc = {}
+    h_megablast_tax = {} # record valid acc (number of occ sufficient) foreach valid tax
+    h_megablast_acc = {} # count occ for each acc nr
     for line in krona_taxid_acc_f_handle:
         line = line.rstrip()
         # get megablast res taxid
         try:
             research_tax, acc = line.split()
-            if research_tax not in h_megablast_tax:
-                h_megablast_tax[ research_tax ] = 1
-            else:
-                h_megablast_tax[ research_tax ] = h_megablast_tax[ research_tax ] + 1
+
+            b_valid_acc = False
 
             if acc not in h_megablast_acc:
                 h_megablast_acc[acc] = 1
-                # print("new acc:"+acc)
+
                 if  h_megablast_acc[acc] == min_nr_reads_by_accnr:
-                    # print("num acc:"+acc+", "+ str(h_megablast_acc[acc]) + ": RECORDED")
+                    # print("num acc:"+acc+" (tax:"+research_tax+"), "+ str(h_megablast_acc[acc]) + ": RECORDED >= "+str(min_nr_reads_by_accnr))
                     all_megablast_tax.add(research_tax)
+                    b_valid_acc = True
             elif h_megablast_acc[acc] < min_nr_reads_by_accnr:
                 h_megablast_acc[acc] = h_megablast_acc[acc] + 1
-                # print("num acc:"+acc+", "+ str(h_megablast_acc[acc]))
                 if  h_megablast_acc[acc] == min_nr_reads_by_accnr:
-                    # print("num acc:"+acc+", "+ str(h_megablast_acc[acc]) + ": RECORDED")
+                    # print("num acc:"+acc+" (tax:"+research_tax+"), "+ str(h_megablast_acc[acc]) + ": RECORDED >= "+str(min_nr_reads_by_accnr))
                     all_megablast_tax.add(research_tax)
-            # print("add ",research_tax," in all_megablast_tax")
+                    b_valid_acc = True
             else:
-                h_megablast_tax[ research_tax ] = h_megablast_tax[ research_tax ] + 1
+                h_megablast_acc[ acc ] = h_megablast_acc[ acc ] + 1
+
+            if b_valid_acc:
+                if research_tax not in h_megablast_tax:
+                    h_megablast_tax[ research_tax ] = [acc]
+                else:
+                    h_megablast_tax[ research_tax ].append(acc)
+
 
         # sometimes triggered when taxid related to acc number is missing
         # you can also have an error message on first line to tail krona tax db must be
@@ -303,19 +316,26 @@ def read_ncbi_taxonomy_retain_acc_under_taxid(taxidlist,  # list of taxids under
     # write output file of acc numbers included in taxid provided by user
     if b_acc_in_f:
         for tax in tax_in:
-            acc_in_f_handle.write("\n".join(h_taxid_acc[tax])+"\n")
+
+            # write only recorded acc for current taxid (only those are are >= min_nr_reads_by_accnr)
+            acc_in_f_handle.write("\n".join(h_megablast_tax[ tax ]))
+            acc_in_f_handle.write("\n")
+            if b_verbose:
+                print(prog_tag + " record acc in :"+",".join(h_megablast_tax[tax])+" from taxid:"+tax)
+
         acc_in_f_handle.close()
         print(prog_tag + ' '+ acc_in_f+" file created")
 
     # write output file of acc numbers NOT included in taxid provided by user
     if b_acc_out_f:
-        # all_megablast_tax_list = natsorted(list(all_megablast_tax))
-
-        # print("tax_out:")
-        # print(', '.join(tax_out))
-
         for tax in tax_out:
-            acc_out_f_handle.write("\n".join(h_taxid_acc[tax])+"\n")
+
+            # write only recorded acc for current taxid (only those are are >= min_nr_reads_by_accnr)
+            acc_out_f_handle.write("\n".join(h_megablast_tax[ tax ]))
+            acc_out_f_handle.write("\n")
+            if b_verbose:
+                print(prog_tag + " record acc out:"+",".join(h_megablast_tax[tax])+" from taxid:"+tax)
+
         acc_out_f_handle.close()
         print(prog_tag + ' '+ acc_out_f+" file created")
         
@@ -325,9 +345,9 @@ if b_test_read_ncbi_taxonomy_retain_acc_under_taxid:
     acc_in_f = "megablast_out_f_acc_in_taxid.tsv"
     acc_out_f = "megablast_out_f_acc_out_taxid.tsv"
 #     taxidlist = ['10295', '10293'] # bovine herpes virus, alphaherpesvirinae
-    taxidlist = ['10295'] # bovine herpes virus ok 2022 01 27
-#    taxidlist = ['10239'] # virus ok 2022 01 27
-    min_nr_reads_by_accnr = 4
+#     taxidlist = ['10295'] # bovine herpes virus ok 2022 01 27
+    taxidlist = ['10239'] # virus ok 2022 01 27
+    # min_nr_reads_by_accnr = 1
     krona_taxid_acc_f = 'megablast_out_f_taxid_acc.tsv'
 
     print("load krona_taxid_acc_f:"+krona_taxid_acc_f)
