@@ -315,9 +315,6 @@ def read_ncbi_taxonomy_retain_acc_under_taxid(taxidlist,  # list of taxids under
     # print(', '.join(tax_in))
     # sys.exit("tax_in check end")
 
-    def nb_occ_acc(acc):
-        return h_megablast_acc[acc]
-
     # write output file of acc numbers included in taxid provided by user
     if b_acc_in_f:
         accnum_list = []
