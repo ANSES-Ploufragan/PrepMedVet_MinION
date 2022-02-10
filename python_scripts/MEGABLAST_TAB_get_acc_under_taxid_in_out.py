@@ -161,6 +161,8 @@ elif(not b_test):
     sys.exit("-taxidlist_f <taxid_file>n must be provided\n")
 if min_nr_reads_by_accnr is not None:
     min_nr_reads_by_accnr = int(args.min_nr_reads_by_accnr)
+if args.b_verbose is not None:
+    b_verbose = int(args.b_verbose)
 
 if(not b_test):
     if (not b_acc_in_f) and (not b_acc_out_f):
@@ -387,26 +389,68 @@ def read_ncbi_taxonomy_retain_acc_under_taxid(taxidlist,  # list of taxids under
 
     # write output file of acc numbers included in taxid provided by user
     if b_acc_in_f:
+        accnum_list = []
+        accocc_list = []
         for tax in tax_in:
 
-            # write only recorded acc for current taxid (only those are are >= min_nr_reads_by_accnr)
-            acc_in_f_handle.write("\n".join(h_megablast_tax[ tax ]))
-            acc_in_f_handle.write("\n")
-            if b_verbose:
-                print(prog_tag + " record acc in :"+",".join(h_megablast_tax[tax])+" from taxid:"+tax)
+            # get all acc for current tax
+            accnum_list.extend(h_megablast_tax[ tax ])
+            # get all number of occ of acc for current tax
+            for acc in h_megablast_tax[ tax ]:
+                accocc_list.append(h_megablast_acc[acc])
 
+        # sort accnum according to accocc (number of occ) in decreasing order
+        if b_verbose:
+            print(prog_tag + " accnum_list not sorted:"+ str(accnum_list))
+            print(prog_tag + " accocc_list not sorted:"+ str(accocc_list))
+        if len(accnum_list) > 1:
+            accocc_list, accnum_list = zip(*sorted(zip(accocc_list,accnum_list), reverse=True))
+        if b_verbose:
+            print(prog_tag + " accnum_list     sorted:"+ str(accnum_list))
+            print(prog_tag + " accocc_list     sorted:"+ str(accocc_list))
+
+        # ints conversion to strings
+        accnum_list = list(map(str, accnum_list))
+
+        # write only recorded acc for current taxid (only those are are >= min_nr_reads_by_accnr)
+        acc_in_f_handle.write("\n".join(accnum_list))
+        acc_in_f_handle.write("\n")
+        if b_verbose:
+            print(prog_tag + " record acc in :"+",".join(h_megablast_tax[tax])+" from taxid:"+tax)
+  
         acc_in_f_handle.close()
         print(prog_tag + ' '+ acc_in_f+" file created")
 
     # write output file of acc numbers NOT included in taxid provided by user
     if b_acc_out_f:
+        accnum_list = []
+        accocc_list = []
         for tax in tax_out:
 
-            # write only recorded acc for current taxid (only those are are >= min_nr_reads_by_accnr)
-            acc_out_f_handle.write("\n".join(h_megablast_tax[ tax ]))
-            acc_out_f_handle.write("\n")
-            if b_verbose:
-                print(prog_tag + " record acc out:"+",".join(h_megablast_tax[tax])+" from taxid:"+tax)
+             # get all acc for current tax
+            accnum_list.extend(h_megablast_tax[ tax ])
+            # get all number of occ of acc for current tax
+            for acc in h_megablast_tax[ tax ]:
+                accocc_list.append(h_megablast_acc[acc])
+
+        # sort accnum according to accocc (number of occ) in decreasing order
+        if b_verbose:
+            print(prog_tag + " accnum_list not sorted:"+ str(accnum_list))
+            print(prog_tag + " accocc_list not sorted:"+ str(accocc_list))
+        if len(accnum_list) > 1:
+            accnum_occ, accnum_list = zip(*sorted(zip(accocc_list,accnum_list), reverse=True))
+        if b_verbose:
+            print(prog_tag + " accnum_list     sorted:"+ str(accnum_list))
+            print(prog_tag + " accocc_list     sorted:"+ str(accocc_list))
+
+        # ints conversion to strings
+        accnum_list = list(map(str, accnum_list))
+
+        # write only recorded acc for current taxid (only those are are >= min_nr_reads_by_accnr)
+        acc_out_f_handle.write("\n".join(accnum_list))
+        acc_out_f_handle.write("\n")
+        if b_verbose:
+            print(prog_tag + " record acc out:"+",".join(h_megablast_tax[tax])+" from taxid:"+tax)
 
         acc_out_f_handle.close()
         print(prog_tag + ' '+ acc_out_f+" file created")
