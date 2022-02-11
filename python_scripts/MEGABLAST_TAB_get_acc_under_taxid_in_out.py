@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 ###
+# USE PYTHON2
 # From a megablast file of results (tabular 25 columns) and taxid(s) user is interested in,
 # provide 2 files:
 # - file with all acc numbers in megablast results that are included in taxid(s) provided by user
@@ -404,7 +405,10 @@ def read_ncbi_taxonomy_retain_acc_under_taxid(taxidlist,  # list of taxids under
             print(prog_tag + " accnum_list not sorted:"+ str(accnum_list))
             print(prog_tag + " accocc_list not sorted:"+ str(accocc_list))
         if len(accnum_list) > 1:
+            # python2
             accocc_list, accnum_list = zip(*sorted(zip(accocc_list,accnum_list), reverse=True))
+            # python3
+            # accocc_list, accnum_list = (list(x) for x in zip(*sorted(zip(accocc_list,accnum_list), reverse=True)))               
         if b_verbose:
             print(prog_tag + " accnum_list     sorted:"+ str(accnum_list))
             print(prog_tag + " accocc_list     sorted:"+ str(accocc_list))
@@ -438,7 +442,10 @@ def read_ncbi_taxonomy_retain_acc_under_taxid(taxidlist,  # list of taxids under
             print(prog_tag + " accnum_list not sorted:"+ str(accnum_list))
             print(prog_tag + " accocc_list not sorted:"+ str(accocc_list))
         if len(accnum_list) > 1:
+            # python2
             accnum_occ, accnum_list = zip(*sorted(zip(accocc_list,accnum_list), reverse=True))
+            # python3
+            # accocc_list, accnum_list = (list(x) for x in zip(*sorted(zip(accocc_list,accnum_list), reverse=True)))   
         if b_verbose:
             print(prog_tag + " accnum_list     sorted:"+ str(accnum_list))
             print(prog_tag + " accocc_list     sorted:"+ str(accocc_list))
