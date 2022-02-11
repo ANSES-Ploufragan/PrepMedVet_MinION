@@ -416,7 +416,7 @@ def read_ncbi_taxonomy_retain_acc_under_taxid(taxidlist,  # list of taxids under
         acc_in_f_handle.write("\n".join(accnum_list))
         acc_in_f_handle.write("\n")
         if b_verbose:
-            print(prog_tag + " record acc in :"+",".join(h_megablast_tax[tax])+" from taxid:"+tax)
+            print(prog_tag + " record acc in :"+",".join(accnum_list)+" from taxids:"+",".join(tax_in))
   
         acc_in_f_handle.close()
         print(prog_tag + ' '+ acc_in_f+" file created")
@@ -450,7 +450,7 @@ def read_ncbi_taxonomy_retain_acc_under_taxid(taxidlist,  # list of taxids under
         acc_out_f_handle.write("\n".join(accnum_list))
         acc_out_f_handle.write("\n")
         if b_verbose:
-            print(prog_tag + " record acc out:"+",".join(h_megablast_tax[tax])+" from taxid:"+tax)
+            print(prog_tag + " record acc out:"+",".join(accnum_list)+" from taxid:"+",".join(tax_out))
 
         acc_out_f_handle.close()
         print(prog_tag + ' '+ acc_out_f+" file created")
