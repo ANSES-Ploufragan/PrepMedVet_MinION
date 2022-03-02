@@ -1,0 +1,93 @@
+{
+    "a_galaxy_workflow": "true",
+    "annotation": "",
+    "format-version": "0.1",
+    "name": "V1: Concatenate_reads_minion_files",
+    "steps": {
+        "0": {
+            "annotation": "",
+            "content_id": null,
+            "errors": null,
+            "id": 0,
+            "input_connections": {},
+            "inputs": [
+                {
+                    "description": "",
+                    "name": "Minion reads files"
+                }
+            ],
+            "label": "Minion reads files",
+            "name": "Input dataset collection",
+            "outputs": [],
+            "position": {
+                "bottom": 451.3000030517578,
+                "height": 61.80000305175781,
+                "left": 545,
+                "right": 745,
+                "top": 389.5,
+                "width": 200,
+                "x": 545,
+                "y": 389.5
+            },
+            "tool_id": null,
+            "tool_state": "{\"optional\": false, \"collection_type\": \"list\"}",
+            "tool_version": null,
+            "type": "data_collection_input",
+            "uuid": "69d83c9d-7750-46f8-bf86-e57293dcdafc",
+            "workflow_outputs": []
+        },
+        "1": {
+            "annotation": "",
+            "content_id": "toolshed.g2.bx.psu.edu/repos/mvdbeek/concatenate_multiple_datasets/cat_multiple/0.2",
+            "errors": null,
+            "id": 1,
+            "input_connections": {
+                "input": {
+                    "id": 0,
+                    "output_name": "output"
+                }
+            },
+            "inputs": [],
+            "label": "Concatenation des reads",
+            "name": "Concatenate multiple datasets",
+            "outputs": [
+                {
+                    "name": "out_file1",
+                    "type": "input"
+                }
+            ],
+            "position": {
+                "bottom": 483.1000061035156,
+                "height": 113.60000610351562,
+                "left": 789,
+                "right": 989,
+                "top": 369.5,
+                "width": 200,
+                "x": 789,
+                "y": 369.5
+            },
+            "post_job_actions": {},
+            "tool_id": "toolshed.g2.bx.psu.edu/repos/mvdbeek/concatenate_multiple_datasets/cat_multiple/0.2",
+            "tool_shed_repository": {
+                "changeset_revision": "201c568972c3",
+                "name": "concatenate_multiple_datasets",
+                "owner": "mvdbeek",
+                "tool_shed": "toolshed.g2.bx.psu.edu"
+            },
+            "tool_state": "{\"input\": {\"__class__\": \"ConnectedValue\"}, \"__page__\": null, \"__rerun_remap_job_id__\": null}",
+            "tool_version": "0.2",
+            "type": "tool",
+            "uuid": "7cb41104-eed2-402a-9157-e4582f41de46",
+            "workflow_outputs": [
+                {
+                    "label": null,
+                    "output_name": "out_file1",
+                    "uuid": "f8a1fccd-3b73-4eb7-96fe-4170dc256765"
+                }
+            ]
+        }
+    },
+    "tags": [],
+    "uuid": "157e4546-777c-4266-89fe-c5923f157d48",
+    "version": 7
+}

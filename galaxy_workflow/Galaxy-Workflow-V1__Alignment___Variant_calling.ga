@@ -1,0 +1,399 @@
+{
+    "a_galaxy_workflow": "true",
+    "annotation": "variant calling + extract mapped and unmapped reads",
+    "format-version": "0.1",
+    "name": "V1: Alignment + Variant calling",
+    "steps": {
+        "0": {
+            "annotation": "",
+            "content_id": null,
+            "errors": null,
+            "id": 0,
+            "input_connections": {},
+            "inputs": [
+                {
+                    "description": "",
+                    "name": "Reads (fastq)"
+                }
+            ],
+            "label": "Reads (fastq)",
+            "name": "Input dataset",
+            "outputs": [],
+            "position": {
+                "bottom": 510.3000030517578,
+                "height": 61.80000305175781,
+                "left": 309.316650390625,
+                "right": 509.316650390625,
+                "top": 448.5,
+                "width": 200,
+                "x": 309.316650390625,
+                "y": 448.5
+            },
+            "tool_id": null,
+            "tool_state": "{\"optional\": false}",
+            "tool_version": null,
+            "type": "data_input",
+            "uuid": "fde24029-8f23-4cb4-99ac-e70c62057884",
+            "workflow_outputs": []
+        },
+        "1": {
+            "annotation": "",
+            "content_id": null,
+            "errors": null,
+            "id": 1,
+            "input_connections": {},
+            "inputs": [
+                {
+                    "description": "",
+                    "name": "References from megablast"
+                }
+            ],
+            "label": "References from megablast",
+            "name": "Input dataset",
+            "outputs": [],
+            "position": {
+                "bottom": 732.6999969482422,
+                "height": 82.19999694824219,
+                "left": 304.316650390625,
+                "right": 504.316650390625,
+                "top": 650.5,
+                "width": 200,
+                "x": 304.316650390625,
+                "y": 650.5
+            },
+            "tool_id": null,
+            "tool_state": "{\"optional\": false}",
+            "tool_version": null,
+            "type": "data_input",
+            "uuid": "af895978-77d5-4652-afd9-80061e2089e7",
+            "workflow_outputs": []
+        },
+        "2": {
+            "annotation": "",
+            "content_id": "toolshed.g2.bx.psu.edu/repos/iuc/minimap2/minimap2/2.22+galaxy0",
+            "errors": null,
+            "id": 2,
+            "input_connections": {
+                "fastq_input|fastq_input1": {
+                    "id": 0,
+                    "output_name": "output"
+                },
+                "reference_source|ref_file": {
+                    "id": 1,
+                    "output_name": "output"
+                }
+            },
+            "inputs": [],
+            "label": "Mapping minimap2",
+            "name": "Map with minimap2",
+            "outputs": [
+                {
+                    "name": "alignment_output",
+                    "type": "bam"
+                }
+            ],
+            "position": {
+                "bottom": 603.1000061035156,
+                "height": 225.60000610351562,
+                "left": 574.316650390625,
+                "right": 774.316650390625,
+                "top": 377.5,
+                "width": 200,
+                "x": 574.316650390625,
+                "y": 377.5
+            },
+            "post_job_actions": {},
+            "tool_id": "toolshed.g2.bx.psu.edu/repos/iuc/minimap2/minimap2/2.22+galaxy0",
+            "tool_shed_repository": {
+                "changeset_revision": "6b1e195506a3",
+                "name": "minimap2",
+                "owner": "iuc",
+                "tool_shed": "toolshed.g2.bx.psu.edu"
+            },
+            "tool_state": "{\"alignment_options\": {\"splicing\": {\"splice_mode\": \"preset\", \"__current_case__\": 0}, \"A\": null, \"B\": null, \"O\": null, \"O2\": null, \"E\": null, \"E2\": null, \"z\": null, \"z2\": null, \"s\": null, \"no_end_flt\": \"true\"}, \"fastq_input\": {\"fastq_input_selector\": \"single\", \"__current_case__\": 0, \"fastq_input1\": {\"__class__\": \"ConnectedValue\"}, \"analysis_type_selector\": \"map-ont\"}, \"indexing_options\": {\"H\": \"false\", \"k\": null, \"w\": null, \"I\": null}, \"io_options\": {\"output_format\": \"BAM\", \"Q\": \"false\", \"L\": \"false\", \"K\": null, \"cs\": null, \"c\": \"false\", \"eqx\": \"false\", \"Y\": \"false\"}, \"mapping_options\": {\"N\": null, \"F\": null, \"f\": null, \"kmer_ocurrence_interval\": {\"interval\": \"\", \"__current_case__\": 1}, \"min_occ_floor\": null, \"g\": null, \"r\": null, \"n\": null, \"m\": null, \"max_chain_skip\": null, \"max_chain_iter\": null, \"X\": \"false\", \"p\": null, \"mask_len\": null}, \"reference_source\": {\"reference_source_selector\": \"history\", \"__current_case__\": 1, \"ref_file\": {\"__class__\": \"ConnectedValue\"}}, \"__page__\": null, \"__rerun_remap_job_id__\": null}",
+            "tool_version": "2.22+galaxy0",
+            "type": "tool",
+            "uuid": "e2fcc2ea-46b6-4e54-9608-57ba97f47593",
+            "workflow_outputs": [
+                {
+                    "label": "Map with minimap2 on input dataset(s) (mapped reads in BAM format)",
+                    "output_name": "alignment_output",
+                    "uuid": "074750f7-fbb1-4402-8f86-3ba37fd116ca"
+                }
+            ]
+        },
+        "3": {
+            "annotation": "extract mapped reads",
+            "content_id": "toolshed.g2.bx.psu.edu/repos/iuc/samtools_fastx/samtools_fastx/1.13",
+            "errors": null,
+            "id": 3,
+            "input_connections": {
+                "input": {
+                    "id": 2,
+                    "output_name": "alignment_output"
+                }
+            },
+            "inputs": [],
+            "label": "Extract mapped reads",
+            "name": "Samtools fastx",
+            "outputs": [
+                {
+                    "name": "output",
+                    "type": "fasta"
+                }
+            ],
+            "position": {
+                "bottom": 357.1000061035156,
+                "height": 113.60000610351562,
+                "left": 830.316650390625,
+                "right": 1030.316650390625,
+                "top": 243.5,
+                "width": 200,
+                "x": 830.316650390625,
+                "y": 243.5
+            },
+            "post_job_actions": {
+                "RenameDatasetActionoutput": {
+                    "action_arguments": {
+                        "newname": "Mapped reads of #{input}"
+                    },
+                    "action_type": "RenameDatasetAction",
+                    "output_name": "output"
+                }
+            },
+            "tool_id": "toolshed.g2.bx.psu.edu/repos/iuc/samtools_fastx/samtools_fastx/1.13",
+            "tool_shed_repository": {
+                "changeset_revision": "720217c23995",
+                "name": "samtools_fastx",
+                "owner": "iuc",
+                "tool_shed": "toolshed.g2.bx.psu.edu"
+            },
+            "tool_state": "{\"copy_arb_tags\": \"\", \"copy_tags\": \"false\", \"exclusive_filter\": null, \"exclusive_filter_all\": [\"4\"], \"idxout_cond\": {\"idxout_select\": \"no\", \"__current_case__\": 0}, \"inclusive_filter\": null, \"input\": {\"__class__\": \"ConnectedValue\"}, \"output_fmt_cond\": {\"output_fmt_select\": \"fastqsanger\", \"__current_case__\": 0, \"default_quality\": null, \"output_quality\": \"false\", \"ilumina_casava\": \"false\"}, \"outputs\": null, \"read_numbering\": \"\", \"__page__\": null, \"__rerun_remap_job_id__\": null}",
+            "tool_version": "1.13",
+            "type": "tool",
+            "uuid": "6658e242-2adb-4b0f-84b2-cad69924e5ca",
+            "workflow_outputs": [
+                {
+                    "label": "Mapped reads",
+                    "output_name": "output",
+                    "uuid": "b4798ff2-47a7-4a5f-82cf-2a0db419d0df"
+                }
+            ]
+        },
+        "4": {
+            "annotation": "extract unmapped reads",
+            "content_id": "toolshed.g2.bx.psu.edu/repos/iuc/samtools_fastx/samtools_fastx/1.13",
+            "errors": null,
+            "id": 4,
+            "input_connections": {
+                "input": {
+                    "id": 2,
+                    "output_name": "alignment_output"
+                }
+            },
+            "inputs": [],
+            "label": "Extract unmapped reads",
+            "name": "Samtools fastx",
+            "outputs": [
+                {
+                    "name": "output",
+                    "type": "fasta"
+                }
+            ],
+            "position": {
+                "bottom": 494.1000061035156,
+                "height": 113.60000610351562,
+                "left": 829.316650390625,
+                "right": 1029.316650390625,
+                "top": 380.5,
+                "width": 200,
+                "x": 829.316650390625,
+                "y": 380.5
+            },
+            "post_job_actions": {
+                "RenameDatasetActionoutput": {
+                    "action_arguments": {
+                        "newname": "Unmapped reads of #{input}"
+                    },
+                    "action_type": "RenameDatasetAction",
+                    "output_name": "output"
+                }
+            },
+            "tool_id": "toolshed.g2.bx.psu.edu/repos/iuc/samtools_fastx/samtools_fastx/1.13",
+            "tool_shed_repository": {
+                "changeset_revision": "720217c23995",
+                "name": "samtools_fastx",
+                "owner": "iuc",
+                "tool_shed": "toolshed.g2.bx.psu.edu"
+            },
+            "tool_state": "{\"copy_arb_tags\": \"\", \"copy_tags\": \"false\", \"exclusive_filter\": null, \"exclusive_filter_all\": null, \"idxout_cond\": {\"idxout_select\": \"no\", \"__current_case__\": 0}, \"inclusive_filter\": [\"4\"], \"input\": {\"__class__\": \"ConnectedValue\"}, \"output_fmt_cond\": {\"output_fmt_select\": \"fastqsanger\", \"__current_case__\": 0, \"default_quality\": null, \"output_quality\": \"false\", \"ilumina_casava\": \"false\"}, \"outputs\": null, \"read_numbering\": \"\", \"__page__\": null, \"__rerun_remap_job_id__\": null}",
+            "tool_version": "1.13",
+            "type": "tool",
+            "uuid": "f98038a4-e951-49be-8d02-5c89bb3c7593",
+            "workflow_outputs": [
+                {
+                    "label": "Unmapped Reads",
+                    "output_name": "output",
+                    "uuid": "d2560fc5-ed57-483d-a431-52b4b654401f"
+                }
+            ]
+        },
+        "5": {
+            "annotation": "",
+            "content_id": "toolshed.g2.bx.psu.edu/repos/devteam/samtools_rmdup/samtools_rmdup/2.0.1",
+            "errors": null,
+            "id": 5,
+            "input_connections": {
+                "input1": {
+                    "id": 2,
+                    "output_name": "alignment_output"
+                }
+            },
+            "inputs": [],
+            "label": "Delete duplicate",
+            "name": "RmDup",
+            "outputs": [
+                {
+                    "name": "output1",
+                    "type": "bam"
+                }
+            ],
+            "position": {
+                "bottom": 656.1999969482422,
+                "height": 93.19999694824219,
+                "left": 825.316650390625,
+                "right": 1025.316650390625,
+                "top": 563,
+                "width": 200,
+                "x": 825.316650390625,
+                "y": 563
+            },
+            "post_job_actions": {},
+            "tool_id": "toolshed.g2.bx.psu.edu/repos/devteam/samtools_rmdup/samtools_rmdup/2.0.1",
+            "tool_shed_repository": {
+                "changeset_revision": "586f9e1cdb2b",
+                "name": "samtools_rmdup",
+                "owner": "devteam",
+                "tool_shed": "toolshed.g2.bx.psu.edu"
+            },
+            "tool_state": "{\"bam_paired_end_type\": {\"bam_paired_end_type_selector\": \"SE\", \"__current_case__\": 1}, \"input1\": {\"__class__\": \"ConnectedValue\"}, \"__page__\": null, \"__rerun_remap_job_id__\": null}",
+            "tool_version": "2.0.1",
+            "type": "tool",
+            "uuid": "745e8a9b-fab1-431c-9361-c91de7366681",
+            "workflow_outputs": [
+                {
+                    "label": null,
+                    "output_name": "output1",
+                    "uuid": "485bb354-416f-4dc9-9659-d6a93128411d"
+                }
+            ]
+        },
+        "6": {
+            "annotation": "",
+            "content_id": "toolshed.g2.bx.psu.edu/repos/devteam/samtools_mpileup/samtools_mpileup/2.1.6",
+            "errors": null,
+            "id": 6,
+            "input_connections": {
+                "addref_cond|ref": {
+                    "id": 1,
+                    "output_name": "output"
+                },
+                "input": {
+                    "id": 5,
+                    "output_name": "output1"
+                }
+            },
+            "inputs": [],
+            "label": "Create mpileup file",
+            "name": "Samtools mpileup",
+            "outputs": [
+                {
+                    "name": "output_file_pu",
+                    "type": "pileup"
+                }
+            ],
+            "position": {
+                "bottom": 738.3999938964844,
+                "height": 164.39999389648438,
+                "left": 1060.316650390625,
+                "right": 1260.316650390625,
+                "top": 574,
+                "width": 200,
+                "x": 1060.316650390625,
+                "y": 574
+            },
+            "post_job_actions": {},
+            "tool_id": "toolshed.g2.bx.psu.edu/repos/devteam/samtools_mpileup/samtools_mpileup/2.1.6",
+            "tool_shed_repository": {
+                "changeset_revision": "9da0311ab1dd",
+                "name": "samtools_mpileup",
+                "owner": "devteam",
+                "tool_shed": "toolshed.g2.bx.psu.edu"
+            },
+            "tool_state": "{\"addref_cond\": {\"addref_select\": \"history\", \"__current_case__\": 0, \"ref\": {\"__class__\": \"ConnectedValue\"}}, \"advanced_options\": {\"advanced_options_selector\": \"advanced\", \"__current_case__\": 1, \"filter_by_flags\": {\"filter_flags\": \"nofilter\", \"__current_case__\": 1}, \"limit_by_region\": {\"limit_by_regions\": \"no_limit\", \"__current_case__\": 1}, \"exclude_read_group\": {\"exclude_read_groups\": \"no_limit\", \"__current_case__\": 2}, \"ignore_overlaps\": \"false\", \"skip_anomalous_read_pairs\": \"false\", \"disable_probabilistic_realignment\": \"false\", \"coefficient_for_downgrading\": \"0\", \"max_reads_per_bam\": \"8000\", \"extended_BAQ_computation\": \"false\", \"minimum_mapping_quality\": \"10\", \"minimum_base_quality\": \"13\", \"qualities_illumina_onethree\": \"false\"}, \"input\": {\"__class__\": \"ConnectedValue\"}, \"output_options_cond\": {\"output_options_selector\": \"default\", \"__current_case__\": 0}, \"__page__\": null, \"__rerun_remap_job_id__\": null}",
+            "tool_version": "2.1.6",
+            "type": "tool",
+            "uuid": "4b80146c-8f82-484a-8b4d-10e703b080a4",
+            "workflow_outputs": [
+                {
+                    "label": "Samtools mpileup on input dataset(s)",
+                    "output_name": "output_file_pu",
+                    "uuid": "0c7d261c-d4cf-4111-9b8b-169fab57e5d7"
+                }
+            ]
+        },
+        "7": {
+            "annotation": "",
+            "content_id": "toolshed.g2.bx.psu.edu/repos/yhoogstrate/varscan_mpileup2snp_from_bam/varscan_mpileup2snp/2.4.2.a",
+            "errors": null,
+            "id": 7,
+            "input_connections": {
+                "mpileup_input": {
+                    "id": 6,
+                    "output_name": "output_file_pu"
+                }
+            },
+            "inputs": [],
+            "label": "Variant calling",
+            "name": "VarScan2 Call SNPs from a mpileup file",
+            "outputs": [
+                {
+                    "name": "snv_output",
+                    "type": "tabular"
+                }
+            ],
+            "position": {
+                "bottom": 771.1999969482422,
+                "height": 93.19999694824219,
+                "left": 1280.316650390625,
+                "right": 1480.316650390625,
+                "top": 678,
+                "width": 200,
+                "x": 1280.316650390625,
+                "y": 678
+            },
+            "post_job_actions": {},
+            "tool_id": "toolshed.g2.bx.psu.edu/repos/yhoogstrate/varscan_mpileup2snp_from_bam/varscan_mpileup2snp/2.4.2.a",
+            "tool_shed_repository": {
+                "changeset_revision": "9a39c4105901",
+                "name": "varscan_mpileup2snp_from_bam",
+                "owner": "yhoogstrate",
+                "tool_shed": "toolshed.g2.bx.psu.edu"
+            },
+            "tool_state": "{\"extended_parameters\": {\"parameters\": \"extended\", \"__current_case__\": 1, \"varscan_min_coverage\": \"8\", \"varscan_min_reads2\": \"2\", \"varscan_min_avg_qual\": \"15\", \"varscan_min_var_freq\": \"0.01\", \"varscan_min_freq_for_hom\": \"0.75\", \"varscan_p_value\": \"0.99\", \"varscan_strand_filter\": \"true\", \"varscan_variants\": \"false\"}, \"mpileup_input\": {\"__class__\": \"ConnectedValue\"}, \"varscan_output\": \"vcf\", \"__page__\": null, \"__rerun_remap_job_id__\": null}",
+            "tool_version": "2.4.2.a",
+            "type": "tool",
+            "uuid": "02c82cbe-4b4a-4167-a0eb-a6706d4703e4",
+            "workflow_outputs": [
+                {
+                    "label": null,
+                    "output_name": "snv_output",
+                    "uuid": "326d00dc-1a67-4685-a20e-b26d98518d09"
+                }
+            ]
+        }
+    },
+    "tags": [],
+    "uuid": "10d1cab1-76cf-44e2-9798-0d9e2b877924",
+    "version": 11
+}
