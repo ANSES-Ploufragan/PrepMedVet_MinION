@@ -14,7 +14,7 @@ Installations instruction for __Ubuntu 18.04 LTS__
 sudo apt-get update
 sudo apt-get install wget
 wget -O- https://mirror.oxfordnanoportal.com/apt/ont-repo.pub | sudo apt-key add -
-echo "deb http://mirror.oxfordnanoportal.com/apt bionic-stable non-free" | sudo tee /etc/apt/sources.list.d/nanoporetech.sources.list
+echo "deb http://mirror.oxfordnanoportal.com/apt focal-stable non-free" | sudo tee /etc/apt/sources.list.d/nanoporetech.sources.list
 ```
 
 ## Install MinKNOW:
@@ -43,6 +43,31 @@ The reads folder is in /var/lib/minknow/data
 
 * The MinKNOW logs are located in /var/log/minknow
 * The Guppy basecaller logs are located in /var/log/minknow/guppy
+
+## For proxy
+
+ If you have a proxy server and would like to set up MinKNOW using a proxy, follow the instructions below.
+
+Open the user_conf file:
+
+```/opt/ONT/MinKNOW/conf/user_conf```
+
+And edit the following portion of the file:
+
+```
+"proxy": {
+"cereal_class_version": 0,
+"use_system_settings": true,
+"auto_detect": true,
+"auto_config_script": "",
+"https_proxy": "",
+"proxy_bypass": ""
+```
+
+Edit the https_proxy setting, which should be in the style of:
+
+scheme://[username:password@]host:port or "http://domain\\username:password@host:port", where "scheme" is one of https, socks, socks4 or socks5.
+
 
 
 # guppy_gpu
@@ -73,6 +98,12 @@ https://mirror.oxfordnanoportal.com/software/analysis/ont-guppy_3.2.10_linux64.t
 Example:
 tar -C /home/myuser/ont-guppy -xf ont-guppy_XXX_linux64.tar.gz
 
+## Rename the existing override.conf file so that it does not override our new settings
+
+```
+sudo mv /etc/systemd/system/guppyd.service.d/override.conf /etc/systemd/system/guppyd.service.d/override.conf.old
+```
+
 ## Use systemctl to edit the existing guppyd service (this will open a text editor with a copy of the existing service file):
 
 ```
@@ -95,6 +126,12 @@ ExecStart=/home/myuser/ont-guppy/bin/guppy_basecall_server <things> -x cuda:all
 
 ## Save the file and exit the text editor (the filename may look odd, but systemctl should change it to the correct name later).
 
+
+## Stop the MinKNOW service:
+
+```
+sudo service minkown stop
+```
 
 ## Stop the guppyd service:
 
