@@ -52,7 +52,6 @@ parser.set_defaults(b_load_ncbi_tax_f=False)
 parser.set_defaults(b_test_all=False)
 parser.set_defaults(min_nr_reads_by_accnr=1)
 
-# get absolute path in case of files
 args = parser.parse_args()
 
 # -------------------------------------------
@@ -83,6 +82,7 @@ if ((not b_test)and
 # print('args:', args)
 if(not b_test):
     if args.megablast_f is not None:
+        # get absolute path in case of files        
         megablast_f = os.path.abspath(args.megablast_f)
     else:
         sys.exit("[Error] You must provide megablast_f")
