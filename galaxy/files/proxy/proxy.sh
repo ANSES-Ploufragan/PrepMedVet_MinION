@@ -1,4 +1,4 @@
-i# set proxy config via profie.d - should apply for all users
+# set proxy config via profie.d - should apply for all users
 # 
 export http_proxy="http://alfortproxy.afssa.fr:8080/"
 export https_proxy="http://alfortproxy.afssa.fr:8080/"

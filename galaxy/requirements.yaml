@@ -6,6 +6,7 @@
 - galaxyproject.postgresql
 - galaxyproject.proftpd
 - geerlingguy.pip
+- galaxyproject.gxadmin
 - src: https://github.com/usegalaxy-eu/ansible-role-supervisor
   name: usegalaxy-eu.supervisor
 - src: https://github.com/usegalaxy-eu/ansible-certbot

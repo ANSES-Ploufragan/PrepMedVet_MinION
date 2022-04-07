@@ -1,18 +1,8 @@
 ---
 
 proxy: 'http://alfortproxy.afssa.fr:8080/'  
+db_dir: "/srv/db/"
 
-    ##Slurm installation via serveur_cluster (ansible)
-    #slurm_roles: ['controller', 'exec']
-    #slurm_nodes: 
-    #- name: localhost 
-    #  CPUs: 10
-    #
-    #slurm_config:      
-    #  SlurmdParameters: config_overrides
-    #  SelectType: select/cons_res
-    #  SelectTypeParameters: CR_CPU_Memory    
-    #
 # PostgreSQL
 postgresql_objects_users:
   - name: galaxy
@@ -21,54 +11,53 @@ postgresql_objects_databases:
   - name: galaxy
     owner: galaxy
 # Galaxy
-galaxy_create_user: false
+galaxy_create_user: true
 galaxy_separate_privileges: false
 galaxy_manage_paths: true
 galaxy_layout: root-dir
-nfs_dir: /server/galaxy
-galaxy_root: "{{ nfs_dir }}/srv"
-galaxy_file_path: "{{nfs_dir}}/data"
+galaxy_root: "/srv/galaxy"
+galaxy_file_path: "/data"
 galaxy_user:
-  name: prep_galaxy
+  name: galaxy
   shell: /bin/bash
-galaxy_remote_user:
-   name: admin    
 galaxy_commit_id: release_21.01
 galaxy_config_style: yaml
 galaxy_force_checkout: true
-galaxy_tool_dependency_dir: "{{ nfs_dir }}/tool_dependency"
-galaxy_shed_tools_dir: "{{nfs_dir}}/shed_tools"
-galaxy_job_working_directory: "{{nfs_dir}}/jobs"
-#galaxy_server_dir
-galaxy_venv_dir: "{{ nfs_dir }}/venv"
+
+galaxy_tool_dependency_dir: "/srv/galaxy/tool_dependency"
+galaxy_shed_tools_dir: "/srv/galaxy/shed_tools"
+galaxy_job_working_directory: "/srv/galaxy/jobs"
+galaxy_tool_data_path: "/srv/galaxy/tools-data"
+##galaxy_server_dir
+#galaxy_venv_dir: "{{ nfs_dir }}/venv"
 miniconda_prefix: "{{ galaxy_tool_dependency_dir }}/_conda"
 miniconda_version: 4.7.12
 miniconda_manage_dependencies: true
 
 galaxy_config:
   galaxy:
-    brand: "anses"
-    admin_users: edouard.hirchaud@anses.fr, pierrick.lucas@anses.fr
+    brand: "prepmedvet"
+    admin_users: admin@prepmetvet.fr,edouard.hirchaud@anses.fr,pierrick.lucas@anses.fr,arnaud.felten@anses.fr,fabrice.touzain@anses.fr
     database_connection: "postgres://galaxy:galaxy@localhost:5432/galaxy" 
-#    job_config_file: "{{ galaxy_config_dir }}/job_conf.xml"
+    file_path: '/data'
+    check_migrate_tools: false
     dependency_resolvers_config_file: "{{ galaxy_config_dir }}/dependency_resolvers_conf.xml"
     containers_resolvers_config_file: "{{ galaxy_config_dir }}/container_resolvers_conf.xml"
-#    shed_tool_config_file: "{{ galaxy_config_dir }}/shed_tool_conf.xml"
-    tools_path: "{{ nfs_dir }}/tools" 
-#    tool_sheds_config_file: "{{ galaxy_config_dir }}/tool_sheds_conf.xml"
-    data_dir: "{{nfs_dir}}"
-    tool_data_path: "{{nfs_dir}}/tool-data"
-  #  file_path: "{{nfs_dir}}/data"
-    check_migrate_tools: false
-    database_engine_option_server_side_cursors: true
-    #slow_query_log_threshold: 0.0
-    # enable_per_request_sql_debugging: true
+    tool_sheds_config_file: "{{galaxy_config_dir}}/tool_sheds_conf.xml"
+    tools_path: "/srv/galaxy/tools" 
+    data_dir: "/srv/galaxy/data"
+    tool_data_path: "/srv/galaxy/tools-data"
+    # database_engine_option_server_side_cursors: true
     nginx_x_accel_redirect_base: /_x_accel_redirect
     cleanup_job: onsuccess
     retry_job_output_collection: 3
     allow_user_impersonation: true
     outputs_to_working_directory: true
-
+    allow_path_paste: true
+    conda_prefix: "/srv/galaxy/data/_conda"
+    conda_ensure_channels: "iuc,conda-forge,bioconda,defaults,anaconda,etetoolkit"
+    conda_auto_install: true
+    conda_auto_init: true
 
   uwsgi:
       # mount: "/=galaxy.webapps.galaxy.buildapp:uwsgi_app()"
@@ -86,6 +75,7 @@ galaxy_config:
     virtualenv: "{{ galaxy_venv_dir }}"
     pythonpath: "{{ galaxy_server_dir }}/lib"
     module: galaxy.webapps.galaxy.buildapp:uwsgi_app()
+
     thunder-lock: true
     die-on-term: true
     hook-master-start:
@@ -98,8 +88,8 @@ galaxy_config:
       - lib/galaxy/main.py
     farm: job-handlers:1,2
 
-supervisor_socket_user: 'galaxy'
-supervisor_socket_chown: 'galaxy'
+supervisor_socket_user: galaxy
+supervisor_socket_chown: galaxy
 galaxy_restart_handler_name: galaxy restart
 
 supervisor_programs:
@@ -118,7 +108,7 @@ supervisor_programs:
 
 
    
-hostname: "prepMetvet-galaxy.gvb.anses.fr"
+hostname: "prepmetvet-galaxy.gvb.anses.fr"
 nginx_package_name: nginx-full # nginx-galaxy on RHEL/CentOS
 nginx_remove_default_vhost: true
 nginx_server_names_hash_bucket_size: "128"
@@ -199,9 +189,12 @@ nginx_vhosts:
          proxy_set_header REMOTE_USER igv_display@galaxy.anses.fr;
          allow all;
         }
-
 galaxy_config_templates:
-  - src: templates/galaxy/config/container_resolvers_conf.xml.j2
-    dest: "{{ galaxy_config.galaxy.containers_resolvers_config_file }}"
-  - src: templates/galaxy/config/dependency_resolvers_conf.xml
-    dest: "{{ galaxy_config.galaxy.dependency_resolvers_config_file }}"
+  - src: files/tool_sheds_conf.xml
+    dest: "{{galaxy_config.galaxy.tool_sheds_config_file}}"
+  - src: templates/galaxy/tools-data/blastdb.loc   
+    dest: "/srv/galaxy/tools-data/blastdb.loc"
+  - src: templates/galaxy/tools-data/blastdb_d.loc   
+    dest: "/srv/galaxy/tools-data/blastdb_d.loc"
+  - src: templates/galaxy/tools-data/blastdb_p.loc   
+    dest: "/srv/galaxy/tools-data/blastdb_p.loc"

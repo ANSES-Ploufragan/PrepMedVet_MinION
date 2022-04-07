@@ -1,5 +1,6 @@
 ---
 - hosts: galaxyservers
+  connection: local
   become: true
 
       ##### parti gestion du proxy anses
@@ -21,6 +22,7 @@
         mode: '0755'
 
 - hosts: galaxyservers
+  connection: local
   become: true
   handlers:
       - name: galaxy restart
@@ -30,7 +32,7 @@
   pre_tasks:
       - name: Install Dependencies
         package:
-             name: ['python3-psycopg2', 'git', 'python3-virtualenv', 'make', 'acl','libsasl2-dev','python-dev', 'libldap2-dev', 'libssl-dev']
+             name: ['python3-psycopg2', 'git', 'python3-virtualenv', 'make', 'acl','libsasl2-dev','python-dev', 'libldap2-dev', 'libssl-dev', 'virtualenv']
 
       - name: Copy gitconfig to root
         copy:
@@ -38,6 +40,14 @@
             dest: /root/.gitconfig    
             owner: root
             group: root
+
+      - name: Create tools-date
+        file:
+          path: "/srv/galaxy/tools-data"     
+          state: directory
+          owner: galaxy
+          group: galaxy
+          mode: 0777
 
   roles:
     - galaxyproject.postgresql
@@ -48,6 +58,7 @@
     - geerlingguy.pip
     - usegalaxy-eu.supervisor
     - geerlingguy.nginx
+    - galaxyproject.gxadmin
 
   environment:
           http_proxy: http://alfortproxy.afssa.fr:8080/

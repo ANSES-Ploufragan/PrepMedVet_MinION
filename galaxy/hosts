@@ -1,2 +1,2 @@
 [galaxyservers]
-192.168.100.59
+localhost ansible_connection=local

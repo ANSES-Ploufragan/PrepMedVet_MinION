@@ -1,0 +1,50 @@
+#Krona
+- hosts: all
+  become: true
+
+  vars:
+    date: "{{ lookup('pipe', 'date +%Y%m%d-%H%M') }}"
+    #db_path: "/db/krona{{ date }}"
+    db_path: "/db/krona"
+
+  tasks:
+
+    - name: Install Krona via conda
+      conda: 
+        name: krona
+        version: "2.8.1"
+        channels: bioconda
+        executable: '/home/admin/miniconda3/bin/conda'
+
+    - name: Creates db directory for krona
+      file:
+        path: "{{ db_path }}"
+        state: directory
+        mode: "777"
+
+    - name: DL taxdump 
+      shell: "source /home/admin/miniconda3/bin/activate && python ../python_scripts/update_krona_database.py -db krona -di {{ db_path }}"
+      args:
+        executable: /bin/bash
+
+    - name: DL accession 
+      shell: "source /home/admin/miniconda3/bin/activate && python ../python_scripts/update_krona_database.py -db krona_accession -di {{ db_path }}/accession2taxid/"
+      args:
+        executable: /bin/bash
+
+    - name: Build db 
+      shell: "source /home/admin/miniconda3/bin/activate && ktUpdateTaxonomy.sh --only-build {{ db_path }}"
+      args:
+        executable: /bin/bash
+
+    - name: Build db accession 
+      shell: "source /home/admin/miniconda3/bin/activate && ktUpdateTaxonomy.sh --accessions --only-build {{ db_path }}"
+      args:
+        executable: /bin/bash
+
+
+  environment:
+          http_proxy: http://alfortproxy.afssa.fr:8080/
+          https_proxy: http://alfortproxy.afssa.fr:8080/
+          HTTP_proxy: http://alfortproxy.afssa.fr:8080/
+          HTTPS_PROXY: http://alfortproxy.afssa.fr:8080/
