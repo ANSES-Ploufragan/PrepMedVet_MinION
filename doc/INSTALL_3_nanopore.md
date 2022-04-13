@@ -50,7 +50,7 @@ The reads folder is in /var/lib/minknow/data
 
 Open the user_conf file:
 
-```/opt/ONT/MinKNOW/conf/user_conf```
+```/opt/ont/minknow/conf/user_conf```
 
 And edit the following portion of the file:
 
@@ -74,38 +74,37 @@ scheme://[username:password@]host:port or "http://domain\\username:password@host
 
 > The GPU version (nvidia) of Guppy must be installed on the same system to which the MinION is connected
 
-## Identify the version of the Guppy basecall server that MinKNOW is using:
+
+## 1. Add Oxford Nanopore's deb repository to your system (this is to install Oxford Nanopore Technologies-specific dependency packages):
 
 ```
-/usr/bin/guppy_basecall_server --version
+sudo apt-get update
+sudo apt-get install wget lsb-release
+export PLATFORM=$(lsb_release -cs)
+wget -O- https://mirror.oxfordnanoportal.com/apt/ont-repo.pub | sudo apt-key add -
+echo "deb http://mirror.oxfordnanoportal.com/apt ${PLATFORM}-stable non-free" | sudo tee /etc/apt/sources.list.d/nanoporetech.sources.list
+sudo apt-get update
 ```
 
-## Download the archive version of GPU-enabled Guppy from the Nanopore Community.
 
-The specific URL to use is:
 
-https://mirror.oxfordnanoportal.com/software/analysis/ont-guppy_<version>_linux64.tar.gz
+## 2. To install the .deb for Guppy, use the following command:
 
-Where <version> is the numeric part (major.minor.patch) obtained from the step above.
+```
+sudo apt update
+sudo apt install ont-guppy --no-install-recommends
+```
 
-Example:
-https://mirror.oxfordnanoportal.com/software/analysis/ont-guppy_3.2.10_linux64.tar.gz
+This will install the GPU version of Guppy.
 
-> Note that the version of Guppy must match the version packaged within MinKNOW to prevent errors. 
-
-## Extract the archive to a folder.
-
-Example:
-tar -C /home/myuser/ont-guppy -xf ont-guppy_XXX_linux64.tar.gz
-
-## Rename the existing override.conf file so that it does not override our new settings
+## Rename the existing override.conf file so that it does not override our new settings:
 
 ```
 sudo mv /etc/systemd/system/guppyd.service.d/override.conf /etc/systemd/system/guppyd.service.d/override.conf.old
 ```
 
 ## Use systemctl to edit the existing guppyd service (this will open a text editor with a copy of the existing service file):
-
+ 
 ```
 sudo systemctl edit guppyd.service --full
 ```
@@ -208,16 +207,8 @@ sudo systemctl enable guppyd.service
 ```
 sudo systemctl unmask guppyd.service
 ```
-
 You may then need to enable the service as described above.
 
-### Reinstall the service.
-
-```
-sudo apt install --reinstall ont-guppyd-for-minion
-sudo systemctl revert guppyd.service
-sudo service guppyd restart
-```
 
 ### Setting GPU parameters for lower-memory graphics cards.
 
@@ -230,40 +221,44 @@ The following settings are recommended for 8 GB graphics cards. For cards with l
 * For HAC or modified basecalling models, use --chunks_per_runner 160
 * For Sup basecalling models, use --chunks_per_runner 10
 
+### Performance guppy GPU setup
 
+According to [this blog](https://hackmd.io/@Miles/B1U-cOMyu):
 
-# fast-bonito
+- the __fast__ model is tuned to deliver an optimised accuracy while being efficient (keeping up with data generation).
+- the __high accuracy__ (HAC) model provides higher consensus/raw read accuracy over the fast model. However it is __5-8 times slower__ than the __fast model__ and it’s much more computationally intensive. Leis just say that unless you want to wait weeks/months, you’re going to want to perform high accuracy calling on GPUs.
+- the __super-accurate__ (SUP or SA) DNA models have higher accuracy than HAC models at the cost of increased compute time. These models take approximately __three times as long__ to run __as a HAC model__, but offer an accuracy improvement over HAC in exchange.
 
-Download of env_gpu.yml from https://github.com/EIHealth-Lab/fast-bonito.git
-
-```
-# Setup environment using conda
-conda env create -f env_gpu.yml 
-conda env update -f env_gpu.yml
-source activate fast-bonito
-
-# Install fast-bonito
-git clone https://github.com/EIHealth-Lab/fast-bonito.git
-cd fast-bonito
-python setup.py install
-```
-
-* Error message obtained for first test described [here](https://discuss.pytorch.org/t/received-0-items-of-ancdata-pytorch-0-4-0/19823) (Pytorch problem)
-* __solved__ by __adding__ at just before the fast-bonito command in bash script (can be set at the end of __~/.bashrc__):  
-```ulimit -n 4096```
-
-
-# bonito
-
-from [github](https://github.com/nanoporetech/bonito)
+* Added parameters using a RTX3080 16 GB graphic card:
 
 ```
-sudo apt install pkg-config libhdf5-dev
-pip install -f https://download.pytorch.org/whl/torch_stable.html ont-bonito-cuda111
-bonito download --models --latest -f
+sudo systemctl edit guppyd.service --full
 ```
 
-> bonito models are also used by fast-bonito
+Edit that service file 
+
+```
+ExecStart=/home/myuser/ont-guppy/bin/guppy_basecall_server <things> --chunks_per_runner 160 --chunk_size 2000 -x cuda:all
+```
+for __SA model__
+
+* Set ```--chunks_per_runner 640``` for __HAC model__ instead of ```--chunks_per_runner 160```.
+
+```
+sudo service minkown stop
+sudo service guppyd stop
+sudo service guppyd start
+```
+
+* Confirm the guppy_basecall_server is running and is using the GPU:
+
+```nvidia-smi```
+
+* Start the MinKNOW service:
+
+```
+sudo service minknow start
+```
 
 # Make MinKNOW able to work offline
 
@@ -275,11 +270,50 @@ In order to change your Linux version of MinKNOW to the offline version, __after
 - Shutdown the computer/device
 - Remove the ethernet cable
 - Power on the computer/device
-- Open a terminal and run the following commands
-- sudo /opt/ont/minknow/bin/config_editor --filename /opt/ont/minknow/conf/sys_conf --conf system --set on_acquisition_ping_failure=ignore
-- Restart the MinKNOW service by running the following commands.
-- sudo systemctl daemon-reload
-- sudo systemctl enable minknow
-- sudo systemctl start minknow
+- Open a terminal and run the following commands:
+```
+sudo /opt/ont/minknow/bin/config_editor --filename /opt/ont/minknow/conf/sys_conf --conf system --set on_acquisition_ping_failure=ignore
+```
+- Restart the MinKNOW service by running the following commands:
+```
+sudo systemctl daemon-reload
+sudo systemctl enable minknow
+sudo systemctl start minknow
+```
 - Shutdown the computer/device
 - Power on the computer/device
+
+
+<!-- # fast-bonito -->
+
+<!-- Download of env_gpu.yml from https://github.com/EIHealth-Lab/fast-bonito.git -->
+
+<!-- ``` -->
+<!-- # Setup environment using conda -->
+<!-- conda env create -f env_gpu.yml  -->
+<!-- conda env update -f env_gpu.yml -->
+<!-- source activate fast-bonito -->
+
+<!-- # Install fast-bonito -->
+<!-- git clone https://github.com/EIHealth-Lab/fast-bonito.git -->
+<!-- cd fast-bonito -->
+<!-- python setup.py install -->
+<!-- ``` -->
+
+<!-- * Error message obtained for first test described [here](https://discuss.pytorch.org/t/received-0-items-of-ancdata-pytorch-0-4-0/19823) (Pytorch problem) -->
+<!-- * __solved__ by __adding__ at just before the fast-bonito command in bash script (can be set at the end of __~/.bashrc__):   -->
+<!-- ```ulimit -n 4096``` -->
+
+
+<!-- # bonito -->
+
+<!-- from [github](https://github.com/nanoporetech/bonito) -->
+
+<!-- ``` -->
+<!-- sudo apt install pkg-config libhdf5-dev -->
+<!-- pip install -f https://download.pytorch.org/whl/torch_stable.html ont-bonito-cuda111 -->
+<!-- bonito download --models --latest -f -->
+<!-- ``` -->
+
+<!-- > bonito models are also used by fast-bonito -->
+
