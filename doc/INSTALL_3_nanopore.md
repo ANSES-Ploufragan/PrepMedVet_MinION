@@ -282,6 +282,12 @@ sudo service guppyd start
 ```
 sudo service minknow start
 ```
+# To check all services available and their state
+(can help to check if guppyd and minkown service are avilable and enable)
+
+```
+sudo systemctl list-unit-files 
+```
 
 # Make MinKNOW able to work offline
 
