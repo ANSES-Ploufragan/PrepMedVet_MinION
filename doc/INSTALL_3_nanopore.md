@@ -244,6 +244,29 @@ for __SA model__
 
 * Set ```--chunks_per_runner 640``` for __HAC model__ instead of ```--chunks_per_runner 160```.
 
+> The following calculation provides a rough ceiling to the amount of GPU memory that Guppy will use:
+
+memory used [in bytes] = gpu_runners_per_device * chunks_per_runner * chunk_size * model_factor
+
+Where model_factor depends on the basecall model used:
+Basecall model 	model_factor
+Fast 	1200
+__HAC__ 	__3300__
+__SUP__ 	__12600__
+
+Note that gpu_runners_per_device is a limit setting. Guppy will create at least one runner per device and will dynamically increase this number as needed up to gpu_runners_per_device. Performance is usually much better with multiple runners, so it is __important to choose parameters such that__ chunks_per_runner * chunk_size * model_factor is __less than half the total GPU memory available__. If this value is more than the available GPU memory, Guppy will exit with an error.
+
+For example, when basecalling using a SUP model and a chunk size of 2000 on a GPU with 8 GB of memory, we have to make sure that the GPU can fit at least one runner:
+
+
+chunks_per_runner * chunk_size * model_factor should be lower than GPU memory
+chunks_per_runner * 2000 * 12600 should be lower than 8 GB
+chunks_per_runner lower than ~340
+
+This represents the limit beyond which Guppy will not run at all. For best performance we recommend using an integer fraction of this number, rounded down to an even number, e.g. a third (~112) or a quarter (~84). Especially for fast models, it can be best to have a dozen runners or more. The ideal value varies depending on GPU architecture and available memory.
+
+
+
 ```
 sudo service minkown stop
 sudo service guppyd stop
