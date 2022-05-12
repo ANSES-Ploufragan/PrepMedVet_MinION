@@ -1,9 +1,9 @@
 Workflow Galaxy PrepMedVet
 
 # Table of contents
-1. V1
-2. V2
-3. V3
+1. [V1: BIGONE] (#V1) 
+2. [V2: BIGTWO] (#V2)
+3. [V3] (#V3)
 
 # V1: BIGONE
 
