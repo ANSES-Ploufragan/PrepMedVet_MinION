@@ -48,11 +48,8 @@ The reads folder is in /var/lib/minknow/data
 
  If you have a proxy server and would like to set up MinKNOW using a proxy, follow the instructions below.
 
-Open the user_conf file:
-
-```/opt/ont/minknow/conf/user_conf```
-
-And edit the following portion of the file:
+Open the user conf file ```/opt/ont/minknow/conf/user_conf```
+and edit the following portion of the file:
 
 ```
 "proxy": {
