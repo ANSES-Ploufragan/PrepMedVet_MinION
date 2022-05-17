@@ -155,10 +155,13 @@ sudo service guppyd start
 
 ## Confirm the guppy_basecall_server is running and is using the GPU:
 
-```nvidia-smi```
+``` 
+nvidia-smi
+``` 
 
-
-> If the guppy_basecall_server is not launching correctly, check its log output using journalctl ("-n 100" shows the last 100 entries in the journal) to see what is going wrong:
+> If the guppy_basecall_server is not launching correctly, check its log output 
+using journalctl ("-n 100" shows the last 100 entries in the journal) to see 
+what is going wrong:
 
 ```
 sudo journalctl -u guppyd.service -n 100
