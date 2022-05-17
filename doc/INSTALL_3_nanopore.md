@@ -275,13 +275,16 @@ sudo service guppyd start
 
 * Confirm the guppy_basecall_server is running and is using the GPU:
 
-```nvidia-smi```
+``` 
+nvidia-smi
+``` 
 
 * Start the MinKNOW service:
 
 ```
 sudo service minknow start
 ```
+
 # To check all services available and their state
 (can help to check if guppyd and minkown service are avilable and enable)
 
@@ -300,15 +303,19 @@ In order to change your Linux version of MinKNOW to the offline version, __after
 - Remove the ethernet cable
 - Power on the computer/device
 - Open a terminal and run the following commands:
+
 ```
 sudo /opt/ont/minknow/bin/config_editor --filename /opt/ont/minknow/conf/sys_conf --conf system --set on_acquisition_ping_failure=ignore
 ```
+
 - Restart the MinKNOW service by running the following commands:
-```
+
+``` 
 sudo systemctl daemon-reload
 sudo systemctl enable minknow
 sudo systemctl start minknow
-```
+``` 
+
 - Shutdown the computer/device
 - Power on the computer/device
 
