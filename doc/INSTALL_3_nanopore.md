@@ -135,13 +135,13 @@ sudo service minkown stop
 sudo service guppyd stop
 ```
 
-Confirm the guppy_basecall_server process is not running:
+* Confirm the guppy_basecall_server process is not running:
 
 ```
 ps -A | grep guppy_basecall_
 ```
 
-If the result of the above command is not blank, manually kill the process:
+* If the result of the above command is not blank, manually kill the process:
 
 ```
 sudo killall guppy_basecall_server
