@@ -48,11 +48,8 @@ The reads folder is in /var/lib/minknow/data
 
  If you have a proxy server and would like to set up MinKNOW using a proxy, follow the instructions below.
 
-Open the user_conf file:
-
-```/opt/ont/minknow/conf/user_conf```
-
-And edit the following portion of the file:
+Open the user conf file ```/opt/ont/minknow/conf/user_conf```
+and edit the following portion of the file:
 
 ```
 "proxy": {
@@ -138,13 +135,13 @@ sudo service minkown stop
 sudo service guppyd stop
 ```
 
-Confirm the guppy_basecall_server process is not running:
+* Confirm the guppy_basecall_server process is not running:
 
 ```
 ps -A | grep guppy_basecall_
 ```
 
-If the result of the above command is not blank, manually kill the process:
+* If the result of the above command is not blank, manually kill the process:
 
 ```
 sudo killall guppy_basecall_server
@@ -158,10 +155,13 @@ sudo service guppyd start
 
 ## Confirm the guppy_basecall_server is running and is using the GPU:
 
-```nvidia-smi```
+``` 
+nvidia-smi
+``` 
 
-
-> If the guppy_basecall_server is not launching correctly, check its log output using journalctl ("-n 100" shows the last 100 entries in the journal) to see what is going wrong:
+> If the guppy_basecall_server is not launching correctly, check its log output 
+using journalctl ("-n 100" shows the last 100 entries in the journal) to see 
+what is going wrong:
 
 ```
 sudo journalctl -u guppyd.service -n 100
@@ -275,13 +275,16 @@ sudo service guppyd start
 
 * Confirm the guppy_basecall_server is running and is using the GPU:
 
-```nvidia-smi```
+``` 
+nvidia-smi
+``` 
 
 * Start the MinKNOW service:
 
 ```
 sudo service minknow start
 ```
+
 # To check all services available and their state
 (can help to check if guppyd and minkown service are avilable and enable)
 
@@ -300,15 +303,19 @@ In order to change your Linux version of MinKNOW to the offline version, __after
 - Remove the ethernet cable
 - Power on the computer/device
 - Open a terminal and run the following commands:
+
 ```
 sudo /opt/ont/minknow/bin/config_editor --filename /opt/ont/minknow/conf/sys_conf --conf system --set on_acquisition_ping_failure=ignore
 ```
+
 - Restart the MinKNOW service by running the following commands:
-```
+
+``` 
 sudo systemctl daemon-reload
 sudo systemctl enable minknow
 sudo systemctl start minknow
-```
+``` 
+
 - Shutdown the computer/device
 - Power on the computer/device
 
