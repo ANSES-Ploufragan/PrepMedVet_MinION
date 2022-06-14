@@ -20,14 +20,14 @@
             "name": "Input dataset",
             "outputs": [],
             "position": {
-                "bottom": 208.3000030517578,
+                "bottom": 132.8000030517578,
                 "height": 61.80000305175781,
-                "left": -85.5,
-                "right": 114.5,
-                "top": 146.5,
+                "left": -60.5,
+                "right": 139.5,
+                "top": 71,
                 "width": 200,
-                "x": -85.5,
-                "y": 146.5
+                "x": -60.5,
+                "y": 71
             },
             "tool_id": null,
             "tool_state": "{\"optional\": false}",
@@ -70,14 +70,14 @@
                 }
             ],
             "position": {
-                "bottom": 370.6999969482422,
+                "bottom": 295.1999969482422,
                 "height": 225.1999969482422,
-                "left": 140.5,
-                "right": 340.5,
-                "top": 145.5,
+                "left": 165.5,
+                "right": 365.5,
+                "top": 70,
                 "width": 200,
-                "x": 140.5,
-                "y": 145.5
+                "x": 165.5,
+                "y": 70
             },
             "post_job_actions": {},
             "tool_id": "toolshed.g2.bx.psu.edu/repos/iuc/filtlong/filtlong/0.2.0+galaxy1",
@@ -95,7 +95,7 @@
                 {
                     "label": "filtlong on input dataset(s): Filtered FASTQ",
                     "output_name": "outfile",
-                    "uuid": "3210c717-1de5-48ab-a6e0-7a3169bc0d63"
+                    "uuid": "ac257f85-d453-44b4-ae52-77ab78128972"
                 }
             ]
         },
@@ -125,14 +125,14 @@
                 }
             ],
             "position": {
-                "bottom": 452.5,
+                "bottom": 377,
                 "height": 144,
-                "left": 368.5,
-                "right": 568.5,
-                "top": 308.5,
+                "left": 393.5,
+                "right": 593.5,
+                "top": 233,
                 "width": 200,
-                "x": 368.5,
-                "y": 308.5
+                "x": 393.5,
+                "y": 233
             },
             "post_job_actions": {
                 "ChangeDatatypeActiondefault": {
@@ -172,7 +172,12 @@
                     "output_name": "default"
                 }
             },
-            "inputs": [],
+            "inputs": [
+                {
+                    "description": "runtime parameter for tool NCBI BLAST+ blastn",
+                    "name": "query"
+                }
+            ],
             "label": "Virus : megablast",
             "name": "NCBI BLAST+ blastn",
             "outputs": [
@@ -182,14 +187,14 @@
                 }
             ],
             "position": {
-                "bottom": 496.5,
+                "bottom": 423,
                 "height": 134,
-                "left": 625.5,
-                "right": 825.5,
-                "top": 362.5,
+                "left": 649.5,
+                "right": 849.5,
+                "top": 289,
                 "width": 200,
-                "x": 625.5,
-                "y": 362.5
+                "x": 649.5,
+                "y": 289
             },
             "post_job_actions": {},
             "tool_id": "toolshed.g2.bx.psu.edu/repos/devteam/ncbi_blast_plus/ncbi_blastn_wrapper/2.10.1+galaxy0",
@@ -199,15 +204,15 @@
                 "owner": "devteam",
                 "tool_shed": "toolshed.g2.bx.psu.edu"
             },
-            "tool_state": "{\"adv_opts\": {\"adv_opts_selector\": \"advanced\", \"__current_case__\": 1, \"filter_query\": \"true\", \"strand\": \"-strand both\", \"max_hits\": \"2\", \"max_hsps\": null, \"identity_cutoff\": \"80.0\", \"word_size\": null, \"ungapped\": \"false\", \"parse_deflines\": \"false\", \"adv_optional_id_files_opts\": {\"adv_optional_id_files_opts_selector\": \"none\", \"__current_case__\": 0}, \"qcov_hsp_perc\": \"80.0\", \"window_size\": null, \"gapopen\": null, \"gapextend\": null}, \"blast_type\": \"megablast\", \"db_opts\": {\"db_opts_selector\": \"db\", \"__current_case__\": 0, \"database\": [\"ref_virus\"], \"histdb\": \"\", \"subject\": \"\"}, \"evalue_cutoff\": \"1e-05\", \"output\": {\"out_format\": \"ext\", \"__current_case__\": 1}, \"query\": {\"__class__\": \"ConnectedValue\"}, \"__page__\": null, \"__rerun_remap_job_id__\": null}",
+            "tool_state": "{\"adv_opts\": {\"adv_opts_selector\": \"advanced\", \"__current_case__\": 1, \"filter_query\": \"true\", \"strand\": \"-strand both\", \"max_hits\": \"2\", \"max_hsps\": null, \"identity_cutoff\": \"60.0\", \"word_size\": null, \"ungapped\": \"false\", \"parse_deflines\": \"false\", \"adv_optional_id_files_opts\": {\"adv_optional_id_files_opts_selector\": \"none\", \"__current_case__\": 0}, \"qcov_hsp_perc\": \"80.0\", \"window_size\": null, \"gapopen\": null, \"gapextend\": null}, \"blast_type\": \"megablast\", \"db_opts\": {\"db_opts_selector\": \"db\", \"__current_case__\": 0, \"database\": [\"ref_virus\"], \"histdb\": \"\", \"subject\": \"\"}, \"evalue_cutoff\": \"1e-05\", \"output\": {\"out_format\": \"ext\", \"__current_case__\": 1}, \"query\": {\"__class__\": \"RuntimeValue\"}, \"__page__\": null, \"__rerun_remap_job_id__\": null}",
             "tool_version": "2.10.1+galaxy0",
             "type": "tool",
-            "uuid": "c48ea692-34d6-4b57-a232-21bfa18be5ff",
+            "uuid": "7e456b8a-f92d-4fb9-8cd8-97dcd51df87e",
             "workflow_outputs": [
                 {
                     "label": null,
                     "output_name": "output1",
-                    "uuid": "d8aff67f-5991-4a96-86a5-3497f4973e9b"
+                    "uuid": "7c7422d5-7d89-4c58-9419-c5d3ca1c6812"
                 }
             ]
         },
@@ -222,7 +227,12 @@
                     "output_name": "default"
                 }
             },
-            "inputs": [],
+            "inputs": [
+                {
+                    "description": "runtime parameter for tool NCBI BLAST+ blastn",
+                    "name": "query"
+                }
+            ],
             "label": "Prok: megablast",
             "name": "NCBI BLAST+ blastn",
             "outputs": [
@@ -232,14 +242,14 @@
                 }
             ],
             "position": {
-                "bottom": 638.5,
+                "bottom": 561,
                 "height": 134,
-                "left": 624.5,
-                "right": 824.5,
-                "top": 504.5,
+                "left": 651.5,
+                "right": 851.5,
+                "top": 427,
                 "width": 200,
-                "x": 624.5,
-                "y": 504.5
+                "x": 651.5,
+                "y": 427
             },
             "post_job_actions": {},
             "tool_id": "toolshed.g2.bx.psu.edu/repos/devteam/ncbi_blast_plus/ncbi_blastn_wrapper/2.10.1+galaxy0",
@@ -249,15 +259,15 @@
                 "owner": "devteam",
                 "tool_shed": "toolshed.g2.bx.psu.edu"
             },
-            "tool_state": "{\"adv_opts\": {\"adv_opts_selector\": \"advanced\", \"__current_case__\": 1, \"filter_query\": \"true\", \"strand\": \"-strand both\", \"max_hits\": \"2\", \"max_hsps\": null, \"identity_cutoff\": \"80.0\", \"word_size\": null, \"ungapped\": \"false\", \"parse_deflines\": \"false\", \"adv_optional_id_files_opts\": {\"adv_optional_id_files_opts_selector\": \"none\", \"__current_case__\": 0}, \"qcov_hsp_perc\": \"80.0\", \"window_size\": null, \"gapopen\": null, \"gapextend\": null}, \"blast_type\": \"megablast\", \"db_opts\": {\"db_opts_selector\": \"db\", \"__current_case__\": 0, \"database\": [\"ref_prok\"], \"histdb\": \"\", \"subject\": \"\"}, \"evalue_cutoff\": \"1e-05\", \"output\": {\"out_format\": \"ext\", \"__current_case__\": 1}, \"query\": {\"__class__\": \"ConnectedValue\"}, \"__page__\": null, \"__rerun_remap_job_id__\": null}",
+            "tool_state": "{\"adv_opts\": {\"adv_opts_selector\": \"advanced\", \"__current_case__\": 1, \"filter_query\": \"true\", \"strand\": \"-strand both\", \"max_hits\": \"2\", \"max_hsps\": null, \"identity_cutoff\": \"60.0\", \"word_size\": null, \"ungapped\": \"false\", \"parse_deflines\": \"false\", \"adv_optional_id_files_opts\": {\"adv_optional_id_files_opts_selector\": \"none\", \"__current_case__\": 0}, \"qcov_hsp_perc\": \"80.0\", \"window_size\": null, \"gapopen\": null, \"gapextend\": null}, \"blast_type\": \"megablast\", \"db_opts\": {\"db_opts_selector\": \"db\", \"__current_case__\": 0, \"database\": [\"ref_prok\"], \"histdb\": \"\", \"subject\": \"\"}, \"evalue_cutoff\": \"1e-05\", \"output\": {\"out_format\": \"ext\", \"__current_case__\": 1}, \"query\": {\"__class__\": \"RuntimeValue\"}, \"__page__\": null, \"__rerun_remap_job_id__\": null}",
             "tool_version": "2.10.1+galaxy0",
             "type": "tool",
-            "uuid": "827b898a-cecd-465b-bef5-09b4e669e9b0",
+            "uuid": "9ccb0b7d-a739-4b8a-8030-9fa10905f665",
             "workflow_outputs": [
                 {
                     "label": null,
                     "output_name": "output1",
-                    "uuid": "b79d4a05-817a-4b58-badc-e9943f034b69"
+                    "uuid": "e2b378ff-a9b6-44fe-9600-ce0110e8ade8"
                 }
             ]
         },
@@ -282,14 +292,14 @@
                 }
             ],
             "position": {
-                "bottom": 528.1000061035156,
+                "bottom": 452.6000061035156,
                 "height": 113.60000610351562,
-                "left": 856.5,
-                "right": 1056.5,
-                "top": 414.5,
+                "left": 881.5,
+                "right": 1081.5,
+                "top": 339,
                 "width": 200,
-                "x": 856.5,
-                "y": 414.5
+                "x": 881.5,
+                "y": 339
             },
             "post_job_actions": {
                 "HideDatasetActionout_file1": {
@@ -326,14 +336,14 @@
                 }
             ],
             "position": {
-                "bottom": 670.1000061035156,
+                "bottom": 594.6000061035156,
                 "height": 113.60000610351562,
-                "left": 852.5,
-                "right": 1052.5,
-                "top": 556.5,
+                "left": 877.5,
+                "right": 1077.5,
+                "top": 481,
                 "width": 200,
-                "x": 852.5,
-                "y": 556.5
+                "x": 877.5,
+                "y": 481
             },
             "post_job_actions": {
                 "HideDatasetActionout_file1": {
@@ -343,10 +353,10 @@
                 }
             },
             "tool_id": "Cut1",
-            "tool_state": "{\"columnList\": \"c2\", \"delimiter\": \"T\", \"input\": {\"__class__\": \"ConnectedValue\"}, \"__page__\": null, \"__rerun_remap_job_id__\": null}",
+            "tool_state": "{\"columnList\": \"c2\", \"delimiter\": \"P\", \"input\": {\"__class__\": \"ConnectedValue\"}, \"__page__\": null, \"__rerun_remap_job_id__\": null}",
             "tool_version": "1.0.2",
             "type": "tool",
-            "uuid": "32a42197-fe84-4166-88cd-abf61a04f6ce",
+            "uuid": "ccb0d0e6-330e-4844-9c7f-6ebe101ee9a3",
             "workflow_outputs": []
         },
         "7": {
@@ -370,14 +380,14 @@
                 }
             ],
             "position": {
-                "bottom": 559.1999969482422,
+                "bottom": 483.6999969482422,
                 "height": 93.19999694824219,
-                "left": 1087.5,
-                "right": 1287.5,
-                "top": 466,
+                "left": 1112.5,
+                "right": 1312.5,
+                "top": 390.5,
                 "width": 200,
-                "x": 1087.5,
-                "y": 466
+                "x": 1112.5,
+                "y": 390.5
             },
             "post_job_actions": {
                 "HideDatasetActionoutfile": {
@@ -420,14 +430,14 @@
                 }
             ],
             "position": {
-                "bottom": 701.1999969482422,
+                "bottom": 625.6999969482422,
                 "height": 93.19999694824219,
-                "left": 1088.5,
-                "right": 1288.5,
-                "top": 608,
+                "left": 1113.5,
+                "right": 1313.5,
+                "top": 532.5,
                 "width": 200,
-                "x": 1088.5,
-                "y": 608
+                "x": 1113.5,
+                "y": 532.5
             },
             "post_job_actions": {
                 "HideDatasetActionoutfile": {
@@ -470,14 +480,14 @@
                 }
             ],
             "position": {
-                "bottom": 611,
+                "bottom": 535.5,
                 "height": 134,
-                "left": 1312.5,
-                "right": 1512.5,
-                "top": 477,
+                "left": 1337.5,
+                "right": 1537.5,
+                "top": 401.5,
                 "width": 200,
-                "x": 1312.5,
-                "y": 477
+                "x": 1337.5,
+                "y": 401.5
             },
             "post_job_actions": {},
             "tool_id": "toolshed.g2.bx.psu.edu/repos/devteam/ncbi_blast_plus/ncbi_blastdbcmd_wrapper/2.10.1+galaxy0",
@@ -495,7 +505,7 @@
                 {
                     "label": "Sequences from blastdbcmd \n''\n",
                     "output_name": "seq",
-                    "uuid": "c442ad36-e5b1-46cb-9fd0-670079290f1b"
+                    "uuid": "8458adbc-d9a9-48b3-8618-a8ca9c303116"
                 }
             ]
         },
@@ -520,14 +530,14 @@
                 }
             ],
             "position": {
-                "bottom": 773.3999938964844,
+                "bottom": 697.8999938964844,
                 "height": 154.39999389648438,
-                "left": 1316.5,
-                "right": 1516.5,
-                "top": 619,
+                "left": 1341.5,
+                "right": 1541.5,
+                "top": 543.5,
                 "width": 200,
-                "x": 1316.5,
-                "y": 619
+                "x": 1341.5,
+                "y": 543.5
             },
             "post_job_actions": {},
             "tool_id": "toolshed.g2.bx.psu.edu/repos/devteam/ncbi_blast_plus/ncbi_blastdbcmd_wrapper/2.10.1+galaxy0",
@@ -545,12 +555,12 @@
                 {
                     "label": null,
                     "output_name": "seq",
-                    "uuid": "85aef43f-84b2-4980-b105-97e511959891"
+                    "uuid": "bed82ced-220b-4796-a29b-936672451c67"
                 }
             ]
         }
     },
     "tags": [],
-    "uuid": "c1827dd2-08a0-4196-a743-e4606e47bc36",
-    "version": 16
+    "uuid": "f5366ea5-1446-4015-b0d5-4d94d22544ad",
+    "version": 18
 }

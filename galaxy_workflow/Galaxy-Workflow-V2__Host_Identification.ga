@@ -393,7 +393,7 @@
             "post_job_actions": {},
             "tool_id": "testtoolshed.g2.bx.psu.edu/repos/p.lucas/megablast_tab_select_acc_under_taxids/MEGABLAST_TAB_select_acc_under_taxids/1",
             "tool_shed_repository": {
-                "changeset_revision": "977d4877384f",
+                "changeset_revision": "1b656c3714b9",
                 "name": "megablast_tab_select_acc_under_taxids",
                 "owner": "p.lucas",
                 "tool_shed": "testtoolshed.g2.bx.psu.edu"
