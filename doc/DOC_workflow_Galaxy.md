@@ -19,7 +19,7 @@ Les étapes sont toutes des sous-workflows:
 4. V1 VIRAL: Assembly + identification
 5. V1 BACT: Assembly + identification
 
-Le workflow ```V1: BIGONE without read concatenation``` est le même dans la première étape.
+Le workflow ```V1: BIGONE without read concatenation``` est le même sans la première étape.
 
 ## V1: Concatenate_reads_minion_files
 
