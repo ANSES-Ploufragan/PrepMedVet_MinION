@@ -22,7 +22,7 @@ Workflow Galaxy PrepMedVet
 
 * At the top left-hand corner, click on __"Upload Data"__
 
-# taxid files of pathogens or hosts
+### taxid files of pathogens or hosts
 
 * To upload taxid (text) files:
   - select: __regular__
@@ -37,7 +37,7 @@ Workflow Galaxy PrepMedVet
   - wait that the two files appear in __Green__ in the right column (your history)
 
 
-# MinION reads
+### MinION reads
 
 * To upload taxid (text) files:
   - select: __collection__
@@ -56,13 +56,13 @@ Workflow Galaxy PrepMedVet
   - click on __"Close"__ ("Fermer")
   - the dataset appears  in __Green__ in the right column (your history)
 
-# rename your history with a explicite name
+### Rename your history with a explicite name
 
 - click on __"Unnamed"__ below "History" at the top right-hand corner
 - type the new name, then click on the Enter touch of the keyboard.
 
 
-## Find workflows to run analyses
+### Find workflows to run analyses
 
 * At the botton left-hand corner, click on __"All_workflows"__ (under "Workflow" section)
 * You will find them bellow. Click on the one you want to use.
