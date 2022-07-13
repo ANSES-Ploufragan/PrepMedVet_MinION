@@ -249,6 +249,9 @@ ExecStart=/home/myuser/ont-guppy/bin/guppy_basecall_server --log_path /var/log/g
 
 (320 will run for both __HAC__ and SA models, therefore more prudent not to break everything, even if 640 may probably be used for __HAC__)
 
+> Note: for __duplex basecalling__, basecalling is made in __2 steps__, as described  [here](https://community.nanoporetech.com/info_sheets/kit-12-device-and-informatics/v/k12_s1018_v1_revb_01dec2021/basecalling-kit-12-simplex-data) 
+(decrease error rate, but high computing needs)
+                                                  
 * For __SA model__  set ```--chunks_per_runner 320``` (320 recommended for 12 GB GPU [here](https://community.nanoporetech.com/docs/prepare/library_prep_protocols/Guppy-protocol/v/gpb_2003_v1_revae_14dec2018/duplex-basecalling)).
 
 > The following calculation provides a rough ceiling to the amount of GPU memory that Guppy will use:
