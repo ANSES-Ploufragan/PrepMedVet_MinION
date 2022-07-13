@@ -242,9 +242,14 @@ Edit that service file
 ```
 ExecStart=/home/myuser/ont-guppy/bin/guppy_basecall_server <things> --chunks_per_runner 320 --chunk_size 2000 -x cuda:all
 ```
-for __SA model__
+that gives in our case using a __HAC__ model (we change config file to use specifically this model, more accurate than __fast__, the default one):
+```
+ExecStart=/home/myuser/ont-guppy/bin/guppy_basecall_server --log_path /var/log/guppy --config dna_r9.4.1_450bps_hac.cfg --num_callers 1 --cpu_threads_per_caller 2 --port /tmp/.guppy/5555 --ipc_threads 3 --chunks_per_runner 320 --chunk_size 2000 -x cuda:all
+```
 
-* Set ```--chunks_per_runner 640``` for __HAC model__ instead of ```--chunks_per_runner 320``` (320 recommended for 12 GB GPU [here](https://community.nanoporetech.com/docs/prepare/library_prep_protocols/Guppy-protocol/v/gpb_2003_v1_revae_14dec2018/duplex-basecalling)).
+(320 will run for both __HAC__ and SA models, therefore more prudent not to break everything, even if 640 may probably be used for __HAC__)
+
+* For __SA model__  set ```--chunks_per_runner 320``` (320 recommended for 12 GB GPU [here](https://community.nanoporetech.com/docs/prepare/library_prep_protocols/Guppy-protocol/v/gpb_2003_v1_revae_14dec2018/duplex-basecalling)).
 
 > The following calculation provides a rough ceiling to the amount of GPU memory that Guppy will use:
 
