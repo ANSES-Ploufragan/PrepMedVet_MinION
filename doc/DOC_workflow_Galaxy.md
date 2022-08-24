@@ -6,7 +6,6 @@ Workflow Galaxy PrepMedVet
 3. [V2: BIGTWO] (#V2)
 4. [V3] (#V3)
 
-[[_TOC_]]
 
 # Log in and data loading
 
