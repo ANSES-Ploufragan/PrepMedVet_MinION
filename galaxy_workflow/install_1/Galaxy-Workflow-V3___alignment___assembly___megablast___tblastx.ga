@@ -20,14 +20,14 @@
             "name": "Input dataset",
             "outputs": [],
             "position": {
-                "bottom": 431.1999969482422,
+                "bottom": 110.19999694824219,
                 "height": 82.19999694824219,
-                "left": -15,
-                "right": 185,
-                "top": 349,
+                "left": -1021.5,
+                "right": -821.5,
+                "top": 28,
                 "width": 200,
-                "x": -15,
-                "y": 349
+                "x": -1021.5,
+                "y": 28
             },
             "tool_id": null,
             "tool_state": "{\"optional\": false}",
@@ -52,14 +52,14 @@
             "name": "Input dataset",
             "outputs": [],
             "position": {
-                "bottom": 171.1999969482422,
+                "bottom": -149.8000030517578,
                 "height": 82.19999694824219,
-                "left": -581,
-                "right": -381,
-                "top": 89,
+                "left": -1587.5,
+                "right": -1387.5,
+                "top": -232,
                 "width": 200,
-                "x": -581,
-                "y": 89
+                "x": -1587.5,
+                "y": -232
             },
             "tool_id": null,
             "tool_state": "{\"optional\": false}",
@@ -89,14 +89,14 @@
                 }
             ],
             "position": {
-                "bottom": 202.1999969482422,
+                "bottom": -118.80000305175781,
                 "height": 93.19999694824219,
-                "left": -356,
-                "right": -156,
-                "top": 109,
+                "left": -1362.5,
+                "right": -1162.5,
+                "top": -212,
                 "width": 200,
-                "x": -356,
-                "y": 109
+                "x": -1362.5,
+                "y": -212
             },
             "post_job_actions": {
                 "HideDatasetActionout_file1": {
@@ -133,14 +133,14 @@
                 }
             ],
             "position": {
-                "bottom": 253.60000610351562,
+                "bottom": -67.39999389648438,
                 "height": 113.60000610351562,
-                "left": -128,
-                "right": 72,
-                "top": 140,
+                "left": -1134.5,
+                "right": -934.5,
+                "top": -181,
                 "width": 200,
-                "x": -128,
-                "y": 140
+                "x": -1134.5,
+                "y": -181
             },
             "post_job_actions": {
                 "HideDatasetActionoutfile": {
@@ -183,14 +183,14 @@
                 }
             ],
             "position": {
-                "bottom": 305,
+                "bottom": -16,
                 "height": 134,
-                "left": 109,
-                "right": 309,
-                "top": 171,
+                "left": -897.5,
+                "right": -697.5,
+                "top": -150,
                 "width": 200,
-                "x": 109,
-                "y": 171
+                "x": -897.5,
+                "y": -150
             },
             "post_job_actions": {},
             "tool_id": "toolshed.g2.bx.psu.edu/repos/devteam/ncbi_blast_plus/ncbi_blastdbcmd_wrapper/2.10.1+galaxy0",
@@ -208,7 +208,7 @@
                 {
                     "label": "Sequences from blastdbcmd \n''\n",
                     "output_name": "seq",
-                    "uuid": "5ba67c9f-799d-40f0-afbf-5699717c2cc8"
+                    "uuid": "e058505b-bad1-4478-b6f2-c891ae1555c0"
                 }
             ]
         },
@@ -237,14 +237,14 @@
                 }
             ],
             "position": {
-                "bottom": 448.6000061035156,
+                "bottom": 127.60000610351562,
                 "height": 225.60000610351562,
-                "left": 354,
-                "right": 554,
-                "top": 223,
+                "left": -652.5,
+                "right": -452.5,
+                "top": -98,
                 "width": 200,
-                "x": 354,
-                "y": 223
+                "x": -652.5,
+                "y": -98
             },
             "post_job_actions": {
                 "HideDatasetActionalignment_output": {
@@ -287,14 +287,14 @@
                 }
             ],
             "position": {
-                "bottom": 500.6000061035156,
+                "bottom": 179.60000610351562,
                 "height": 113.60000610351562,
-                "left": 609,
-                "right": 809,
-                "top": 387,
+                "left": -397.5,
+                "right": -197.5,
+                "top": 66,
                 "width": 200,
-                "x": 609,
-                "y": 387
+                "x": -397.5,
+                "y": 66
             },
             "post_job_actions": {},
             "tool_id": "toolshed.g2.bx.psu.edu/repos/iuc/samtools_fastx/samtools_fastx/1.13",
@@ -312,7 +312,7 @@
                 {
                     "label": "input dataset(s) converted to fasta",
                     "output_name": "output",
-                    "uuid": "d6defb2c-ef6d-4cbc-9639-49e18c6db250"
+                    "uuid": "b39d800e-4f1d-4389-a841-25eaa546ee3e"
                 }
             ]
         },
@@ -327,12 +327,7 @@
                     "output_name": "output"
                 }
             },
-            "inputs": [
-                {
-                    "description": "runtime parameter for tool Flye",
-                    "name": "inputs"
-                }
-            ],
+            "inputs": [],
             "label": null,
             "name": "Flye",
             "outputs": [
@@ -354,14 +349,14 @@
                 }
             ],
             "position": {
-                "bottom": 725.3999938964844,
+                "bottom": 404.3999938964844,
                 "height": 286.3999938964844,
-                "left": 857,
-                "right": 1057,
-                "top": 439,
+                "left": -149.5,
+                "right": 50.5,
+                "top": 118,
                 "width": 200,
-                "x": 857,
-                "y": 439
+                "x": -149.5,
+                "y": 118
             },
             "post_job_actions": {
                 "HideDatasetActionassembly_gfa": {
@@ -382,7 +377,7 @@
                 "owner": "bgruening",
                 "tool_shed": "toolshed.g2.bx.psu.edu"
             },
-            "tool_state": "{\"asm\": {\"asm_select\": \"false\", \"__current_case__\": 1}, \"generate_log\": \"false\", \"inputs\": {\"__class__\": \"RuntimeValue\"}, \"iterations\": \"1\", \"keep_haplotypes\": \"false\", \"meta\": \"true\", \"min_overlap\": null, \"mode_conditional\": {\"mode\": \"--nano-raw\", \"__current_case__\": 0}, \"scaffold\": \"false\", \"__page__\": null, \"__rerun_remap_job_id__\": null}",
+            "tool_state": "{\"asm\": {\"asm_select\": \"false\", \"__current_case__\": 1}, \"generate_log\": \"false\", \"inputs\": {\"__class__\": \"ConnectedValue\"}, \"iterations\": \"1\", \"keep_haplotypes\": \"false\", \"meta\": \"true\", \"min_overlap\": null, \"mode_conditional\": {\"mode\": \"--nano-raw\", \"__current_case__\": 0}, \"scaffold\": \"false\", \"__page__\": null, \"__rerun_remap_job_id__\": null}",
             "tool_version": "2.9+galaxy0",
             "type": "tool",
             "uuid": "27ba7038-ebe2-478b-a770-9caf2c91f54f",
@@ -390,12 +385,12 @@
                 {
                     "label": "Flye on input dataset(s): assembly info",
                     "output_name": "assembly_info",
-                    "uuid": "bf3c87b1-91c8-43fa-8cf3-ab5493bd81ff"
+                    "uuid": "eed3ba7a-6a18-4942-80eb-a340ef9e3d2a"
                 },
                 {
                     "label": "Flye on input dataset(s): consensus",
                     "output_name": "consensus",
-                    "uuid": "732a8458-f898-4c8e-9f9f-51aab0dd71ad"
+                    "uuid": "dc4115c0-2b7f-4c13-af81-ba101062a90d"
                 }
             ]
         },
@@ -420,14 +415,14 @@
                 }
             ],
             "position": {
-                "bottom": 500.6000061035156,
+                "bottom": 180.60000610351562,
                 "height": 113.60000610351562,
-                "left": 1144,
-                "right": 1344,
-                "top": 387,
+                "left": 125.5,
+                "right": 325.5,
+                "top": 67,
                 "width": 200,
-                "x": 1144,
-                "y": 387
+                "x": 125.5,
+                "y": 67
             },
             "post_job_actions": {
                 "HideDatasetActionout_file1": {
@@ -464,14 +459,14 @@
                 }
             ],
             "position": {
-                "bottom": 725.3999938964844,
+                "bottom": 426.3999938964844,
                 "height": 154.39999389648438,
-                "left": 1143,
-                "right": 1343,
-                "top": 571,
+                "left": 124.5,
+                "right": 324.5,
+                "top": 272,
                 "width": 200,
-                "x": 1143,
-                "y": 571
+                "x": 124.5,
+                "y": 272
             },
             "post_job_actions": {
                 "HideDatasetActionoutput1": {
@@ -514,14 +509,14 @@
                 }
             ],
             "position": {
-                "bottom": 532.6000061035156,
+                "bottom": 211.60000610351562,
                 "height": 113.60000610351562,
-                "left": 1400,
-                "right": 1600,
-                "top": 419,
+                "left": 393.5,
+                "right": 593.5,
+                "top": 98,
                 "width": 200,
-                "x": 1400,
-                "y": 419
+                "x": 393.5,
+                "y": 98
             },
             "post_job_actions": {
                 "ChangeDatatypeActionoutput": {
@@ -547,7 +542,7 @@
                 {
                     "label": null,
                     "output_name": "output",
-                    "uuid": "7cb6ed42-5241-4d30-b5c5-0365d88d0f6c"
+                    "uuid": "a917f3be-600d-4b27-8942-70f1878f7e95"
                 }
             ]
         },
@@ -576,14 +571,14 @@
                 }
             ],
             "position": {
-                "bottom": 755,
+                "bottom": 434,
                 "height": 144,
-                "left": 1641,
-                "right": 1841,
-                "top": 611,
+                "left": 634.5,
+                "right": 834.5,
+                "top": 290,
                 "width": 200,
-                "x": 1641,
-                "y": 611
+                "x": 634.5,
+                "y": 290
             },
             "post_job_actions": {},
             "tool_id": "comp1",
@@ -595,7 +590,7 @@
                 {
                     "label": null,
                     "output_name": "out_file1",
-                    "uuid": "93a6b458-b7d2-44d7-8adb-a64000defa23"
+                    "uuid": "e7a7cbe0-9ff8-4949-86d2-14d7d1c57988"
                 }
             ]
         },
@@ -624,14 +619,14 @@
                 }
             ],
             "position": {
-                "bottom": 815.8000030517578,
+                "bottom": 486.8000030517578,
                 "height": 184.8000030517578,
-                "left": 1917,
-                "right": 2117,
-                "top": 631,
+                "left": 908.5,
+                "right": 1108.5,
+                "top": 302,
                 "width": 200,
-                "x": 1917,
-                "y": 631
+                "x": 908.5,
+                "y": 302
             },
             "post_job_actions": {},
             "tool_id": "toolshed.g2.bx.psu.edu/repos/galaxyp/filter_by_fasta_ids/filter_by_fasta_ids/2.3",
@@ -649,7 +644,7 @@
                 {
                     "label": "Filter FASTA on input dataset(s): FASTA sequences",
                     "output_name": "output",
-                    "uuid": "78c39fa3-71b1-4172-b66c-2e7dad61c39a"
+                    "uuid": "2482e768-b7ad-443a-b47d-1120622ee253"
                 }
             ]
         },
@@ -674,14 +669,14 @@
                 }
             ],
             "position": {
-                "bottom": 887.8999938964844,
+                "bottom": 566.8999938964844,
                 "height": 154.39999389648438,
-                "left": 2162,
-                "right": 2362,
-                "top": 733.5,
+                "left": 1155.5,
+                "right": 1355.5,
+                "top": 412.5,
                 "width": 200,
-                "x": 2162,
-                "y": 733.5
+                "x": 1155.5,
+                "y": 412.5
             },
             "post_job_actions": {},
             "tool_id": "toolshed.g2.bx.psu.edu/repos/devteam/ncbi_blast_plus/ncbi_tblastx_wrapper/2.10.1+galaxy0",
@@ -699,12 +694,12 @@
                 {
                     "label": null,
                     "output_name": "output1",
-                    "uuid": "2f65739f-b268-49dc-b2f9-0dd6bcc33aca"
+                    "uuid": "ce32c0fe-f6ad-4302-99f4-674c13f691ff"
                 }
             ]
         }
     },
     "tags": [],
-    "uuid": "2dd35363-7c79-448d-94c0-52f6ef608bf0",
-    "version": 18
+    "uuid": "57b1d969-25fa-4eba-b5bf-969dade3ab9c",
+    "version": 19
 }

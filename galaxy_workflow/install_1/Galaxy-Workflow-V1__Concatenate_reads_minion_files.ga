@@ -13,21 +13,21 @@
             "inputs": [
                 {
                     "description": "",
-                    "name": "Minion reads files"
+                    "name": "Reads files minion"
                 }
             ],
-            "label": "Minion reads files",
+            "label": "Reads files minion",
             "name": "Input dataset collection",
             "outputs": [],
             "position": {
-                "bottom": 451.3000030517578,
-                "height": 61.80000305175781,
-                "left": 545,
-                "right": 745,
-                "top": 389.5,
+                "bottom": 399.6999969482422,
+                "height": 82.19999694824219,
+                "left": 594,
+                "right": 794,
+                "top": 317.5,
                 "width": 200,
-                "x": 545,
-                "y": 389.5
+                "x": 594,
+                "y": 317.5
             },
             "tool_id": null,
             "tool_state": "{\"optional\": false, \"collection_type\": \"list\"}",
@@ -48,7 +48,7 @@
                 }
             },
             "inputs": [],
-            "label": "Concatenation des reads",
+            "label": "Concatenate reads files",
             "name": "Concatenate multiple datasets",
             "outputs": [
                 {
@@ -57,14 +57,14 @@
                 }
             ],
             "position": {
-                "bottom": 483.1000061035156,
+                "bottom": 435.1000061035156,
                 "height": 113.60000610351562,
-                "left": 789,
-                "right": 989,
-                "top": 369.5,
+                "left": 870,
+                "right": 1070,
+                "top": 321.5,
                 "width": 200,
-                "x": 789,
-                "y": 369.5
+                "x": 870,
+                "y": 321.5
             },
             "post_job_actions": {},
             "tool_id": "toolshed.g2.bx.psu.edu/repos/mvdbeek/concatenate_multiple_datasets/cat_multiple/0.2",
@@ -77,17 +77,17 @@
             "tool_state": "{\"input\": {\"__class__\": \"ConnectedValue\"}, \"__page__\": null, \"__rerun_remap_job_id__\": null}",
             "tool_version": "0.2",
             "type": "tool",
-            "uuid": "7cb41104-eed2-402a-9157-e4582f41de46",
+            "uuid": "aefb4a18-25a6-4830-a215-f43014fa5e53",
             "workflow_outputs": [
                 {
                     "label": null,
                     "output_name": "out_file1",
-                    "uuid": "f8a1fccd-3b73-4eb7-96fe-4170dc256765"
+                    "uuid": "7d2bf821-87d0-4e37-9a98-31682f9a630f"
                 }
             ]
         }
     },
     "tags": [],
-    "uuid": "157e4546-777c-4266-89fe-c5923f157d48",
-    "version": 7
+    "uuid": "921baf95-fc67-4011-970b-d5c742df0f9b",
+    "version": 13
 }
