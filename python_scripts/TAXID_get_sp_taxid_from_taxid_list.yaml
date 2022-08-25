@@ -1,0 +1,6 @@
+name: TAXID_get_sp_taxid_from_taxid_list
+channels:
+  - defaults
+dependencies:
+  - ete3
+  - natsort

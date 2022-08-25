@@ -209,6 +209,8 @@ sudo systemctl unmask guppyd.service
 ```
 You may then need to enable the service as described above.
 
+                                                  
+
 
 ### Setting GPU parameters for lower-memory graphics cards.
 
@@ -238,11 +240,19 @@ sudo systemctl edit guppyd.service --full
 Edit that service file 
 
 ```
-ExecStart=/home/myuser/ont-guppy/bin/guppy_basecall_server <things> --chunks_per_runner 160 --chunk_size 2000 -x cuda:all
+ExecStart=/home/myuser/ont-guppy/bin/guppy_basecall_server <things> --chunks_per_runner 320 --chunk_size 2000 -x cuda:all
 ```
-for __SA model__
+that gives in our case using a __HAC__ model (we change config file to use specifically this model, more accurate than __fast__, the default one):
+```
+ExecStart=/home/myuser/ont-guppy/bin/guppy_basecall_server --log_path /var/log/guppy --config dna_r9.4.1_450bps_hac.cfg --num_callers 1 --cpu_threads_per_caller 2 --port /tmp/.guppy/5555 --ipc_threads 3 --chunks_per_runner 320 --chunk_size 2000 -x cuda:all
+```
 
-* Set ```--chunks_per_runner 640``` for __HAC model__ instead of ```--chunks_per_runner 160```.
+(320 will run for both __HAC__ and SA models, therefore more prudent not to break everything, even if 640 may probably be used for __HAC__)
+
+> Note: for __duplex basecalling__, basecalling is made in __2 steps__, as described  [here](https://community.nanoporetech.com/info_sheets/kit-12-device-and-informatics/v/k12_s1018_v1_revb_01dec2021/basecalling-kit-12-simplex-data) 
+(decrease error rate, but high computing needs)
+                                                  
+* For __SA model__  set ```--chunks_per_runner 320``` (320 recommended for 12 GB GPU [here](https://community.nanoporetech.com/docs/prepare/library_prep_protocols/Guppy-protocol/v/gpb_2003_v1_revae_14dec2018/duplex-basecalling)).
 
 > The following calculation provides a rough ceiling to the amount of GPU memory that Guppy will use:
 
@@ -286,11 +296,57 @@ sudo service minknow start
 ```
 
 # To check all services available and their state
-(can help to check if guppyd and minkown service are avilable and enable)
+(can help to check if guppyd and minkown service are available and enable)
 
 ```
-sudo systemctl list-unit-files 
+sudo systemctl list-unit-files | grep guppyd.service
 ```
+
+
+# Troubleshooting
+
+If some part of the above process does not work, then it is possible the guppyd service may end up misconfigured, and may be automatically disabled by the system. There are a few diagnostic checks that can be performed.
+
+    If the service is not listed as "enabled", then it will either be marked as "disabled" or "masked". You can reset those statuses as described below. If the service is marked as "disabled":
+
+```
+sudo systemctl enable guppyd.service
+```
+
+If the service is marked as "masked":
+
+```
+sudo systemctl unmask guppyd.service
+```
+
+
+You may then need to enable the service as described above.
+Reinstall the service:
+
+```
+sudo apt install --reinstall ont-guppyd-for-minion
+sudo systemctl revert guppyd.service
+sudo service guppyd restart
+```
+Once done, it has replace guppy_gpu by guppy_cpu, you need to reinstall guppy_gpu using:
+```
+sudo apt install --reinstall ont-guppy
+```
+
+You will then need to repeat the above step to rename the guppyd override.conf file.
+
+
+# ensure of MinKNOW and guppy_gpu version matching
+
+```
+/usr/bin/guppy_basecall_server --version
+```
+
+must provide the same version as
+```
+/opt/ont/guppy/bin/guppy_basecaller --version
+```
+> in our case, both are: __6.2.1+6588110a6__
 
 # Make MinKNOW able to work offline
 
