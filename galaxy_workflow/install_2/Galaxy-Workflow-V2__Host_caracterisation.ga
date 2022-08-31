@@ -20,14 +20,14 @@
             "name": "Input dataset",
             "outputs": [],
             "position": {
-                "bottom": 249.8000030517578,
+                "bottom": 270.3000030517578,
                 "height": 61.80000305175781,
-                "left": -211,
-                "right": -11,
-                "top": 188,
+                "left": 205.5,
+                "right": 405.5,
+                "top": 208.5,
                 "width": 200,
-                "x": -211,
-                "y": 188
+                "x": 205.5,
+                "y": 208.5
             },
             "tool_id": null,
             "tool_state": "{\"optional\": false}",
@@ -52,14 +52,14 @@
             "name": "Input dataset",
             "outputs": [],
             "position": {
-                "bottom": 438.8000030517578,
+                "bottom": 459.3000030517578,
                 "height": 61.80000305175781,
-                "left": 761,
-                "right": 961,
-                "top": 377,
+                "left": 1177.5,
+                "right": 1377.5,
+                "top": 397.5,
                 "width": 200,
-                "x": 761,
-                "y": 377
+                "x": 1177.5,
+                "y": 397.5
             },
             "tool_id": null,
             "tool_state": "{\"optional\": false}",
@@ -91,6 +91,10 @@
                 {
                     "description": "runtime parameter for tool filtlong",
                     "name": "external_references"
+                },
+                {
+                    "description": "runtime parameter for tool filtlong",
+                    "name": "input_file"
                 }
             ],
             "label": null,
@@ -102,14 +106,14 @@
                 }
             ],
             "position": {
-                "bottom": 413.1999969482422,
+                "bottom": 433.6999969482422,
                 "height": 225.1999969482422,
-                "left": 17,
-                "right": 217,
-                "top": 188,
+                "left": 433.5,
+                "right": 633.5,
+                "top": 208.5,
                 "width": 200,
-                "x": 17,
-                "y": 188
+                "x": 433.5,
+                "y": 208.5
             },
             "post_job_actions": {},
             "tool_id": "toolshed.g2.bx.psu.edu/repos/iuc/filtlong/filtlong/0.2.0+galaxy1",
@@ -119,15 +123,15 @@
                 "owner": "iuc",
                 "tool_shed": "toolshed.g2.bx.psu.edu"
             },
-            "tool_state": "{\"external_references\": {\"assembly\": {\"__class__\": \"RuntimeValue\"}, \"illumina_1\": {\"__class__\": \"RuntimeValue\"}, \"illumina_2\": {\"__class__\": \"RuntimeValue\"}}, \"input_file\": {\"__class__\": \"ConnectedValue\"}, \"other\": {\"window_size\": \"250\"}, \"output_thresholds\": {\"target_bases\": \"3000000\", \"keep_percent\": null, \"min_length\": \"500\", \"min_mean_q\": \"7.0\", \"min_window_q\": null}, \"read_manipulation\": {\"trim\": \"false\", \"split\": null}, \"score_weights\": {\"length_weight\": \"1.0\", \"mean_q_weight\": \"1.0\", \"window_q_weight\": \"1.0\"}, \"__page__\": null, \"__rerun_remap_job_id__\": null}",
+            "tool_state": "{\"external_references\": {\"assembly\": {\"__class__\": \"RuntimeValue\"}, \"illumina_1\": {\"__class__\": \"RuntimeValue\"}, \"illumina_2\": {\"__class__\": \"RuntimeValue\"}}, \"input_file\": {\"__class__\": \"RuntimeValue\"}, \"other\": {\"window_size\": \"250\"}, \"output_thresholds\": {\"target_bases\": \"3000000\", \"keep_percent\": null, \"min_length\": \"50\", \"min_mean_q\": \"7.0\", \"min_window_q\": null}, \"read_manipulation\": {\"trim\": \"false\", \"split\": null}, \"score_weights\": {\"length_weight\": \"1.0\", \"mean_q_weight\": \"1.0\", \"window_q_weight\": \"1.0\"}, \"__page__\": null, \"__rerun_remap_job_id__\": null}",
             "tool_version": "0.2.0+galaxy1",
             "type": "tool",
-            "uuid": "d4efce06-5ae9-4636-ad1e-db1dbfb97df6",
+            "uuid": "2ad457f0-9c53-44d6-bd39-fc385375e500",
             "workflow_outputs": [
                 {
                     "label": "filtlong on input dataset(s): Filtered FASTQ",
                     "output_name": "outfile",
-                    "uuid": "843e94f4-1cbd-4792-9567-eb1b23ed750c"
+                    "uuid": "f92656ef-99b9-479a-93c4-28ae01e63428"
                 }
             ]
         },
@@ -157,14 +161,14 @@
                 }
             ],
             "position": {
-                "bottom": 495,
+                "bottom": 515.5,
                 "height": 144,
-                "left": 252,
-                "right": 452,
-                "top": 351,
+                "left": 668.5,
+                "right": 868.5,
+                "top": 371.5,
                 "width": 200,
-                "x": 252,
-                "y": 351
+                "x": 668.5,
+                "y": 371.5
             },
             "post_job_actions": {},
             "tool_id": "toolshed.g2.bx.psu.edu/repos/iuc/seqtk/seqtk_seq/1.3.3",
@@ -182,7 +186,7 @@
                 {
                     "label": null,
                     "output_name": "default",
-                    "uuid": "f85957c8-e9b2-43df-bc18-730440775f6e"
+                    "uuid": "5dc25e82-cee3-4d2e-a2d0-3cd0043d7e21"
                 }
             ]
         },
@@ -207,14 +211,14 @@
                 }
             ],
             "position": {
-                "bottom": 566.3999938964844,
+                "bottom": 586.8999938964844,
                 "height": 154.39999389648438,
-                "left": 501,
-                "right": 701,
-                "top": 412,
+                "left": 917.5,
+                "right": 1117.5,
+                "top": 432.5,
                 "width": 200,
-                "x": 501,
-                "y": 412
+                "x": 917.5,
+                "y": 432.5
             },
             "post_job_actions": {},
             "tool_id": "toolshed.g2.bx.psu.edu/repos/devteam/ncbi_blast_plus/ncbi_blastn_wrapper/2.10.1+galaxy0",
@@ -232,7 +236,7 @@
                 {
                     "label": null,
                     "output_name": "output1",
-                    "uuid": "e27ee8b0-fa7d-4cbc-8425-d6366acbc915"
+                    "uuid": "57bad8fa-25b3-4a0f-8ccc-4d2d50112d62"
                 }
             ]
         },
@@ -257,14 +261,14 @@
                 }
             ],
             "position": {
-                "bottom": 362.6000061035156,
+                "bottom": 383.1000061035156,
                 "height": 113.60000610351562,
-                "left": 756,
-                "right": 956,
-                "top": 249,
+                "left": 1172.5,
+                "right": 1372.5,
+                "top": 269.5,
                 "width": 200,
-                "x": 756,
-                "y": 249
+                "x": 1172.5,
+                "y": 269.5
             },
             "post_job_actions": {},
             "tool_id": "toolshed.g2.bx.psu.edu/repos/crs4/taxonomy_krona_chart/taxonomy_krona_chart/2.7.1+galaxy0",
@@ -282,7 +286,7 @@
                 {
                     "label": "Krona pie chart on input dataset(s): HTML",
                     "output_name": "output",
-                    "uuid": "fed2de5e-b5f1-4015-9f2b-f562de51055a"
+                    "uuid": "c5bae87c-f830-495d-ab60-38bfd4362999"
                 }
             ]
         },
@@ -307,14 +311,14 @@
                 }
             ],
             "position": {
-                "bottom": 772.6000061035156,
+                "bottom": 793.1000061035156,
                 "height": 113.60000610351562,
-                "left": 737,
-                "right": 937,
-                "top": 659,
+                "left": 1153.5,
+                "right": 1353.5,
+                "top": 679.5,
                 "width": 200,
-                "x": 737,
-                "y": 659
+                "x": 1153.5,
+                "y": 679.5
             },
             "post_job_actions": {
                 "ChangeDatatypeActionoutput": {
@@ -340,7 +344,7 @@
                 {
                     "label": null,
                     "output_name": "output",
-                    "uuid": "eafd0a1e-5a86-40ae-a74b-b2c3eabfd471"
+                    "uuid": "e48adb39-5300-417d-bdfa-b88ca73842ab"
                 }
             ]
         },
@@ -364,14 +368,14 @@
             "name": "Catch gi to DL ref",
             "outputs": [],
             "position": {
-                "bottom": 596.6000061035156,
+                "bottom": 617.1000061035156,
                 "height": 123.60000610351562,
-                "left": 965,
-                "right": 1165,
-                "top": 473,
+                "left": 1381.5,
+                "right": 1581.5,
+                "top": 493.5,
                 "width": 200,
-                "x": 965,
-                "y": 473
+                "x": 1381.5,
+                "y": 493.5
             },
             "subworkflow": {
                 "a_galaxy_workflow": "true",
@@ -754,7 +758,7 @@
                 {
                     "label": null,
                     "output_name": "7:output",
-                    "uuid": "cebdbf5f-30cf-47ca-a3b0-cee232fae5db"
+                    "uuid": "657d8d27-04b0-488f-9ea6-261528579589"
                 }
             ]
         },
@@ -787,14 +791,14 @@
                 }
             ],
             "position": {
-                "bottom": 785.7000122070312,
+                "bottom": 806.2000122070312,
                 "height": 419.20001220703125,
-                "left": 1234,
-                "right": 1434,
-                "top": 366.5,
+                "left": 1650.5,
+                "right": 1850.5,
+                "top": 387,
                 "width": 200,
-                "x": 1234,
-                "y": 366.5
+                "x": 1650.5,
+                "y": 387
             },
             "post_job_actions": {},
             "tool_id": "testtoolshed.g2.bx.psu.edu/repos/p.lucas/megablast_tab_select_acc_under_taxids/MEGABLAST_TAB_select_acc_under_taxids/1",
@@ -812,12 +816,12 @@
                 {
                     "label": "TAXID IN of Get acc number from MEGABLAST_TAB_get_acc_taxid and taxid user on input dataset(s)",
                     "output_name": "output_in",
-                    "uuid": "60b35582-5825-46d5-ae27-8e848cb390ea"
+                    "uuid": "645e4c32-dfc2-45f4-a178-c9abba51bdd3"
                 },
                 {
                     "label": "TAXID OUT Get acc number from MEGABLAST_TAB_get_acc_taxid and taxid user on input dataset(s)",
                     "output_name": "output_out",
-                    "uuid": "0732af4c-dd28-4b8b-8454-9a3255c0048b"
+                    "uuid": "f74cf104-3e41-4ff5-bd67-62688e82cd17"
                 }
             ]
         },
@@ -842,14 +846,14 @@
                 }
             ],
             "position": {
-                "bottom": 722,
+                "bottom": 742.5,
                 "height": 134,
-                "left": 1485,
-                "right": 1685,
-                "top": 588,
+                "left": 1901.5,
+                "right": 2101.5,
+                "top": 608.5,
                 "width": 200,
-                "x": 1485,
-                "y": 588
+                "x": 1901.5,
+                "y": 608.5
             },
             "post_job_actions": {},
             "tool_id": "toolshed.g2.bx.psu.edu/repos/devteam/ncbi_blast_plus/ncbi_blastdbcmd_wrapper/2.10.1+galaxy0",
@@ -867,12 +871,12 @@
                 {
                     "label": "Sequences from blastdbcmd \n''\n",
                     "output_name": "seq",
-                    "uuid": "4e116cc1-852b-44df-bbae-64b62416ed67"
+                    "uuid": "721d6ff7-a415-45b7-a122-59fffacd2d1f"
                 }
             ]
         }
     },
     "tags": [],
-    "uuid": "df3afc61-6828-4772-9295-fbacef2e72c5",
-    "version": 3
+    "uuid": "b1f95659-1863-451a-81c6-abe104951064",
+    "version": 4
 }
