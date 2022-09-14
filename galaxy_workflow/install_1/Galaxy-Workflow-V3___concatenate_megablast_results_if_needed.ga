@@ -20,21 +20,27 @@
             "name": "Input dataset",
             "outputs": [],
             "position": {
-                "bottom": 508.1999969482422,
+                "bottom": 596.1999969482422,
                 "height": 82.19999694824219,
-                "left": 629,
-                "right": 829,
-                "top": 426,
+                "left": 917,
+                "right": 1117,
+                "top": 514,
                 "width": 200,
-                "x": 629,
-                "y": 426
+                "x": 917,
+                "y": 514
             },
             "tool_id": null,
             "tool_state": "{\"optional\": false}",
             "tool_version": null,
             "type": "data_input",
             "uuid": "f1e23e61-456d-4c1f-bbbf-e310ed806f4c",
-            "workflow_outputs": []
+            "workflow_outputs": [
+                {
+                    "label": null,
+                    "output_name": "output",
+                    "uuid": "25f98afb-d145-457d-8264-644d92ea85a1"
+                }
+            ]
         },
         "1": {
             "annotation": "",
@@ -52,21 +58,27 @@
             "name": "Input dataset",
             "outputs": [],
             "position": {
-                "bottom": 607.6999969482422,
+                "bottom": 695.6999969482422,
                 "height": 82.19999694824219,
-                "left": 628,
-                "right": 828,
-                "top": 525.5,
+                "left": 916,
+                "right": 1116,
+                "top": 613.5,
                 "width": 200,
-                "x": 628,
-                "y": 525.5
+                "x": 916,
+                "y": 613.5
             },
             "tool_id": null,
             "tool_state": "{\"optional\": false}",
             "tool_version": null,
             "type": "data_input",
             "uuid": "8ca1e437-3904-44f5-a814-c955e8dead1f",
-            "workflow_outputs": []
+            "workflow_outputs": [
+                {
+                    "label": null,
+                    "output_name": "output",
+                    "uuid": "73445280-0469-4866-b0d8-6331fbf7af2b"
+                }
+            ]
         },
         "2": {
             "annotation": "",
@@ -93,14 +105,14 @@
                 }
             ],
             "position": {
-                "bottom": 589,
+                "bottom": 677,
                 "height": 144,
-                "left": 943,
-                "right": 1143,
-                "top": 445,
+                "left": 1231,
+                "right": 1431,
+                "top": 533,
                 "width": 200,
-                "x": 943,
-                "y": 445
+                "x": 1231,
+                "y": 533
             },
             "post_job_actions": {},
             "tool_id": "toolshed.g2.bx.psu.edu/repos/bgruening/text_processing/tp_easyjoin_tool/1.1.2",
@@ -114,10 +126,16 @@
             "tool_version": "1.1.2",
             "type": "tool",
             "uuid": "ef54e190-ef0a-4733-abe7-d98bade8ba33",
-            "workflow_outputs": []
+            "workflow_outputs": [
+                {
+                    "label": null,
+                    "output_name": "output",
+                    "uuid": "0645bcef-65da-4b5a-8569-b4322abde602"
+                }
+            ]
         }
     },
     "tags": [],
-    "uuid": "58b3a6e4-1db3-4f12-bb10-fa78c53c45d0",
-    "version": 2
+    "uuid": "695d5d6a-7667-4890-8808-0f53ec0894b8",
+    "version": 3
 }
