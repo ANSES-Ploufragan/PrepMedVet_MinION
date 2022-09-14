@@ -71,6 +71,11 @@ If using `root-dir`:
 
 ### Optional variables ###
 
+The `galaxy_config_perms` option controls the permissions that Galaxy configuration files will be set to. This option
+has been added in version 0.9.18 of the role and the default value is `0640` (user read-write, group read-only, other
+users have no permissions). **In older versions, the role did not control the permissions of configuration files, so be
+aware that your configuration file permissions may change as of 0.9.18 and later.**
+
 **Layout control**
 
 - `galaxy_layout`: available layouts can be found in the [vars/][vars] subdirectory and possible values include:
@@ -355,10 +360,10 @@ Install Galaxy on your local system with all the default options:
   connection: local
   roles:
      - galaxyproject.galaxy
-```  
-  
+```
+
 If your Ansible version >= 2.10.4, then when you run `ansible-playbook playbook.yml` you should supply an extra argument `-u $USER`, otherwise you will get an error.
-  
+
 Once installed, you can start with:
 
 ```console
@@ -467,4 +472,4 @@ This role was written and contributed to by the following people:
 - [Simon Belluzzo](https://github.com/simonalpha)
 - [John Chilton](https://github.com/jmchilton)
 - [Nate Coraor](https://github.com/natefoo)
-- [Helena Rasche](https://github.com/erasche)
+- [Helena Rasche](https://github.com/hexylena)
