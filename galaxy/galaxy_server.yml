@@ -9,16 +9,16 @@
       copy:
         src: files/proxy/proxy.sh
         dest: /etc/profile.d/proxy.sh
-        owner: admin
-        group: admin
+        owner: root
+        group: root
         mode: '0755'
 
     - name: copy proxy apt
       copy:
         src: files/proxy/80proxy
         dest: /etc/apt/apt.conf.d/80proxy
-        owner: admin
-        group: admin
+        owner: root
+        group: root
         mode: '0755'
 
 - hosts: galaxyservers
@@ -41,13 +41,13 @@
             owner: root
             group: root
 
-      - name: Create tools-date
-        file:
-          path: "/srv/galaxy/tools-data"     
-          state: directory
-          owner: galaxy
-          group: galaxy
-          mode: 0777
+            #    - name: Create tools-date
+            #      file:
+            #        path: "/srv/galaxy/tools-data"     
+            #        state: directory
+            #        owner: galaxy
+            #        group: galaxy
+            #        mode: 0777
 
   roles:
     - galaxyproject.postgresql

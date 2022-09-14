@@ -1,865 +1,247 @@
-test
-- name: 'beast'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-
-  owner: 'malex'
-  revisions:
-  - 2ca3df65222b
-- name: 'nanoplot'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'nanopore'
-  owner: 'iuc'
-  revisions:
-  - edbb6c5028f5
-- name: 'minimap2'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'nanopore'
-  owner: 'iuc'
-  revisions:
-  - 6b1e195506a3
-- name: 'pycoqc'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'nanopore'
-  owner: 'iuc'
-  revisions:
-  - 3a2f2e24c37e
-- name: 'nanofilt'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'nanopore'
-  owner: 'leomrtns'
-  revisions:
-  - a2c318b04f49
-- name: 'fast_bonito_0_2_2'
-  tool_shed_url: https://testtoolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'nanopore'
-  owner: 'f.touzain'
-  revisions:
-  - 873233d3956d
-- name: 'filtlong'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'nanopore'
-  owner: 'iuc'
-  revisions:
-  - a72af9de6bf5
-- name: 'canu'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'nanopore'
-  owner: 'bgruening'
-  revisions:
-  - 86f150c8019d
-- name: 'flye'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'nanopore'
-  owner: 'bgruening'
-  revisions:
-  - 276f5d8712d5
-- name: 'medaka_consensus'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'nanopore'
-  owner: 'iuc'
-  revisions:
-  - b2aae698b9d3
-- name: 'medaka_consensus_pipeline'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'nanopore'
-  owner: 'iuc'
-  revisions:
-  - 72b5e9dda577
-- name: 'medaka_variant'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'nanopore'
-  owner: 'iuc'
-  revisions:
-  - 222669c4afb6
-- name: 'medaka_variant_pipeline'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'nanopore'
-  owner: 'iuc'
-  revisions:
-  - 3fbefde449bc
-- name: 'bam_to_sam'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'alignments'
-  owner: 'devteam'
-  revisions:
-  - af7c50162f0b
-- name: 'bam_to_sam'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'alignments'
-  owner: 'devteam'
-  revisions:
-  - af7c50162f0b
-- name: 'sam_to_bam'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'alignments'
-  owner: 'devteam'
-  revisions:
-  - d04d9f1c6791
-- name: 'sam_to_bam'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'alignments'
-  owner: 'devteam'
-  revisions:
-  - d04d9f1c6791
-- name: 'samtools_bedcov'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'alignments'
-  owner: 'devteam'
-  revisions:
-  - 8c3472790020
-- name: 'samtools_bedcov'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'alignments'
-  owner: 'devteam'
-  revisions:
-  - 8c3472790020
-- name: 'samtools_calmd'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'alignments'
-  owner: 'devteam'
-  revisions:
-  - 1ebb4ecdc1ef
-- name: 'samtools_calmd'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'alignments'
-  owner: 'devteam'
-  revisions:
-  - 1ebb4ecdc1ef
-- name: 'samtools_flagstat'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'alignments'
-  owner: 'devteam'
-  revisions:
-  - 0072bf593791
-- name: 'samtools_flagstat'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'alignments'
-  owner: 'devteam'
-  revisions:
-  - 0072bf593791
-- name: 'samtools_idxstats'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'alignments'
-  owner: 'devteam'
-  revisions:
-  - 87398ae795c7
-- name: 'samtools_idxstats'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'alignments'
-  owner: 'devteam'
-  revisions:
-  - 87398ae795c7
-- name: 'samtools_reheader'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'alignments'
-  owner: 'devteam'
-  revisions:
-  - 020e144b5f78
-- name: 'samtools_mpileup'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'alignments'
-  owner: 'devteam'
-  revisions:
-  - aa0ef6f0ee89
-- name: 'samtools_reheader'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'alignments'
-  owner: 'devteam'
-  revisions:
-  - 020e144b5f78
-- name: 'samtools_rmdup'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'alignments'
-  owner: 'devteam'
-  revisions:
-  - 3735f950b2f5
-- name: 'samtools_rmdup'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'alignments'
-  owner: 'devteam'
-  revisions:
-  - 3735f950b2f5
-- name: 'samtools_slice_bam'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'alignments'
-  owner: 'devteam'
-  revisions:
-  - 2b474ebbfc7d
-- name: 'samtools_slice_bam'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'alignments'
-  owner: 'devteam'
-  revisions:
-  - 2b474ebbfc7d
-- name: 'samtools_sort'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'alignments'
-  owner: 'devteam'
-  revisions:
-  - a430da4f04cd
-- name: 'samtools_sort'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'alignments'
-  owner: 'devteam'
-  revisions:
-  - a430da4f04cd
-- name: 'samtools_split'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'alignments'
-  owner: 'devteam'
-  revisions:
-  - 57f3e32f809d
-- name: 'samtools_stats'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'alignments'
-  owner: 'devteam'
-  revisions:
-  - 8cfc17e27132
-- name: 'samtools_split'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'alignments'
-  owner: 'devteam'
-  revisions:
-  - 57f3e32f809d
-- name: 'samtools_stats'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'alignments'
-  owner: 'devteam'
-  revisions:
-  - 8cfc17e27132
-- name: 'bedtools'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'alignments'
-  owner: 'iuc'
-  revisions:
-  - a68aa6c1204a
-- name: 'bedtools'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'alignments'
-  owner: 'iuc'
-  revisions:
-  - a68aa6c1204a
-- name: 'bedtools'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'alignments'
-  owner: 'iuc'
-  revisions:
-  - a68aa6c1204a
-- name: 'bedtools'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'alignments'
-  owner: 'iuc'
-  revisions:
-  - a68aa6c1204a
-- name: 'bedtools'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'alignments'
-  owner: 'iuc'
-  revisions:
-  - a68aa6c1204a
-- name: 'bedtools'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'alignments'
-  owner: 'iuc'
-  revisions:
-  - a68aa6c1204a
-- name: 'bedtools'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'alignments'
-  owner: 'iuc'
-  revisions:
-  - a68aa6c1204a
-- name: 'bedtools'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'alignments'
-  owner: 'iuc'
-  revisions:
-  - a68aa6c1204a
-- name: 'bedtools'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'alignments'
-  owner: 'iuc'
-  revisions:
-  - a68aa6c1204a
-- name: 'bedtools'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'alignments'
-  owner: 'iuc'
-  revisions:
-  - a68aa6c1204a
-- name: 'bedtools'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'alignments'
-  owner: 'iuc'
-  revisions:
-  - a68aa6c1204a
-- name: 'bedtools'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'alignments'
-  owner: 'iuc'
-  revisions:
-  - a68aa6c1204a
-- name: 'bedtools'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'alignments'
-  owner: 'iuc'
-  revisions:
-  - a68aa6c1204a
-- name: 'bedtools'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'alignments'
-  owner: 'iuc'
-  revisions:
-  - a68aa6c1204a
-- name: 'bedtools'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'alignments'
-  owner: 'iuc'
-  revisions:
-  - a68aa6c1204a
-- name: 'bedtools'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'alignments'
-  owner: 'iuc'
-  revisions:
-  - a68aa6c1204a
-- name: 'bedtools'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'alignments'
-  owner: 'iuc'
-  revisions:
-  - a68aa6c1204a
-- name: 'bedtools'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'alignments'
-  owner: 'iuc'
-  revisions:
-  - a68aa6c1204a
-- name: 'bedtools'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'alignments'
-  owner: 'iuc'
-  revisions:
-  - a68aa6c1204a
-- name: 'bedtools'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'alignments'
-  owner: 'iuc'
-  revisions:
-  - a68aa6c1204a
-- name: 'bedtools'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'alignments'
-  owner: 'iuc'
-  revisions:
-  - a68aa6c1204a
-- name: 'bedtools'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'alignments'
-  owner: 'iuc'
-  revisions:
-  - a68aa6c1204a
-- name: 'bedtools'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'alignments'
-  owner: 'iuc'
-  revisions:
-  - a68aa6c1204a
-- name: 'bedtools'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'alignments'
-  owner: 'iuc'
-  revisions:
-  - a68aa6c1204a
-- name: 'bedtools'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'alignments'
-  owner: 'iuc'
-  revisions:
-  - a68aa6c1204a
-- name: 'bedtools'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'alignments'
-  owner: 'iuc'
-  revisions:
-  - a68aa6c1204a
-- name: 'bedtools'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'alignments'
-  owner: 'iuc'
-  revisions:
-  - a68aa6c1204a
-- name: 'bedtools'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'alignments'
-  owner: 'iuc'
-  revisions:
-  - a68aa6c1204a
-- name: 'bedtools'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'alignments'
-  owner: 'iuc'
-  revisions:
-  - a68aa6c1204a
-- name: 'bedtools'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'alignments'
-  owner: 'iuc'
-  revisions:
-  - a68aa6c1204a
-- name: 'bedtools'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'alignments'
-  owner: 'iuc'
-  revisions:
-  - a68aa6c1204a
-- name: 'bedtools'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'alignments'
-  owner: 'iuc'
-  revisions:
-  - a68aa6c1204a
-- name: 'bedtools'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'alignments'
-  owner: 'iuc'
-  revisions:
-  - a68aa6c1204a
-- name: 'bedtools'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'alignments'
-  owner: 'iuc'
-  revisions:
-  - a68aa6c1204a
-- name: 'bedtools'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'alignments'
-  owner: 'iuc'
-  revisions:
-  - a68aa6c1204a
-- name: 'bedtools'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'alignments'
-  owner: 'iuc'
-  revisions:
-  - a68aa6c1204a
-- name: 'bedtools'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'alignments'
-  owner: 'iuc'
-  revisions:
-  - a68aa6c1204a
-- name: 'mash'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'alignments'
-  owner: 'iuc'
-  revisions:
-  - 86dec4abcea8
-- name: 'seqtk'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'alignments'
-  owner: 'iuc'
-  revisions:
-  - 3da72230c066
-- name: 'seqtk'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'alignments'
-  owner: 'iuc'
-  revisions:
-  - 3da72230c066
-- name: 'seqtk'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'alignments'
-  owner: 'iuc'
-  revisions:
-  - 3da72230c066
-- name: 'seqtk'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'alignments'
-  owner: 'iuc'
-  revisions:
-  - 3da72230c066
-- name: 'seqtk'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'alignments'
-  owner: 'iuc'
-  revisions:
-  - 3da72230c066
-- name: 'seqtk'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'alignments'
-  owner: 'iuc'
-  revisions:
-  - 3da72230c066
-- name: 'seqtk'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'alignments'
-  owner: 'iuc'
-  revisions:
-  - 3da72230c066
-- name: 'seqtk'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'alignments'
-  owner: 'iuc'
-  revisions:
-  - 3da72230c066
-- name: 'seqtk'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'alignments'
-  owner: 'iuc'
-  revisions:
-  - 3da72230c066
-- name: 'seqtk'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'alignments'
-  owner: 'iuc'
-  revisions:
-  - 3da72230c066
-- name: 'seqtk'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'alignments'
-  owner: 'iuc'
-  revisions:
-  - 3da72230c066
-- name: 'seqtk'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'alignments'
-  owner: 'iuc'
-  revisions:
-  - 3da72230c066
-- name: 'seqtk'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'alignments'
-  owner: 'iuc'
-  revisions:
-  - 3da72230c066
-- name: 'seqtk'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'alignments'
-  owner: 'iuc'
-  revisions:
-  - 3da72230c066
-- name: 'samtools_fastx'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'alignments'
-  owner: 'iuc'
-  revisions:
-  - 720217c23995
-- name: 'samtools_depth'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'alignments'
-  owner: 'iuc'
-  revisions:
-  - 2ee8dc1aeda9
-- name: 'coverage_stats'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'alignments'
-  owner: 'peterjc'
-  revisions:
-  - ed501717f6cd
-- name: 'samtools_coverage'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'alignments'
-  owner: 'iuc'
-  revisions:
-  - 90f2dd176d80
-- name: 'vcffilter'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'alignments'
-  owner: 'devteam'
-  revisions:
-  - fa24bf0598f4
-- name: 'varscan_version_2'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'alignments'
-  owner: 'devteam'
-  revisions:
-  - bc1e0cd41241
-- name: 'mauve_contig_mover'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'alignments'
-  owner: 'brinkmanlab'
-  revisions:
-  - 4931255f2fcc
-- name: 'mauve_contig_mover'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'alignments'
-  owner: 'brinkmanlab'
-  revisions:
-  - 4931255f2fcc
-- name: 'ncbi_blast_plus'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'ncbi'
-  owner: 'devteam'
-  revisions:
-  - 5edc472ec434
-- name: 'ncbi_blast_plus'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'ncbi'
-  owner: 'devteam'
-  revisions:
-  - 5edc472ec434
-- name: 'ncbi_blast_plus'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'ncbi'
-  owner: 'devteam'
-  revisions:
-  - 5edc472ec434
-- name: 'ncbi_blast_plus'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'ncbi'
-  owner: 'devteam'
-  revisions:
-  - 5edc472ec434
-- name: 'ncbi_blast_plus'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'ncbi'
-  owner: 'devteam'
-  revisions:
-  - 5edc472ec434
-- name: 'ncbi_blast_plus'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'ncbi'
-  owner: 'devteam'
-  revisions:
-  - 5edc472ec434
-- name: 'ncbi_blast_plus'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'ncbi'
-  owner: 'devteam'
-  revisions:
-  - 5edc472ec434
-- name: 'ncbi_blast_plus'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'ncbi'
-  owner: 'devteam'
-  revisions:
-  - 5edc472ec434
-- name: 'ncbi_blast_plus'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'ncbi'
-  owner: 'devteam'
-  revisions:
-  - 5edc472ec434
-- name: 'ncbi_blast_plus'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'ncbi'
-  owner: 'devteam'
-  revisions:
-  - 5edc472ec434
-- name: 'ncbi_blast_plus'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'ncbi'
-  owner: 'devteam'
-  revisions:
-  - 5edc472ec434
-- name: 'ncbi_blast_plus'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'ncbi'
-  owner: 'devteam'
-  revisions:
-  - 5edc472ec434
-- name: 'ncbi_blast_plus'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'ncbi'
-  owner: 'devteam'
-  revisions:
-  - 5edc472ec434
-- name: 'ncbi_blast_plus'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'ncbi'
-  owner: 'devteam'
-  revisions:
-  - 5edc472ec434
-- name: 'ncbi_blast_plus'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'ncbi'
-  owner: 'devteam'
-  revisions:
-  - 5edc472ec434
-- name: 'megablast_tab_get_taxid_acc'
-  tool_shed_url: https://testtoolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'ncbi'
-  owner: 'p.lucas'
-  revisions:
-  - aa830f48a018
-- name: 'megablast_tab_select_acc_under_taxids'
-  tool_shed_url: https://testtoolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'ncbi'
-  owner: 'p.lucas'
-  revisions:
-  - 977d4877384f
-- name: 'unique'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'textutil'
-  owner: 'bgruening'
-  revisions:
-  - 7ce75adb93be
-- name: 'concatenate_multiple_datasets'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'textutil'
-  owner: 'mvdbeek'
-  revisions:
-  - 201c568972c3
-- name: 'text_processing'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'textutil'
-  owner: 'bgruening'
-  revisions:
-  - f46f0e4f75c4
-- name: 'text_processing'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'textutil'
-  owner: 'bgruening'
-  revisions:
-  - f46f0e4f75c4
-- name: 'text_processing'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'textutil'
-  owner: 'bgruening'
-  revisions:
-  - f46f0e4f75c4
-- name: 'text_processing'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'textutil'
-  owner: 'bgruening'
-  revisions:
-  - f46f0e4f75c4
-- name: 'text_processing'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'textutil'
-  owner: 'bgruening'
-  revisions:
-  - f46f0e4f75c4
-- name: 'text_processing'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'textutil'
-  owner: 'bgruening'
-  revisions:
-  - f46f0e4f75c4
-- name: 'text_processing'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'textutil'
-  owner: 'bgruening'
-  revisions:
-  - f46f0e4f75c4
-- name: 'text_processing'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'textutil'
-  owner: 'bgruening'
-  revisions:
-  - f46f0e4f75c4
-- name: 'text_processing'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'textutil'
-  owner: 'bgruening'
-  revisions:
-  - f46f0e4f75c4
-- name: 'text_processing'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'textutil'
-  owner: 'bgruening'
-  revisions:
-  - f46f0e4f75c4
-- name: 'text_processing'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'textutil'
-  owner: 'bgruening'
-  revisions:
-  - f46f0e4f75c4
-- name: 'text_processing'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'textutil'
-  owner: 'bgruening'
-  revisions:
-  - f46f0e4f75c4
-- name: 'text_processing'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'textutil'
-  owner: 'bgruening'
-  revisions:
-  - f46f0e4f75c4
-- name: 'text_processing'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'textutil'
-  owner: 'bgruening'
-  revisions:
-  - f46f0e4f75c4
-- name: 'text_processing'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'textutil'
-  owner: 'bgruening'
-  revisions:
-  - f46f0e4f75c4
-- name: 'text_processing'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'textutil'
-  owner: 'bgruening'
-  revisions:
-  - f46f0e4f75c4
-- name: 'text_processing'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'textutil'
-  owner: 'bgruening'
-  revisions:
-  - f46f0e4f75c4
-- name: 'text_processing'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'textutil'
-  owner: 'bgruening'
-  revisions:
-  - f46f0e4f75c4
-- name: 'text_processing'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'textutil'
-  owner: 'bgruening'
-  revisions:
-  - f46f0e4f75c4
-- name: 'taxonomy_krona_chart'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'plots'
-  owner: 'crs4'
-  revisions:
-  - e9005d1f3cfd
-- name: 'fasta_formatter'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'fetchAlignSeq'
-  owner: 'devteam'
-  revisions:
-  - 859422bcb689
-- name: 'varscan_mpileup2snp_from_bam'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'snp'
-  owner: 'yhoogstrate'
-  revisions:
-  - 9a39c4105901
-- name: 'varscan_mpileup2snp_from_bam'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'snp'
-  owner: 'yhoogstrate'
-  revisions:
-  - 9a39c4105901
-- name: 'samtools_rmdup'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'snp'
-  owner: 'devteam'
-  revisions:
-  - 586f9e1cdb2b
-- name: 'samtools_mpileup'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'snp'
-  owner: 'devteam'
-  revisions:
-  - 9da0311ab1dd
-- name: 'fasta_to_fastqsanger'
-  tool_shed_url: https://testtoolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'convert'
-  owner: 'ehirchaud'
-  revisions:
-  - b3bb06a062d0
-- name: 'mash'
-  tool_shed_url: https://toolshed.g2.bx.psu.edu
-  tool_panel_section_id: 'distances'
-  owner: 'brinkmanlab'
-  revisions:
-  - 572587cbb1dd
+tools:
+  - name: 'nanoplot'
+    tool_shed_url: https://toolshed.g2.bx.psu.edu
+    tool_panel_section_id: 'nanopore'
+    owner: 'iuc'
+    revisions:
+    - edbb6c5028f5
+  - name: 'minimap2'
+    tool_shed_url: https://toolshed.g2.bx.psu.edu
+    tool_panel_section_id: 'nanopore'
+    owner: 'iuc'
+    revisions:
+    - 6b1e195506a3
+  - name: 'pycoqc'
+    tool_shed_url: https://toolshed.g2.bx.psu.edu
+    tool_panel_section_id: 'nanopore'
+    owner: 'iuc'
+    revisions:
+    - 3a2f2e24c37e
+  - name: 'nanofilt'
+    tool_shed_url: https://toolshed.g2.bx.psu.edu
+    tool_panel_section_id: 'nanopore'
+    owner: 'leomrtns'
+    revisions:
+    - a2c318b04f49
+  - name: 'fast_bonito_0_2_2'
+    tool_shed_url: https://testtoolshed.g2.bx.psu.edu
+    tool_panel_section_id: 'nanopore'
+    owner: 'f.touzain'
+    revisions:
+    - 873233d3956d
+  - name: 'filtlong'
+    tool_shed_url: https://toolshed.g2.bx.psu.edu
+    tool_panel_section_id: 'nanopore'
+    owner: 'iuc'
+    revisions:
+    - a72af9de6bf5
+  - name: 'canu'
+    tool_shed_url: https://toolshed.g2.bx.psu.edu
+    tool_panel_section_id: 'nanopore'
+    owner: 'bgruening'
+    revisions:
+    - 86f150c8019d
+  - name: 'flye'
+    tool_shed_url: https://toolshed.g2.bx.psu.edu
+    tool_panel_section_id: 'nanopore'
+    owner: 'bgruening'
+    revisions:
+    - 276f5d8712d5
+  - name: 'bam_to_sam'
+    tool_shed_url: https://toolshed.g2.bx.psu.edu
+    tool_panel_section_id: 'alignments'
+    owner: 'devteam'
+    revisions:
+    - af7c50162f0b
+  - name: 'sam_to_bam'
+    tool_shed_url: https://toolshed.g2.bx.psu.edu
+    tool_panel_section_id: 'alignments'
+    owner: 'devteam'
+    revisions:
+    - d04d9f1c6791
+  - name: 'samtools_bedcov'
+    tool_shed_url: https://toolshed.g2.bx.psu.edu
+    tool_panel_section_id: 'alignments'
+    owner: 'devteam'
+    revisions:
+    - 8c3472790020
+  - name: 'samtools_calmd'
+    tool_shed_url: https://toolshed.g2.bx.psu.edu
+    tool_panel_section_id: 'alignments'
+    owner: 'devteam'
+    revisions:
+    - 1ebb4ecdc1ef
+  - name: 'samtools_flagstat'
+    tool_shed_url: https://toolshed.g2.bx.psu.edu
+    tool_panel_section_id: 'alignments'
+    owner: 'devteam'
+    revisions:
+    - 0072bf593791
+  - name: 'samtools_idxstats'
+    tool_shed_url: https://toolshed.g2.bx.psu.edu
+    tool_panel_section_id: 'alignments'
+    owner: 'devteam'
+    revisions:
+    - 87398ae795c7
+  - name: 'samtools_mpileup'
+    tool_shed_url: https://toolshed.g2.bx.psu.edu
+    tool_panel_section_id: 'alignments'
+    owner: 'devteam'
+    revisions:
+    - aa0ef6f0ee89
+  - name: 'samtools_reheader'
+    tool_shed_url: https://toolshed.g2.bx.psu.edu
+    tool_panel_section_id: 'alignments'
+    owner: 'devteam'
+    revisions:
+    - 020e144b5f78
+  - name: 'samtools_slice_bam'
+    tool_shed_url: https://toolshed.g2.bx.psu.edu
+    tool_panel_section_id: 'alignments'
+    owner: 'devteam'
+    revisions:
+    - 2b474ebbfc7d
+  - name: 'samtools_sort'
+    tool_shed_url: https://toolshed.g2.bx.psu.edu
+    tool_panel_section_id: 'alignments'
+    owner: 'devteam'
+    revisions:
+    - a430da4f04cd
+  - name: 'samtools_split'
+    tool_shed_url: https://toolshed.g2.bx.psu.edu
+    tool_panel_section_id: 'alignments'
+    owner: 'devteam'
+    revisions:
+    - 57f3e32f809d
+  - name: 'samtools_stats'
+    tool_shed_url: https://toolshed.g2.bx.psu.edu
+    tool_panel_section_id: 'alignments'
+    owner: 'devteam'
+    revisions:
+    - 8cfc17e27132
+  - name: 'bedtools'
+    tool_shed_url: https://toolshed.g2.bx.psu.edu
+    tool_panel_section_id: 'alignments'
+    owner: 'iuc'
+    revisions:
+    - a68aa6c1204a
+  - name: 'mash'
+    tool_shed_url: https://toolshed.g2.bx.psu.edu
+    tool_panel_section_id: 'alignments'
+    owner: 'iuc'
+    revisions:
+    - 86dec4abcea8
+  - name: 'seqtk'
+    tool_shed_url: https://toolshed.g2.bx.psu.edu
+    tool_panel_section_id: 'alignments'
+    owner: 'iuc'
+    revisions:
+    - 3da72230c066
+  - name: 'samtools_fastx'
+    tool_shed_url: https://toolshed.g2.bx.psu.edu
+    tool_panel_section_id: 'alignments'
+    owner: 'iuc'
+    revisions:
+    - 720217c23995
+  - name: 'samtools_depth'
+    tool_shed_url: https://toolshed.g2.bx.psu.edu
+    tool_panel_section_id: 'alignments'
+    owner: 'iuc'
+    revisions:
+    - 2ee8dc1aeda9
+  - name: 'coverage_stats'
+    tool_shed_url: https://toolshed.g2.bx.psu.edu
+    tool_panel_section_id: 'alignments'
+    owner: 'peterjc'
+    revisions:
+    - ed501717f6cd
+  - name: 'samtools_coverage'
+    tool_shed_url: https://toolshed.g2.bx.psu.edu
+    tool_panel_section_id: 'alignments'
+    owner: 'iuc'
+    revisions:
+    - 90f2dd176d80
+  - name: 'vcffilter'
+    tool_shed_url: https://toolshed.g2.bx.psu.edu
+    tool_panel_section_id: 'alignments'
+    owner: 'devteam'
+    revisions:
+    - fa24bf0598f4
+  - name: 'varscan_version_2'
+    tool_shed_url: https://toolshed.g2.bx.psu.edu
+    tool_panel_section_id: 'alignments'
+    owner: 'devteam'
+    revisions:
+    - bc1e0cd41241
+  - name: 'mauve_contig_mover'
+    tool_shed_url: https://toolshed.g2.bx.psu.edu
+    tool_panel_section_id: 'alignments'
+    owner: 'brinkmanlab'
+    revisions:
+    - 4931255f2fcc
+  - name: 'ncbi_blast_plus'
+    tool_shed_url: https://toolshed.g2.bx.psu.edu
+    tool_panel_section_id: 'ncbi'
+    owner: 'devteam'
+    revisions:
+    - 5edc472ec434
+  - name: 'megablast_tab_get_taxid_acc'
+    tool_shed_url: https://testtoolshed.g2.bx.psu.edu
+    tool_panel_section_id: 'ncbi'
+    owner: 'p.lucas'
+    revisions:
+    - aa830f48a018
+  - name: 'megablast_tab_select_acc_under_taxids'
+    tool_shed_url: https://testtoolshed.g2.bx.psu.edu
+    tool_panel_section_id: 'ncbi'
+    owner: 'p.lucas'
+    revisions:
+    - 977d4877384f
+  - name: 'unique'
+    tool_shed_url: https://toolshed.g2.bx.psu.edu
+    tool_panel_section_id: 'textutil'
+    owner: 'bgruening'
+    revisions:
+    - 7ce75adb93be
+  - name: 'concatenate_multiple_datasets'
+    tool_shed_url: https://toolshed.g2.bx.psu.edu
+    tool_panel_section_id: 'textutil'
+    owner: 'mvdbeek'
+    revisions:
+    - 201c568972c3
+  - name: 'text_processing'
+    tool_shed_url: https://toolshed.g2.bx.psu.edu
+    tool_panel_section_id: 'textutil'
+    owner: 'bgruening'
+    revisions:
+    - f46f0e4f75c4
+  - name: 'taxonomy_krona_chart'
+    tool_shed_url: https://toolshed.g2.bx.psu.edu
+    tool_panel_section_id: 'plots'
+    owner: 'crs4'
+    revisions:
+    - e9005d1f3cfd
+  - name: 'fasta_formatter'
+    tool_shed_url: https://toolshed.g2.bx.psu.edu
+    tool_panel_section_id: 'fetchAlignSeq'
+    owner: 'devteam'
+    revisions:
+    - 859422bcb689
+  - name: 'varscan_mpileup2snp_from_bam'
+    tool_shed_url: https://toolshed.g2.bx.psu.edu
+    tool_panel_section_id: 'snp'
+    owner: 'yhoogstrate'
+    revisions:
+    - 9a39c4105901
+  - name: 'samtools_rmdup'
+    tool_shed_url: https://toolshed.g2.bx.psu.edu
+    tool_panel_section_id: 'snp'
+    owner: 'devteam'
+    revisions:
+    - 586f9e1cdb2b
+  - name: 'fasta_to_fastqsanger'
+    tool_shed_url: https://testtoolshed.g2.bx.psu.edu
+    tool_panel_section_id: 'convert'
+    owner: 'ehirchaud'
+    revisions:
+    - b3bb06a062d0

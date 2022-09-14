@@ -3,3 +3,12 @@
     <tool_shed name="Galaxy main tool shed" url="https://toolshed.g2.bx.psu.edu/"/>
     <tool_shed name="Galaxy test tool shed" url="https://testtoolshed.g2.bx.psu.edu/"/>
 </tool_sheds>
+  tool_panel_section_id: 'alignments'
+  tool_panel_section_id: 'convert'
+  tool_panel_section_id: 'distances'
+  tool_panel_section_id: 'fetchAlignSeq'
+  tool_panel_section_id: 'nanopore'
+  tool_panel_section_id: 'ncbi'
+  tool_panel_section_id: 'plots'
+  tool_panel_section_id: 'snp'
+  tool_panel_section_id: 'textutil'
