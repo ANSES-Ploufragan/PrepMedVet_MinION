@@ -1,10 +1,13 @@
 Installations instruction for __Ubuntu 18.04 LTS__
 
 # Table of contents
+
 1. [MinKNOW](#MinKNOW)
 2. [guppy_gpu](#guppy-gpu)
-3. [fast-bonito](#fast-bonito)
-4. [bonito](#bonito)
+3. [Troubleshooting](#Troubleshooting)
+4. [Make MinKNOW working offline](#Make)
+5. [Update](#Update)
+
 
 # MinKNOW
 
@@ -336,7 +339,7 @@ sudo apt install --reinstall ont-guppy
 You will then need to repeat the above step to rename the guppyd override.conf file.
 
 
-# ensure of MinKNOW and guppy_gpu version matching
+## ensure of MinKNOW and guppy_gpu version matching
 
 ```
 /usr/bin/guppy_basecall_server --version
@@ -346,7 +349,9 @@ must provide the same version as
 ```
 /opt/ont/guppy/bin/guppy_basecaller --version
 ```
-> in our case, both are: __6.2.1+6588110a6__
+> in our case, both are:
+__6.2.1+6588110a6__ (2022 08 20)
+__6.3.8+d9e0f64__ (2022 10 07)
 
 # Make MinKNOW able to work offline
 
@@ -375,7 +380,33 @@ sudo systemctl start minknow
 - Shutdown the computer/device
 - Power on the computer/device
 
+# Update MinKNOW, guppy
 
+You must first disable service related to nanopore softwares:
+
+``` 
+sudo systemctl stop minknow
+sudo service guppyd stop
+``` 
+
+Then a classical:
+```
+sudo -E apt update
+sudo -E apt upgrade
+```
+will do the job (if repository have been filled as described before in this documentation)
+
+* Verify basecaller version matching again:
+```
+/usr/bin/guppy_basecall_server --version
+```
+
+must provide the same version as
+```
+/opt/ont/guppy/bin/guppy_basecaller --version
+```
+                                                  
+                                                  
 <!-- # fast-bonito -->
 
 <!-- Download of env_gpu.yml from https://github.com/EIHealth-Lab/fast-bonito.git -->
