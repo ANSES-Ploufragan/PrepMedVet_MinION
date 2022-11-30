@@ -1,4 +1,4 @@
-Installations instruction for __Ubuntu 18.04 LTS__
+Installations instruction for __Ubuntu 20.04 LTS__
 
 # Table of contents
 
