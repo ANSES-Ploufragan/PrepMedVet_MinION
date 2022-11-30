@@ -6,3 +6,4 @@
 /sources/test_guppy_gpu/output/*.fastq**
 /planemo/**
 /planemo_cmd/**
+/galaxy_workflow/install*/*.yml
