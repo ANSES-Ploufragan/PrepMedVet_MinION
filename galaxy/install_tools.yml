@@ -9,6 +9,12 @@
 
   tasks:
 
+    - name: Install jinja2 in galaxy env (for blast2html tool)
+      ansible.builtin.pip:
+      name: jinja2
+      virtualenv: /srv/galaxy/venv
+      virtualenv_site_packages: yes
+      
     - name: Install Krona via conda
       conda: 
         name: krona
