@@ -40,7 +40,7 @@ Then remove taxid files.
 
 README.md file of PrepMedVet_analyses/taxid_lists
 (describe taxids used in pathogens and hosts with their scientific name, taxids follow '(taxid: ' string)
-Viral taxid are obtained by case insensitive grep with 'viral|virid' terms.
+Viral taxid are obtained by case insensitive grep with 'virid|viral|viria|virus|phage' terms.
 
 =item [-o <s>]
 
@@ -106,7 +106,7 @@ if(scalar(@ARGV) < $nbargmini){
 }
 GetOptions( 
     "r=s"               => \$taxid_README_f,
-    "o=s"               => \@out_d,
+    "o=s"               => \$out_d,
     "force"             => sub { $b_force = 1 },
     "verbose"           => sub { $b_verbose = 1 },    
     "no_download_taxid" => sub { $b_no_download_taxid = 1 },
@@ -132,7 +132,7 @@ GetOptions(
 # }
 
 print("$prog_tag creates $patho_viral_taxid_list_f file with global viral taxids of pathogens\n");
-my $cmd = "grep -E -i 'virid|viral' $taxid_README_f | perl -p -e \"s/^.*\\(taxid: \(\\d+\)\\).*\$/\\1/\" > $patho_viral_taxid_list_f";
+my $cmd = "grep -E -i 'virid|viral|viria|virus|phage' $taxid_README_f | perl -p -e \"s/^.*\\(taxid: \(\\d+\)\\).*\$/\\1/\" > $patho_viral_taxid_list_f";
 print("$prog_tag cmd:$cmd\n");
 `$cmd`;
 print("$prog_tag done, $patho_viral_taxid_list_f file created\n");
