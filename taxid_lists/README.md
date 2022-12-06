@@ -105,7 +105,7 @@ Pathogens we may face, to target search in results.
   - Monodnaviria (taxid: 2731342)
   - Riboviria (taxid: 2559587)
   - Varidnaviria (taxid: 2732004)
-  - Environmental samples (taxid: 186616)
+  - Environmental phage samples (taxid: 186616)
   - unclassified bacterial viruses (taxid: 12333)
   - unclassified virophages (taxid: 552364)
   - unclassified viruses (taxid: 12429)
