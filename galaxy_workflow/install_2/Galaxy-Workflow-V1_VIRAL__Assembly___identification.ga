@@ -20,14 +20,14 @@
             "name": "Input dataset",
             "outputs": [],
             "position": {
-                "bottom": 277.3000030517578,
+                "bottom": 222.3000030517578,
                 "height": 61.80000305175781,
-                "left": -299.5,
-                "right": -99.5,
-                "top": 215.5,
+                "left": 369,
+                "right": 569,
+                "top": 160.5,
                 "width": 200,
-                "x": -299.5,
-                "y": 215.5
+                "x": 369,
+                "y": 160.5
             },
             "tool_id": null,
             "tool_state": "{\"optional\": false}",
@@ -52,14 +52,14 @@
             "name": "Input dataset",
             "outputs": [],
             "position": {
-                "bottom": 560.6999969482422,
+                "bottom": 505.6999969482422,
                 "height": 82.19999694824219,
-                "left": 708.5,
-                "right": 908.5,
-                "top": 478.5,
+                "left": 1377,
+                "right": 1577,
+                "top": 423.5,
                 "width": 200,
-                "x": 708.5,
-                "y": 478.5
+                "x": 1377,
+                "y": 423.5
             },
             "tool_id": null,
             "tool_state": "{\"optional\": false, \"format\": [\"txt\"]}",
@@ -101,14 +101,14 @@
                 }
             ],
             "position": {
-                "bottom": 611.8999938964844,
+                "bottom": 556.8999938964844,
                 "height": 286.3999938964844,
-                "left": -84.5,
-                "right": 115.5,
-                "top": 325.5,
+                "left": 584,
+                "right": 784,
+                "top": 270.5,
                 "width": 200,
-                "x": -84.5,
-                "y": 325.5
+                "x": 584,
+                "y": 270.5
             },
             "post_job_actions": {
                 "HideDatasetActionassembly_gfa": {
@@ -137,12 +137,12 @@
                 {
                     "label": null,
                     "output_name": "assembly_info",
-                    "uuid": "16d85064-c8e7-4908-bdba-54c19905185c"
+                    "uuid": "e8a813a2-4544-4c10-9d49-7db57800666a"
                 },
                 {
                     "label": null,
                     "output_name": "consensus",
-                    "uuid": "e0342de9-aba2-4cb1-969d-392746bc9049"
+                    "uuid": "1360859b-deca-4677-86d3-b7f13c3f4071"
                 }
             ]
         },
@@ -167,14 +167,14 @@
                 }
             ],
             "position": {
-                "bottom": 588,
+                "bottom": 533,
                 "height": 134,
-                "left": 174.5,
-                "right": 374.5,
-                "top": 454,
+                "left": 843,
+                "right": 1043,
+                "top": 399,
                 "width": 200,
-                "x": 174.5,
-                "y": 454
+                "x": 843,
+                "y": 399
             },
             "post_job_actions": {},
             "tool_id": "toolshed.g2.bx.psu.edu/repos/devteam/ncbi_blast_plus/ncbi_blastn_wrapper/2.10.1+galaxy0",
@@ -192,13 +192,13 @@
                 {
                     "label": null,
                     "output_name": "output1",
-                    "uuid": "ecfa4bfb-eee6-446e-b0dd-24f00f35b4f2"
+                    "uuid": "e5f9f84f-d545-4ca3-9213-26cdf086ff74"
                 }
             ]
         },
         "4": {
             "annotation": "",
-            "content_id": "toolshed.g2.bx.psu.edu/repos/jankanis/blast2html/blast2html/1.0.0",
+            "content_id": "toolshed.g2.bx.psu.edu/repos/jankanis/blast2html/blast2html/0.0.14",
             "errors": null,
             "id": 4,
             "input_connections": {
@@ -217,32 +217,32 @@
                 }
             ],
             "position": {
-                "bottom": 562.1000061035156,
+                "bottom": 507.1000061035156,
                 "height": 113.60000610351562,
-                "left": 419.5,
-                "right": 619.5,
-                "top": 448.5,
+                "left": 1088,
+                "right": 1288,
+                "top": 393.5,
                 "width": 200,
-                "x": 419.5,
-                "y": 448.5
+                "x": 1088,
+                "y": 393.5
             },
             "post_job_actions": {},
-            "tool_id": "toolshed.g2.bx.psu.edu/repos/jankanis/blast2html/blast2html/1.0.0",
+            "tool_id": "toolshed.g2.bx.psu.edu/repos/jankanis/blast2html/blast2html/0.0.14",
             "tool_shed_repository": {
-                "changeset_revision": "82b8c9722996",
+                "changeset_revision": "0fa962dd83b4",
                 "name": "blast2html",
                 "owner": "jankanis",
                 "tool_shed": "toolshed.g2.bx.psu.edu"
             },
             "tool_state": "{\"input\": {\"__class__\": \"ConnectedValue\"}, \"__page__\": null, \"__rerun_remap_job_id__\": null}",
-            "tool_version": "1.0.0",
+            "tool_version": "0.0.14",
             "type": "tool",
-            "uuid": "d574b0de-51c3-4576-8820-de8879f66323",
+            "uuid": "d958e535-ea3f-48db-8961-9fa4f63ef5dc",
             "workflow_outputs": [
                 {
                     "label": null,
                     "output_name": "output",
-                    "uuid": "79fdfe1f-47e6-4ec8-a35b-d4249c51d9b2"
+                    "uuid": "e418a65d-f65f-43dc-a7fc-6b6b4013e2a3"
                 }
             ]
         },
@@ -267,14 +267,14 @@
                 }
             ],
             "position": {
-                "bottom": 709.5,
+                "bottom": 654.5,
                 "height": 134,
-                "left": 418.5,
-                "right": 618.5,
-                "top": 575.5,
+                "left": 1087,
+                "right": 1287,
+                "top": 520.5,
                 "width": 200,
-                "x": 418.5,
-                "y": 575.5
+                "x": 1087,
+                "y": 520.5
             },
             "post_job_actions": {
                 "HideDatasetActiontabular_file": {
@@ -317,14 +317,14 @@
                 }
             ],
             "position": {
-                "bottom": 815.1999969482422,
+                "bottom": 760.1999969482422,
                 "height": 93.19999694824219,
-                "left": 656.5,
-                "right": 856.5,
-                "top": 722,
+                "left": 1325,
+                "right": 1525,
+                "top": 667,
                 "width": 200,
-                "x": 656.5,
-                "y": 722
+                "x": 1325,
+                "y": 667
             },
             "post_job_actions": {
                 "ChangeDatatypeActionoutput": {
@@ -350,7 +350,7 @@
                 {
                     "label": null,
                     "output_name": "output",
-                    "uuid": "9fa9053c-bea2-4e13-bd59-7e618f841489"
+                    "uuid": "3e130702-03a2-4f37-8f1d-789325fac1e8"
                 }
             ]
         },
@@ -374,14 +374,14 @@
             "name": "Catch clean gi to DL ref",
             "outputs": [],
             "position": {
-                "bottom": 778,
+                "bottom": 723,
                 "height": 144,
-                "left": 887.5,
-                "right": 1087.5,
-                "top": 634,
+                "left": 1556,
+                "right": 1756,
+                "top": 579,
                 "width": 200,
-                "x": 887.5,
-                "y": 634
+                "x": 1556,
+                "y": 579
             },
             "subworkflow": {
                 "a_galaxy_workflow": "true",
@@ -819,7 +819,7 @@
                 {
                     "label": null,
                     "output_name": "8:output",
-                    "uuid": "5f24b76c-dcc0-4b5e-b8e4-efaf98c3dab1"
+                    "uuid": "24533d96-2d1b-402c-9bb9-27f8e287ae39"
                 }
             ]
         },
@@ -852,14 +852,14 @@
                 }
             ],
             "position": {
-                "bottom": 945.5,
+                "bottom": 890.5,
                 "height": 358,
-                "left": 1133.5,
-                "right": 1333.5,
-                "top": 587.5,
+                "left": 1802,
+                "right": 2002,
+                "top": 532.5,
                 "width": 200,
-                "x": 1133.5,
-                "y": 587.5
+                "x": 1802,
+                "y": 532.5
             },
             "post_job_actions": {
                 "HideDatasetActionoutput_out": {
@@ -883,7 +883,7 @@
                 {
                     "label": null,
                     "output_name": "output_in",
-                    "uuid": "c04d1cb7-8454-474c-95dd-447899b96b61"
+                    "uuid": "dcf33172-d005-45f1-92f8-b698c2b07da9"
                 }
             ]
         },
@@ -908,14 +908,14 @@
                 }
             ],
             "position": {
-                "bottom": 768.1000061035156,
+                "bottom": 713.1000061035156,
                 "height": 113.60000610351562,
-                "left": 1377.5,
-                "right": 1577.5,
-                "top": 654.5,
+                "left": 2046,
+                "right": 2246,
+                "top": 599.5,
                 "width": 200,
-                "x": 1377.5,
-                "y": 654.5
+                "x": 2046,
+                "y": 599.5
             },
             "post_job_actions": {},
             "tool_id": "toolshed.g2.bx.psu.edu/repos/devteam/ncbi_blast_plus/ncbi_blastdbcmd_wrapper/2.10.1+galaxy0",
@@ -933,7 +933,7 @@
                 {
                     "label": null,
                     "output_name": "seq",
-                    "uuid": "a13396ab-a379-44b8-aeb9-b8ca1d4d16cd"
+                    "uuid": "81d4d56d-a0cc-4e86-9fc8-2880b4d5c84b"
                 }
             ]
         },
@@ -970,14 +970,14 @@
                 }
             ],
             "position": {
-                "bottom": 726.7000122070312,
+                "bottom": 671.7000122070312,
                 "height": 327.20001220703125,
-                "left": 1613.5,
-                "right": 1813.5,
-                "top": 399.5,
+                "left": 2282,
+                "right": 2482,
+                "top": 344.5,
                 "width": 200,
-                "x": 1613.5,
-                "y": 399.5
+                "x": 2282,
+                "y": 344.5
             },
             "post_job_actions": {
                 "HideDatasetActionbackbone": {
@@ -1006,7 +1006,7 @@
                 {
                     "label": null,
                     "output_name": "reordered",
-                    "uuid": "93e11786-0946-4898-8664-1cfbf4f0f258"
+                    "uuid": "8a0d022f-6e59-4345-a8f3-7512704314e9"
                 }
             ]
         },
@@ -1035,14 +1035,14 @@
                 }
             ],
             "position": {
-                "bottom": 498.6000061035156,
+                "bottom": 443.6000061035156,
                 "height": 225.60000610351562,
-                "left": 1857.5,
-                "right": 2057.5,
-                "top": 273,
+                "left": 2526,
+                "right": 2726,
+                "top": 218,
                 "width": 200,
-                "x": 1857.5,
-                "y": 273
+                "x": 2526,
+                "y": 218
             },
             "post_job_actions": {},
             "tool_id": "toolshed.g2.bx.psu.edu/repos/iuc/minimap2/minimap2/2.22+galaxy0",
@@ -1060,12 +1060,12 @@
                 {
                     "label": null,
                     "output_name": "alignment_output",
-                    "uuid": "e5115006-6f09-41b8-ac94-f79ac5bae58f"
+                    "uuid": "b788349c-c60b-4fdb-8e5d-d5232742a3a8"
                 }
             ]
         }
     },
     "tags": [],
-    "uuid": "4b7db402-a425-4948-b1c3-0594e9834da6",
-    "version": 31
+    "uuid": "801d86ef-eb27-4e0c-9404-82d14488a3ba",
+    "version": 33
 }
