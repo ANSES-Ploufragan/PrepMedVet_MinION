@@ -1,0 +1,12 @@
+name: ncbi-genome-download-0.3.1
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+  - r
+dependencies:
+  - ncbi-genome-download
+  - ca-certificates
+  - certifi
+  - openssl
+
