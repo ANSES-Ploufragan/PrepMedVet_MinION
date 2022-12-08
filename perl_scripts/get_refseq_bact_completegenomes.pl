@@ -180,13 +180,13 @@ $cmd = join(' ', 'cat', @taxid_files, " > $patho_viral_taxid_list_leaves_f");
 `$cmd`;
 print("$prog_tag created\n");
 
-print("$prog_tag download viral refseq of leave taxid:\n"); 
+print("$prog_tag download refseq of leave taxid:\n"); 
 foreach my $taxid_f(@taxid_files)
 {
     my $taxid_metadata_f = $taxid_f.'.genomes_metadata.tsv';
     $cmd = `eval \"\$(conda shell.bash hook)\"
 conda activate ncbi-genome-download-0.3.1
-ncbi-genome-download -s refseq --format fasta --assembly-levels complete --taxids $taxid_f -m $taxid_metadata_f --flat-output viral --output-folder $fasta_dir --flat-output
+ncbi-genome-download -s refseq --format fasta --assembly-levels complete --taxids $taxid_f -m $taxid_metadata_f --flat-output --output-folder $fasta_dir --flat-output bacteria,fungi,archaea,invertebrate
 conda deactivate`;
     print($cmd);
 
