@@ -89,7 +89,7 @@ my $taxid_dir                       = '';
 my $fasta_dir                       = '';
 
 my $b_no_download_taxid = 0;
-my $b_remove_taxid_f    = 0;
+my $b_remove_taxid_f    = 1;
 
 # **********************************************************************
 # CHECK OPTIONS
@@ -106,9 +106,9 @@ if(scalar(@ARGV) < $nbargmini){
 GetOptions( 
     "r=s"               => \$taxid_README_f,
     "o=s"               => \$out_d,
-    "force"             => sub { $b_force             = 0 },
-    "verbose"           => sub { $b_verbose           = 0 },    
-    "no_download_taxid" => sub { $b_no_download_taxid = 0 },
+    "force"             => sub { $b_force             = 1 },
+    "verbose"           => sub { $b_verbose           = 1 },    
+    "no_download_taxid" => sub { $b_no_download_taxid = 1 },
     "keep_taxid"        => sub { $b_remove_taxid_f    = 0 },
     "t"                 => sub { $b_test              = 0 }    
     );
@@ -148,7 +148,7 @@ else
 -e $fasta_dir or mkdir $fasta_dir;
 
 print("$prog_tag creates $patho_viral_taxid_list_f file with global viral taxids of pathogens\n");
-my $cmd = "grep -E -i 'virid|viral|viria|virus|phage' $taxid_README_f | grep -E -v '^\#' | perl -p -e \"s/^.*\\(taxid: \(\\d+\)\\).*\$/\\1/\" > $patho_viral_taxid_list_f";
+my $cmd = "grep 'taxid:' $taxid_README_f | grep -E -i 'virid|viral|viria|virus|phage' | grep -E -v '^\#' | perl -p -e \"s/^.*\\(taxid: \(\\d+\).*\$/\\1/\" > $patho_viral_taxid_list_f";
 print("$prog_tag cmd:$cmd\n");
 `$cmd`;
 print("$prog_tag done, $patho_viral_taxid_list_f file created\n");
