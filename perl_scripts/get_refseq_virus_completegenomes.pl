@@ -73,24 +73,23 @@ examples:
     
 # **********************************************************************
 my $b_verbose = 0;
-my $prog_tag  = '[cmd_get_refseq_virus_completegenomes.pl]';
+my $prog_tag  = '[get_refseq_virus_completegenomes.pl]';
 my $b_force   = 0;
+my $b_test    = 0;
 
 # **********************************************************************
 # variables
 # **********************************************************************
 my $taxid_README_f = '/home/touzain/Documents/PrepMedVet_analyses/taxid_lists/README.md';
-my $out_d = '/home/touzain/Downloads/refseq_virus_completegenomes_test/';
-my $patho_viral_taxid_list_f = $out_d.'patho_viral_taxid_list.txt';
-my $patho_viral_taxid_list_leaves_f = $out_d.'patho_viral_taxid_list_leaves.txt';
-my $patho_viral_genomes_metadata_f = $out_d.'genomes_metadata.tsv';
-my $taxid_dir = $out_d.'taxid_dir/';
--e $taxid_dir or mkdir $taxid_dir;
-my $fasta_dir = $out_d.'fasta_dir/';
--e $fasta_dir or mkdir $fasta_dir;
+my $out_d                           = '';
+my $patho_viral_taxid_list_f        = '';
+my $patho_viral_taxid_list_leaves_f = '';
+my $patho_viral_genomes_metadata_f  = '';
+my $taxid_dir                       = '';
+my $fasta_dir                       = '';
 
-my $b_no_download_taxid = 1;
-my $b_remove_taxid_f = 0;
+my $b_no_download_taxid = 0;
+my $b_remove_taxid_f    = 0;
 
 # **********************************************************************
 # CHECK OPTIONS
@@ -107,32 +106,49 @@ if(scalar(@ARGV) < $nbargmini){
 GetOptions( 
     "r=s"               => \$taxid_README_f,
     "o=s"               => \$out_d,
-    "force"             => sub { $b_force = 1 },
-    "verbose"           => sub { $b_verbose = 1 },    
-    "no_download_taxid" => sub { $b_no_download_taxid = 1 },
-    "keep_taxid"        => sub { $b_remove_taxid_f    = 0 }
+    "force"             => sub { $b_force             = 0 },
+    "verbose"           => sub { $b_verbose           = 0 },    
+    "no_download_taxid" => sub { $b_no_download_taxid = 0 },
+    "keep_taxid"        => sub { $b_remove_taxid_f    = 0 },
+    "t"                 => sub { $b_test              = 0 }    
     );
 # **********************************************************************
 # verif / deduce input output
 # **********************************************************************
-# if($b_test)
-# {
-#     my $test_dir = './test_geneious_alignment_source2nex/';
-#     @f = $test_dir.'Geneious_on_3-290622_12404-14099_2_source_subset.txt';
-#     @out_f = $test_dir.'Geneious_on_3-290622_12404-14099_2_source_subset.nex';
-#     my $cmd = join(' ', $0,
-# 		   '-f', @f,
-# 		   '-o', @out_f,
-# 		   '-arh',
-# 		   '-force');
-#     print("$prog_tag [TEST] start\n");
-#     print `$cmd`;
-#     print("$prog_tag [TEST] end\n");
-#     exit;
-# }
+if($b_test)
+{
+    $taxid_README_f = '../taxid_lists/README.md';
+    my $test_dir = './test_get_refseq_virus_completegenomes/';
+    $out_d = $test_dir.'refseq_virus_completegenomes_test/';
+    $patho_viral_taxid_list_f        = $out_d.'patho_viral_taxid_list.txt';
+    $patho_viral_taxid_list_leaves_f = $out_d.'patho_viral_taxid_list_leaves.txt';
+    $patho_viral_genomes_metadata_f  = $out_d.'genomes_metadata.tsv';
+    $taxid_dir                       = $out_d.'taxid_dir/';
+    $fasta_dir                       = $out_d.'fasta_dir/';
+
+    my $cmd = join(' ', $0,
+ 		   '-r', $taxid_README_f,
+ 		   '-o', $out_d,
+ 		   '-force');
+     print("$prog_tag [TEST] start, we would run:\n");
+     print "$cmd\n";
+     print("$prog_tag [TEST] end\n");
+     exit;
+}
+else
+{
+    $patho_viral_taxid_list_f        = $out_d.'patho_viral_taxid_list.txt';
+    $patho_viral_taxid_list_leaves_f = $out_d.'patho_viral_taxid_list_leaves.txt';
+    $patho_viral_genomes_metadata_f  = $out_d.'genomes_metadata.tsv';
+    $taxid_dir                       = $out_d.'taxid_dir/';
+    $fasta_dir                       = $out_d.'fasta_dir/';
+     
+}
+-e $taxid_dir or mkdir $taxid_dir;
+-e $fasta_dir or mkdir $fasta_dir;
 
 print("$prog_tag creates $patho_viral_taxid_list_f file with global viral taxids of pathogens\n");
-my $cmd = "grep -E -i 'virid|viral|viria|virus|phage' $taxid_README_f | perl -p -e \"s/^.*\\(taxid: \(\\d+\)\\).*\$/\\1/\" > $patho_viral_taxid_list_f";
+my $cmd = "grep -E -i 'virid|viral|viria|virus|phage' $taxid_README_f | grep -E -v '^\#' | perl -p -e \"s/^.*\\(taxid: \(\\d+\)\\).*\$/\\1/\" > $patho_viral_taxid_list_f";
 print("$prog_tag cmd:$cmd\n");
 `$cmd`;
 print("$prog_tag done, $patho_viral_taxid_list_f file created\n");
@@ -149,7 +165,7 @@ while(my $line=<TAXID>)
     print("$prog_tag \tget leave taxids from $line\n");
     if(not $b_no_download_taxid)
     {
-	$cmd = `eval \"\$(conda shell.bash hook)\"
+        $cmd = `eval \"\$(conda shell.bash hook)\"
 conda activate blast-v2.12.0
 get_species_taxids.sh -t $line > $taxid_file
 conda deactivate`;
