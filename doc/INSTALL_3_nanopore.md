@@ -403,6 +403,43 @@ Click on __Host Setting__ -> __Software__
 
 You __MUST NOT__ have __unknown__
 
+if you have, do:
+
+> if not already done, do before:
+```
+wget -O- https://cdn.oxfordnanoportal.com/apt/ont-repo.pub | sudo apt-key add -
+echo "deb http://cdn.oxfordnanoportal.com/apt focal-stable non-free" | sudo tee /etc/apt/sources.list.d/nanoporetech.sources.list
+```
+
+then
+
+```
+sudo apt purge minion-nc
+sudo apt autoremove
+sudo apt install minion-nc-gpu
+```
+
+> To set proxy setting if needed
+* Open the user_conf file:
+```
+/opt/ONT/MinKNOW/conf/user_conf
+```
+
+And edit the following portion of the file:
+```
+"proxy": {
+"cereal_class_version": 0,
+"use_system_settings": true,
+"auto_detect": true,
+"auto_config_script": "",
+"https_proxy": "",
+"proxy_bypass": ""
+```
+Edit the https_proxy setting, which should be in the style of:
+
+scheme://[username:password@]host:port or "http://domain\\username:password@host:port", where "scheme" is one of https, socks, socks4 or socks5.
+
+
 * Verify basecaller version matching again:
 ```
 /usr/bin/guppy_basecall_server --version
