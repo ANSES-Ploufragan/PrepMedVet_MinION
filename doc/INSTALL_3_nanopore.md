@@ -396,6 +396,13 @@ sudo -E apt upgrade
 ```
 will do the job (if repository have been filled as described before in this documentation)
 
+* Verify MinKNOW version is available in the interface
+
+Run MinKNOW.
+Click on __Host Setting__ -> __Software__
+
+You __MUST NOT__ have __unknown__
+
 * Verify basecaller version matching again:
 ```
 /usr/bin/guppy_basecall_server --version
