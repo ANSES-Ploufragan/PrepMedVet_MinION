@@ -352,6 +352,7 @@ must provide the same version as
 > in our case, both are:
 __6.2.1+6588110a6__ (2022 08 20)
 __6.3.8+d9e0f64__ (2022 10 07)
+__6.3.9+799d5bd__ (client-server API version 13.0.0, minimap2 version 2.22-r1101) (2023 01 03)
 
 
 # Make MinKNOW able to work offline
@@ -372,14 +373,11 @@ sudo /opt/ont/minknow/bin/config_editor --filename /opt/ont/minknow/conf/sys_con
 ~~
 
 
-New command:
-- backup ```/opt/ont/minknow/conf/installation_overrides.toml``` file
-- type:
-
+New command, type:
 ```
 echo "on_acquisition_ping_failure = 'ignore'" | sudo tee /opt/ont/minknow/conf/installation_overrides.toml
 ```
-
+(no need of backup because  installation_overrides.toml file does not exist before this procedure)
 
 - Restart the MinKNOW service by running the following commands:
 
@@ -415,6 +413,7 @@ Click on __Host Setting__ -> __Software__
 
 You __MUST NOT__ have __unknown__
 You must have currently: __22.10.7__ (2022 12 19)
+You must have currently: __22.10.10__ (2023 01 03)
 
 if you have, do:
 
