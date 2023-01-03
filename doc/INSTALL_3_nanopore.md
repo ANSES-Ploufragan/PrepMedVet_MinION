@@ -356,9 +356,9 @@ __6.3.8+d9e0f64__ (2022 10 07)
 
 # Make MinKNOW able to work offline
 
-> This is requested to run MinION sequencing without network (in the field)
+> DEPRECATED ON MinKNOW __22.10.7__
 
-In order to change your Linux version of MinKNOW to the offline version, __after usual standard installation__, do the following:
+~~In order to change your Linux version of MinKNOW to the offline version, __after usual standard installation__, do the following:
 - Install latest version of the software.
 - Disable the WiFi to prevent connection after restarting.
 - Shutdown the computer/device
@@ -369,8 +369,17 @@ In order to change your Linux version of MinKNOW to the offline version, __after
 ```
 sudo /opt/ont/minknow/bin/config_editor --filename /opt/ont/minknow/conf/sys_conf --conf system --set on_acquisition_ping_failure=ignore
 ```
+~~
 
-> This seems deprecated on MinKNOW __22.10.7__
+
+New command:
+- backup ```/opt/ont/minknow/conf/installation_overrides.toml``` file
+- type:
+
+```
+echo "on_acquisition_ping_failure = 'ignore'" | sudo tee /opt/ont/minknow/conf/installation_overrides.toml
+```
+
 
 - Restart the MinKNOW service by running the following commands:
 
