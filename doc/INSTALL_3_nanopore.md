@@ -357,21 +357,7 @@ __6.3.9+799d5bd__ (client-server API version 13.0.0, minimap2 version 2.22-r1101
 
 # Make MinKNOW able to work offline
 
-> DEPRECATED ON MinKNOW __22.10.7__
-
-~~In order to change your Linux version of MinKNOW to the offline version, __after usual standard installation__, do the following:
-- Install latest version of the software.
-- Disable the WiFi to prevent connection after restarting.
-- Shutdown the computer/device
-- Remove the ethernet cable
-- Power on the computer/device
-- Open a terminal and run the following commands:
-
-```
-sudo /opt/ont/minknow/bin/config_editor --filename /opt/ont/minknow/conf/sys_conf --conf system --set on_acquisition_ping_failure=ignore
-```
-~~
-
+> Previous instructions removed because DEPRECATED ON MinKNOW __22.10.7__
 
 New command, type:
 ```
