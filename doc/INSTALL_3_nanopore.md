@@ -24,7 +24,7 @@ echo "deb http://mirror.oxfordnanoportal.com/apt focal-stable non-free" | sudo t
 
 ```
 sudo apt-get update
-sudo apt-get install minion-nc
+sudo apt-get install minion-nc-gpu
 
 ```
 
@@ -352,22 +352,18 @@ must provide the same version as
 > in our case, both are:
 __6.2.1+6588110a6__ (2022 08 20)
 __6.3.8+d9e0f64__ (2022 10 07)
+__6.3.9+799d5bd__ (client-server API version 13.0.0, minimap2 version 2.22-r1101) (2023 01 03)
+
 
 # Make MinKNOW able to work offline
 
-> This is requested to run MinION sequencing without network (in the field)
+> Previous instructions removed because DEPRECATED ON MinKNOW __22.10.7__
 
-In order to change your Linux version of MinKNOW to the offline version, __after usual standard installation__, do the following:
-- Install latest version of the software.
-- Disable the WiFi to prevent connection after restarting.
-- Shutdown the computer/device
-- Remove the ethernet cable
-- Power on the computer/device
-- Open a terminal and run the following commands:
-
+New command, type:
 ```
-sudo /opt/ont/minknow/bin/config_editor --filename /opt/ont/minknow/conf/sys_conf --conf system --set on_acquisition_ping_failure=ignore
+echo "on_acquisition_ping_failure = 'ignore'" | sudo tee /opt/ont/minknow/conf/installation_overrides.toml
 ```
+(no need of backup because  installation_overrides.toml file does not exist before this procedure)
 
 - Restart the MinKNOW service by running the following commands:
 
@@ -395,6 +391,54 @@ sudo -E apt update
 sudo -E apt upgrade
 ```
 will do the job (if repository have been filled as described before in this documentation)
+
+* Verify MinKNOW version is available in the interface
+
+Run MinKNOW.
+Click on __Host Setting__ -> __Software__
+
+You __MUST NOT__ have __unknown__
+You must have currently: __22.10.7__ (2022 12 19)
+You must have currently: __22.10.10__ (2023 01 03)
+
+if you have, do:
+
+> if not already done, do before:
+```
+wget -O- https://cdn.oxfordnanoportal.com/apt/ont-repo.pub | sudo apt-key add -
+echo "deb http://cdn.oxfordnanoportal.com/apt focal-stable non-free" | sudo tee /etc/apt/sources.list.d/nanoporetech.sources.list
+```
+
+then
+
+```
+sudo apt purge minion-nc
+sudo apt autoremove
+sudo apt install minion-nc-gpu
+```
+
+* You need to restart
+
+> To set proxy setting if needed
+* Open the user_conf file:
+```
+/opt/ONT/MinKNOW/conf/user_conf
+```
+
+And edit the following portion of the file:
+```
+"proxy": {
+"cereal_class_version": 0,
+"use_system_settings": true,
+"auto_detect": true,
+"auto_config_script": "",
+"https_proxy": "",
+"proxy_bypass": ""
+```
+Edit the https_proxy setting, which should be in the style of:
+
+scheme://[username:password@]host:port or "http://domain\\username:password@host:port", where "scheme" is one of https, socks, socks4 or socks5.
+
 
 * Verify basecaller version matching again:
 ```
