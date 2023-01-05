@@ -192,7 +192,7 @@ conda deactivate`;
 
     if($@)
     {
-	die("$prog_tag [Error] ncbi-genome-download failed for $taxid_f, line ".__LINE__."\n");
+        die("$prog_tag [Error] ncbi-genome-download failed for $taxid_f, line ".__LINE__."\n");
     }
     else
     {
