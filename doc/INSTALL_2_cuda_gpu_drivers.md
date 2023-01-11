@@ -11,3 +11,7 @@ sudo apt install nvidia-cuda-toolkit
 ```
 
 > We did not use: ```sudo apt install cuda-drivers-fabricmanager-510```
+
+# page of CUDA / drivers compatibilities
+
+[cuda-toolkit-release-notes](https://docs.nvidia.com/cuda/cuda-toolkit-release-notes/index.html)
