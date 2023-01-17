@@ -20,14 +20,14 @@
             "name": "Input dataset collection",
             "outputs": [],
             "position": {
-                "bottom": 284.8000030517578,
+                "bottom": 266.3000030517578,
                 "height": 61.80000305175781,
-                "left": -113.5,
-                "right": 86.5,
-                "top": 223,
+                "left": 309,
+                "right": 509,
+                "top": 204.5,
                 "width": 200,
-                "x": -113.5,
-                "y": 223
+                "x": 309,
+                "y": 204.5
             },
             "tool_id": null,
             "tool_state": "{\"optional\": false, \"collection_type\": \"list\"}",
@@ -52,14 +52,14 @@
             "name": "Input dataset",
             "outputs": [],
             "position": {
-                "bottom": 424.1999969482422,
+                "bottom": 405.6999969482422,
                 "height": 82.19999694824219,
-                "left": -117.5,
-                "right": 82.5,
-                "top": 342,
+                "left": 305,
+                "right": 505,
+                "top": 323.5,
                 "width": 200,
-                "x": -117.5,
-                "y": 342
+                "x": 305,
+                "y": 323.5
             },
             "tool_id": null,
             "tool_state": "{\"optional\": false}",
@@ -84,14 +84,14 @@
             "name": "Input dataset",
             "outputs": [],
             "position": {
-                "bottom": 522.6999969482422,
+                "bottom": 504.1999969482422,
                 "height": 82.19999694824219,
-                "left": 676.5,
-                "right": 876.5,
-                "top": 440.5,
+                "left": 1099,
+                "right": 1299,
+                "top": 422,
                 "width": 200,
-                "x": 676.5,
-                "y": 440.5
+                "x": 1099,
+                "y": 422
             },
             "tool_id": null,
             "tool_state": "{\"optional\": false}",
@@ -115,14 +115,14 @@
             "name": "V1: Concatenate_reads_minion_files",
             "outputs": [],
             "position": {
-                "bottom": 315.5,
+                "bottom": 297,
                 "height": 134,
-                "left": 124.5,
-                "right": 324.5,
-                "top": 181.5,
+                "left": 547,
+                "right": 747,
+                "top": 163,
                 "width": 200,
-                "x": 124.5,
-                "y": 181.5
+                "x": 547,
+                "y": 163
             },
             "subworkflow": {
                 "a_galaxy_workflow": "true",
@@ -223,7 +223,7 @@
                 {
                     "label": null,
                     "output_name": "1:out_file1",
-                    "uuid": "f45a2425-1c5f-4ea9-8c8d-794340fd1a67"
+                    "uuid": "63d5e734-90cf-43f8-8614-4e2409af659f"
                 }
             ]
         },
@@ -261,14 +261,14 @@
                 }
             ],
             "position": {
-                "bottom": 329.6999969482422,
+                "bottom": 311.1999969482422,
                 "height": 225.1999969482422,
-                "left": 398.5,
-                "right": 598.5,
-                "top": 104.5,
+                "left": 821,
+                "right": 1021,
+                "top": 86,
                 "width": 200,
-                "x": 398.5,
-                "y": 104.5
+                "x": 821,
+                "y": 86
             },
             "post_job_actions": {},
             "tool_id": "toolshed.g2.bx.psu.edu/repos/iuc/filtlong/filtlong/0.2.0+galaxy1",
@@ -286,7 +286,7 @@
                 {
                     "label": null,
                     "output_name": "outfile",
-                    "uuid": "fa877407-5de1-4309-9e71-2c8315183a08"
+                    "uuid": "ca0bde1f-cf83-49bc-bd3d-0aa4d15a7ac2"
                 }
             ]
         },
@@ -310,14 +310,14 @@
             "name": "V2: Host caracterisation",
             "outputs": [],
             "position": {
-                "bottom": 999.4000244140625,
-                "height": 652.4000244140625,
-                "left": 394.5,
-                "right": 594.5,
-                "top": 347,
+                "bottom": 962,
+                "height": 632,
+                "left": 820,
+                "right": 1020,
+                "top": 330,
                 "width": 200,
-                "x": 394.5,
-                "y": 347
+                "x": 820,
+                "y": 330
             },
             "subworkflow": {
                 "a_galaxy_workflow": "true",
@@ -341,14 +341,14 @@
                         "name": "Input dataset",
                         "outputs": [],
                         "position": {
-                            "bottom": 180.3000030517578,
+                            "bottom": 268.3000030517578,
                             "height": 61.80000305175781,
-                            "left": -356,
-                            "right": -156,
-                            "top": 118.5,
+                            "left": -50,
+                            "right": 150,
+                            "top": 206.5,
                             "width": 200,
-                            "x": -356,
-                            "y": 118.5
+                            "x": -50,
+                            "y": 206.5
                         },
                         "tool_id": null,
                         "tool_state": "{\"optional\": false}",
@@ -373,14 +373,14 @@
                         "name": "Input dataset",
                         "outputs": [],
                         "position": {
-                            "bottom": 369.3000030517578,
+                            "bottom": 457.3000030517578,
                             "height": 61.80000305175781,
-                            "left": 616,
-                            "right": 816,
-                            "top": 307.5,
+                            "left": 922,
+                            "right": 1122,
+                            "top": 395.5,
                             "width": 200,
-                            "x": 616,
-                            "y": 307.5
+                            "x": 922,
+                            "y": 395.5
                         },
                         "tool_id": null,
                         "tool_state": "{\"optional\": false}",
@@ -423,14 +423,14 @@
                             }
                         ],
                         "position": {
-                            "bottom": 343.6999969482422,
+                            "bottom": 431.6999969482422,
                             "height": 225.1999969482422,
-                            "left": -128,
-                            "right": 72,
-                            "top": 118.5,
+                            "left": 178,
+                            "right": 378,
+                            "top": 206.5,
                             "width": 200,
-                            "x": -128,
-                            "y": 118.5
+                            "x": 178,
+                            "y": 206.5
                         },
                         "post_job_actions": {},
                         "tool_id": "toolshed.g2.bx.psu.edu/repos/iuc/filtlong/filtlong/0.2.0+galaxy1",
@@ -448,7 +448,7 @@
                             {
                                 "label": "filtlong on input dataset(s): Filtered FASTQ",
                                 "output_name": "outfile",
-                                "uuid": "113c13e5-dfcd-4b2b-99eb-914a09042623"
+                                "uuid": "4a6576e1-5841-4904-8150-1ee466c94f4a"
                             }
                         ]
                     },
@@ -478,14 +478,14 @@
                             }
                         ],
                         "position": {
-                            "bottom": 425.5,
+                            "bottom": 513.5,
                             "height": 144,
-                            "left": 107,
-                            "right": 307,
-                            "top": 281.5,
+                            "left": 413,
+                            "right": 613,
+                            "top": 369.5,
                             "width": 200,
-                            "x": 107,
-                            "y": 281.5
+                            "x": 413,
+                            "y": 369.5
                         },
                         "post_job_actions": {},
                         "tool_id": "toolshed.g2.bx.psu.edu/repos/iuc/seqtk/seqtk_seq/1.3.3",
@@ -503,7 +503,7 @@
                             {
                                 "label": null,
                                 "output_name": "default",
-                                "uuid": "f3d5d22d-9e6d-4cee-81d1-c9e1f67cd8d8"
+                                "uuid": "f1709a95-5733-4398-a8b1-6d4be5dd1f16"
                             }
                         ]
                     },
@@ -528,14 +528,14 @@
                             }
                         ],
                         "position": {
-                            "bottom": 496.8999938964844,
+                            "bottom": 584.8999938964844,
                             "height": 154.39999389648438,
-                            "left": 356,
-                            "right": 556,
-                            "top": 342.5,
+                            "left": 662,
+                            "right": 862,
+                            "top": 430.5,
                             "width": 200,
-                            "x": 356,
-                            "y": 342.5
+                            "x": 662,
+                            "y": 430.5
                         },
                         "post_job_actions": {},
                         "tool_id": "toolshed.g2.bx.psu.edu/repos/devteam/ncbi_blast_plus/ncbi_blastn_wrapper/2.10.1+galaxy0",
@@ -553,57 +553,79 @@
                             {
                                 "label": null,
                                 "output_name": "output1",
-                                "uuid": "002fe0b9-d752-4a0e-b3ac-f28c923d3f2d"
+                                "uuid": "7bd0a7ac-c967-4755-b8e1-432156b51749"
                             }
                         ]
                     },
                     "5": {
                         "annotation": "",
-                        "content_id": "toolshed.g2.bx.psu.edu/repos/crs4/taxonomy_krona_chart/taxonomy_krona_chart/2.7.1+galaxy0",
+                        "content_id": "testtoolshed.g2.bx.psu.edu/repos/p.lucas/krona_with_conda/krona/1.1.0",
                         "errors": null,
                         "id": 5,
                         "input_connections": {
-                            "type_of_data|input": {
+                            "datasets|input": {
                                 "id": 4,
                                 "output_name": "output1"
                             }
                         },
-                        "inputs": [],
+                        "inputs": [
+                            {
+                                "description": "runtime parameter for tool Krona chart",
+                                "name": "datasets"
+                            }
+                        ],
                         "label": null,
-                        "name": "Krona pie chart",
+                        "name": "Krona chart",
                         "outputs": [
                             {
                                 "name": "output",
                                 "type": "html"
+                            },
+                            {
+                                "name": "warnings",
+                                "type": "txt"
                             }
                         ],
                         "position": {
-                            "bottom": 293.1000061035156,
-                            "height": 113.60000610351562,
-                            "left": 611,
-                            "right": 811,
-                            "top": 179.5,
+                            "bottom": 372.6000061035156,
+                            "height": 123.60000610351562,
+                            "left": 916,
+                            "right": 1116,
+                            "top": 249,
                             "width": 200,
-                            "x": 611,
-                            "y": 179.5
+                            "x": 916,
+                            "y": 249
                         },
-                        "post_job_actions": {},
-                        "tool_id": "toolshed.g2.bx.psu.edu/repos/crs4/taxonomy_krona_chart/taxonomy_krona_chart/2.7.1+galaxy0",
+                        "post_job_actions": {
+                            "HideDatasetActionwarnings": {
+                                "action_arguments": {},
+                                "action_type": "HideDatasetAction",
+                                "output_name": "warnings"
+                            },
+                            "RenameDatasetActionoutput": {
+                                "action_arguments": {
+                                    "newname": "Krona HOST"
+                                },
+                                "action_type": "RenameDatasetAction",
+                                "output_name": "output"
+                            }
+                        },
+                        "tool_id": "testtoolshed.g2.bx.psu.edu/repos/p.lucas/krona_with_conda/krona/1.1.0",
                         "tool_shed_repository": {
-                            "changeset_revision": "e9005d1f3cfd",
-                            "name": "taxonomy_krona_chart",
-                            "owner": "crs4",
-                            "tool_shed": "toolshed.g2.bx.psu.edu"
+                            "changeset_revision": "1b9c7c457fc1",
+                            "name": "krona_with_conda",
+                            "owner": "p.lucas",
+                            "tool_shed": "testtoolshed.g2.bx.psu.edu"
                         },
-                        "tool_state": "{\"combine_inputs\": \"false\", \"root_name\": \"Root\", \"type_of_data\": {\"type_of_data_selector\": \"text\", \"__current_case__\": 1, \"input\": {\"__class__\": \"ConnectedValue\"}}, \"__page__\": null, \"__rerun_remap_job_id__\": null}",
-                        "tool_version": "2.7.1+galaxy0",
+                        "tool_state": "{\"datasets\": {\"multiple\": \"single\", \"__current_case__\": 0, \"input\": {\"__class__\": \"RuntimeValue\"}}, \"depth\": \"0\", \"type\": {\"program\": \"blast\", \"__current_case__\": 1, \"factor\": \"10.0\", \"include\": \"false\", \"random\": \"false\"}, \"__page__\": null, \"__rerun_remap_job_id__\": null}",
+                        "tool_version": "1.1.0",
                         "type": "tool",
-                        "uuid": "33ad79d2-35b8-4459-bc00-1869c9ef5889",
+                        "uuid": "7baccd9d-4d48-4c94-b6fa-cd315797d1cb",
                         "workflow_outputs": [
                             {
-                                "label": "Krona pie chart on input dataset(s): HTML",
+                                "label": null,
                                 "output_name": "output",
-                                "uuid": "b574ca7b-9922-4518-85f2-8e34038b6a99"
+                                "uuid": "04fac718-0132-412e-960f-5baa53e9e47c"
                             }
                         ]
                     },
@@ -628,14 +650,14 @@
                             }
                         ],
                         "position": {
-                            "bottom": 703.1000061035156,
+                            "bottom": 791.1000061035156,
                             "height": 113.60000610351562,
-                            "left": 592,
-                            "right": 792,
-                            "top": 589.5,
+                            "left": 898,
+                            "right": 1098,
+                            "top": 677.5,
                             "width": 200,
-                            "x": 592,
-                            "y": 589.5
+                            "x": 898,
+                            "y": 677.5
                         },
                         "post_job_actions": {
                             "ChangeDatatypeActionoutput": {
@@ -661,7 +683,7 @@
                             {
                                 "label": null,
                                 "output_name": "output",
-                                "uuid": "22ef13ec-719e-467f-9332-c02881baeae2"
+                                "uuid": "491f0bfb-8808-4c70-9276-b93579f81cac"
                             }
                         ]
                     },
@@ -685,14 +707,14 @@
                         "name": "Catch clean gi to DL ref",
                         "outputs": [],
                         "position": {
-                            "bottom": 576,
+                            "bottom": 664,
                             "height": 144,
-                            "left": 831,
-                            "right": 1031,
-                            "top": 432,
+                            "left": 1137,
+                            "right": 1337,
+                            "top": 520,
                             "width": 200,
-                            "x": 831,
-                            "y": 432
+                            "x": 1137,
+                            "y": 520
                         },
                         "subworkflow": {
                             "a_galaxy_workflow": "true",
@@ -1130,7 +1152,7 @@
                             {
                                 "label": null,
                                 "output_name": "8:output",
-                                "uuid": "26d5d01f-e163-4d7d-85c3-3730378b1792"
+                                "uuid": "48352e88-6ec7-464c-a85e-b3a9f49cbd17"
                             }
                         ]
                     },
@@ -1163,14 +1185,14 @@
                             }
                         ],
                         "position": {
-                            "bottom": 716.2000122070312,
+                            "bottom": 804.2000122070312,
                             "height": 419.20001220703125,
-                            "left": 1089,
-                            "right": 1289,
-                            "top": 297,
+                            "left": 1395,
+                            "right": 1595,
+                            "top": 385,
                             "width": 200,
-                            "x": 1089,
-                            "y": 297
+                            "x": 1395,
+                            "y": 385
                         },
                         "post_job_actions": {},
                         "tool_id": "testtoolshed.g2.bx.psu.edu/repos/p.lucas/megablast_tab_select_acc_under_taxids/MEGABLAST_TAB_select_acc_under_taxids/1",
@@ -1186,14 +1208,14 @@
                         "uuid": "ef4e38d2-1027-4e95-8a2f-7328cd069419",
                         "workflow_outputs": [
                             {
-                                "label": "TAXID IN of Get acc number from MEGABLAST_TAB_get_acc_taxid and taxid user on input dataset(s)",
-                                "output_name": "output_in",
-                                "uuid": "b7ba0665-619b-493d-b99d-52bb647cd9f4"
-                            },
-                            {
                                 "label": "TAXID OUT Get acc number from MEGABLAST_TAB_get_acc_taxid and taxid user on input dataset(s)",
                                 "output_name": "output_out",
-                                "uuid": "b4ef9562-a99a-4e2e-91c1-482f0c873a9c"
+                                "uuid": "0c558a50-62f3-41f3-9d64-5f28afbe07ba"
+                            },
+                            {
+                                "label": "TAXID IN of Get acc number from MEGABLAST_TAB_get_acc_taxid and taxid user on input dataset(s)",
+                                "output_name": "output_in",
+                                "uuid": "18bb06f5-6f02-4e99-ae87-4286b3d6edf6"
                             }
                         ]
                     },
@@ -1218,14 +1240,14 @@
                             }
                         ],
                         "position": {
-                            "bottom": 652.5,
+                            "bottom": 740.5,
                             "height": 134,
-                            "left": 1340,
-                            "right": 1540,
-                            "top": 518.5,
+                            "left": 1646,
+                            "right": 1846,
+                            "top": 606.5,
                             "width": 200,
-                            "x": 1340,
-                            "y": 518.5
+                            "x": 1646,
+                            "y": 606.5
                         },
                         "post_job_actions": {},
                         "tool_id": "toolshed.g2.bx.psu.edu/repos/devteam/ncbi_blast_plus/ncbi_blastdbcmd_wrapper/2.10.1+galaxy0",
@@ -1243,62 +1265,62 @@
                             {
                                 "label": "Sequences from blastdbcmd \n''\n",
                                 "output_name": "seq",
-                                "uuid": "a906c849-1736-424f-8301-cfd72d330c87"
+                                "uuid": "493d4ae5-8857-4c98-b103-75ac873e7d0a"
                             }
                         ]
                     }
                 },
                 "tags": "",
-                "uuid": "4cb1cff5-5f83-4518-acea-c3046162a0b3"
+                "uuid": "bb5b7716-b109-4260-9c04-d7470eb02986"
             },
-            "tool_id": "7b550655b23ef0e2",
+            "tool_id": "bee7165da7094777",
             "type": "subworkflow",
-            "uuid": "88f64bfe-2599-4054-9850-0caa4f932c2a",
+            "uuid": "1e7ab27b-6e0a-4422-832a-3acdb1d15b0c",
             "workflow_outputs": [
                 {
-                    "label": "TAXID IN of Get acc number from MEGABLAST_TAB_get_acc_taxid and taxid user on input dataset(s)",
-                    "output_name": "TAXID IN of Get acc number from MEGABLAST_TAB_get_acc_taxid and taxid user on input dataset(s)",
-                    "uuid": "e0e1aaaa-c139-475a-9439-c874fb57e69f"
+                    "label": "filtlong on input dataset(s): Filtered FASTQ",
+                    "output_name": "filtlong on input dataset(s): Filtered FASTQ",
+                    "uuid": "64fa09c9-70a6-4849-aee5-9817d8a9ae24"
                 },
                 {
                     "label": null,
-                    "output_name": "7:7:output",
-                    "uuid": "38671b4c-762f-4cbd-9176-8742a3f3e1f8"
-                },
-                {
-                    "label": "Sequences from blastdbcmd \n'['nt']'\n",
                     "output_name": "Sequences from blastdbcmd \n''\n",
-                    "uuid": "f66b39a0-8cd5-4a10-839c-e157e8b0e897"
+                    "uuid": "fb3af97a-0f5b-4344-a1ed-8fb0f0396657"
                 },
                 {
                     "label": null,
-                    "output_name": "6:output",
-                    "uuid": "85b3738d-f6bb-4cdc-8508-b6494632f340"
+                    "output_name": "TAXID IN of Get acc number from MEGABLAST_TAB_get_acc_taxid and taxid user on input dataset(s)",
+                    "uuid": "c2147126-663c-4cdb-bdb2-80532984fec0"
+                },
+                {
+                    "label": "TAXID OUT Get acc number from MEGABLAST_TAB_get_acc_taxid and taxid user on input dataset(s)",
+                    "output_name": "TAXID OUT Get acc number from MEGABLAST_TAB_get_acc_taxid and taxid user on input dataset(s)",
+                    "uuid": "363ac67b-ffe0-4b61-b81c-e03d07775dc2"
                 },
                 {
                     "label": null,
-                    "output_name": "Krona pie chart on input dataset(s): HTML",
-                    "uuid": "12040a3a-ad01-4514-ac5a-e3af6935b8ce"
+                    "output_name": "7:8:output",
+                    "uuid": "ebdef00a-1e02-4b46-b191-c59d869200ca"
+                },
+                {
+                    "label": null,
+                    "output_name": "5:output",
+                    "uuid": "46f39916-e2c0-4296-beed-f509dfd7df13"
                 },
                 {
                     "label": null,
                     "output_name": "4:output1",
-                    "uuid": "54fe4714-877c-47c1-ae0b-651dbb8e426b"
+                    "uuid": "c08996fa-9afd-4bd3-81b3-641a892a927a"
                 },
                 {
                     "label": null,
                     "output_name": "3:default",
-                    "uuid": "f64e874e-df72-4360-beb5-de2dda5dadf5"
+                    "uuid": "6ad5f04f-b810-4c8c-aaba-d32e9cd74674"
                 },
                 {
                     "label": null,
-                    "output_name": "filtlong on input dataset(s): Filtered FASTQ",
-                    "uuid": "15cfac26-e1f4-40a1-bee3-9a82e53b25c9"
-                },
-                {
-                    "label": null,
-                    "output_name": "TAXID OUT Get acc number from MEGABLAST_TAB_get_acc_taxid and taxid user on input dataset(s)",
-                    "uuid": "4d19028a-5aaf-4900-81b8-7908d32b563e"
+                    "output_name": "6:output",
+                    "uuid": "2e61adc5-9b8f-4dff-9f6a-049647d69ff3"
                 }
             ]
         },
@@ -1322,14 +1344,14 @@
             "name": "V2: Alignment + Get unmapped reads",
             "outputs": [],
             "position": {
-                "bottom": 423.8000030517578,
+                "bottom": 405.3000030517578,
                 "height": 184.8000030517578,
-                "left": 673.5,
-                "right": 873.5,
-                "top": 239,
+                "left": 1096,
+                "right": 1296,
+                "top": 220.5,
                 "width": 200,
-                "x": 673.5,
-                "y": 239
+                "x": 1096,
+                "y": 220.5
             },
             "subworkflow": {
                 "a_galaxy_workflow": "true",
@@ -1516,7 +1538,7 @@
                 {
                     "label": null,
                     "output_name": "3:output",
-                    "uuid": "4ce31db1-6981-4441-a916-b1cbd86ad298"
+                    "uuid": "b731004f-1d39-4336-8d28-f9a34c7b5c33"
                 }
             ]
         },
@@ -1540,14 +1562,14 @@
             "name": "V1: BIGONE without read concatenation",
             "outputs": [],
             "position": {
-                "bottom": 1399.4000244140625,
+                "bottom": 1380.9000244140625,
                 "height": 1038.4000244140625,
-                "left": 946,
-                "right": 1146,
-                "top": 361,
+                "left": 1368.5,
+                "right": 1568.5,
+                "top": 342.5,
                 "width": 200,
-                "x": 946,
-                "y": 361
+                "x": 1368.5,
+                "y": 342.5
             },
             "subworkflow": {
                 "a_galaxy_workflow": "true",
@@ -5925,93 +5947,93 @@
             "workflow_outputs": [
                 {
                     "label": null,
-                    "output_name": "6:3:output1",
-                    "uuid": "ff2de755-b60d-4a18-88df-9536c20801d7"
-                },
-                {
-                    "label": null,
-                    "output_name": "5:3:output1",
-                    "uuid": "28409d74-f92b-4e97-9f69-17690dc4af6b"
-                },
-                {
-                    "label": null,
-                    "output_name": "5:2:consensus",
-                    "uuid": "1d8b0810-9f6a-489c-865b-0c122198dab6"
-                },
-                {
-                    "label": null,
-                    "output_name": "5:4:output",
-                    "uuid": "c28aa44b-335b-4634-aada-9c76a5765d0b"
-                },
-                {
-                    "label": null,
-                    "output_name": "4:2:outfile",
-                    "uuid": "2d8b22c9-a97b-43fc-a21f-e05f61ae96bb"
-                },
-                {
-                    "label": null,
-                    "output_name": "4:8:snv_output",
-                    "uuid": "101deb0d-45e2-46de-b2c2-0e62fcb6b864"
-                },
-                {
-                    "label": null,
-                    "output_name": "3:8:snv_output",
-                    "uuid": "ec654705-a638-405c-a570-c61167b2beee"
+                    "output_name": "5:2:assembly_info",
+                    "uuid": "91663d8c-3a0a-4f52-aaf5-186583abfc84"
                 },
                 {
                     "label": null,
                     "output_name": "3:2:outfile",
-                    "uuid": "7395ead3-0deb-4c90-a4b9-ed5a3b08b4e2"
+                    "uuid": "eae0546b-875e-4800-8f8d-58b497d11b91"
                 },
                 {
                     "label": null,
-                    "output_name": "5:2:assembly_info",
-                    "uuid": "15897aeb-9c84-4698-b25a-ad80fa3c5b5e"
+                    "output_name": "3:8:snv_output",
+                    "uuid": "98d1a5b4-7d39-4ce7-af17-55ad797fbf50"
                 },
                 {
                     "label": null,
-                    "output_name": "Flye on input dataset(s): consensus",
-                    "uuid": "52c99bb6-1452-45d6-8358-08d811ceda09"
+                    "output_name": "4:8:snv_output",
+                    "uuid": "4a81ef2a-3153-4deb-af18-80fe5e2a45a6"
                 },
                 {
                     "label": null,
-                    "output_name": "Flye on input dataset(s): assembly info",
-                    "uuid": "55fca60b-b67e-4811-9cec-8653c0c1f8d7"
+                    "output_name": "4:2:outfile",
+                    "uuid": "346f4657-588d-4d5b-8870-784121df4384"
                 },
                 {
                     "label": null,
-                    "output_name": "6:4:output",
-                    "uuid": "bd567a66-1a17-4e90-87f1-0a194277579f"
+                    "output_name": "5:4:output",
+                    "uuid": "69fc178a-65a6-42c2-8b1e-33d084ca9435"
                 },
                 {
                     "label": null,
-                    "output_name": "6:6:output",
-                    "uuid": "6f023667-727e-40c8-9e2f-9e92cbb27ebb"
+                    "output_name": "5:3:output1",
+                    "uuid": "2be85f9c-b3d6-4b58-80a2-9c3c9707768a"
                 },
                 {
                     "label": null,
-                    "output_name": "TAXID IN of Get acc number from MEGABLAST_TAB_get_acc_taxid and taxid user on input dataset(s)",
-                    "uuid": "f43db3c2-6f08-4553-b969-b362a63e6973"
+                    "output_name": "6:3:output1",
+                    "uuid": "b13f82ff-c4ea-4730-beec-0576505fc5b9"
                 },
                 {
                     "label": null,
-                    "output_name": "Sequences from blastdbcmd \n'['nt']'\n",
-                    "uuid": "da35bd39-d916-4b32-b450-12d493e785fb"
-                },
-                {
-                    "label": null,
-                    "output_name": "Mauve Contig Mover on input dataset(s): Reordered",
-                    "uuid": "46581835-7bd8-4946-9dd3-b8abe5488753"
+                    "output_name": "5:2:consensus",
+                    "uuid": "8d0f98e9-86b8-46b1-a064-399a35d0ade0"
                 },
                 {
                     "label": null,
                     "output_name": "Map with minimap2 on input dataset(s) (mapped reads in BAM format)",
-                    "uuid": "09ef58f3-7bf2-4a62-b302-23fc2a2693f8"
+                    "uuid": "52b4c345-3e0f-458e-ac8d-ec14540b59ce"
+                },
+                {
+                    "label": null,
+                    "output_name": "Mauve Contig Mover on input dataset(s): Reordered",
+                    "uuid": "31ef19f5-22bc-4a3f-8fc9-799ba789f5ac"
+                },
+                {
+                    "label": null,
+                    "output_name": "Sequences from blastdbcmd \n'['nt']'\n",
+                    "uuid": "b854c53e-3c3d-437e-8253-961ea58586c5"
+                },
+                {
+                    "label": null,
+                    "output_name": "TAXID IN of Get acc number from MEGABLAST_TAB_get_acc_taxid and taxid user on input dataset(s)",
+                    "uuid": "dd1fbd9d-24ea-455a-b1f5-59a27ddc8267"
+                },
+                {
+                    "label": null,
+                    "output_name": "6:6:output",
+                    "uuid": "f947683f-b624-4eec-99fa-7c8adeac64aa"
+                },
+                {
+                    "label": null,
+                    "output_name": "6:4:output",
+                    "uuid": "61934199-9267-4493-9696-6eb32334590c"
+                },
+                {
+                    "label": null,
+                    "output_name": "Flye on input dataset(s): assembly info",
+                    "uuid": "14ed3d6a-ef26-48e4-b4b9-6da5a6edb275"
+                },
+                {
+                    "label": null,
+                    "output_name": "Flye on input dataset(s): consensus",
+                    "uuid": "e905df09-2df4-47e5-b820-ce11993fb516"
                 }
             ]
         }
     },
     "tags": [],
-    "uuid": "20462a23-d6a8-48b7-b648-19566a7547bb",
-    "version": 41
+    "uuid": "75e5b020-e60e-4d7e-aec8-c970d74f5f8e",
+    "version": 42
 }
