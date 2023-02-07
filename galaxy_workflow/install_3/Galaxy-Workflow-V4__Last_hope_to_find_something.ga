@@ -20,14 +20,14 @@
             "name": "Input dataset",
             "outputs": [],
             "position": {
-                "bottom": 485.6999969482422,
+                "bottom": 431.6999969482422,
                 "height": 82.19999694824219,
-                "left": 583,
-                "right": 783,
-                "top": 403.5,
+                "left": 405,
+                "right": 605,
+                "top": 349.5,
                 "width": 200,
-                "x": 583,
-                "y": 403.5
+                "x": 405,
+                "y": 349.5
             },
             "tool_id": null,
             "tool_state": "{\"optional\": false}",
@@ -47,7 +47,12 @@
                     "output_name": "output"
                 }
             },
-            "inputs": [],
+            "inputs": [
+                {
+                    "description": "runtime parameter for tool Flye",
+                    "name": "inputs"
+                }
+            ],
             "label": null,
             "name": "Flye",
             "outputs": [
@@ -69,14 +74,14 @@
                 }
             ],
             "position": {
-                "bottom": 707.8999938964844,
+                "bottom": 653.8999938964844,
                 "height": 286.3999938964844,
-                "left": 839,
-                "right": 1039,
-                "top": 421.5,
+                "left": 661,
+                "right": 861,
+                "top": 367.5,
                 "width": 200,
-                "x": 839,
-                "y": 421.5
+                "x": 661,
+                "y": 367.5
             },
             "post_job_actions": {
                 "HideDatasetActionassembly_gfa": {
@@ -97,20 +102,20 @@
                 "owner": "bgruening",
                 "tool_shed": "toolshed.g2.bx.psu.edu"
             },
-            "tool_state": "{\"asm\": {\"asm_select\": \"false\", \"__current_case__\": 1}, \"generate_log\": \"false\", \"inputs\": {\"__class__\": \"ConnectedValue\"}, \"iterations\": \"1\", \"keep_haplotypes\": \"false\", \"meta\": \"false\", \"min_overlap\": null, \"mode_conditional\": {\"mode\": \"--nano-raw\", \"__current_case__\": 0}, \"scaffold\": \"false\", \"__page__\": null, \"__rerun_remap_job_id__\": null}",
+            "tool_state": "{\"asm\": {\"asm_select\": \"false\", \"__current_case__\": 1}, \"generate_log\": \"false\", \"inputs\": {\"__class__\": \"RuntimeValue\"}, \"iterations\": \"1\", \"keep_haplotypes\": \"false\", \"meta\": \"true\", \"min_overlap\": null, \"mode_conditional\": {\"mode\": \"--nano-raw\", \"__current_case__\": 0}, \"scaffold\": \"false\", \"__page__\": null, \"__rerun_remap_job_id__\": null}",
             "tool_version": "2.9+galaxy0",
             "type": "tool",
-            "uuid": "686234e3-d35f-446b-8e33-09034aaa87cd",
+            "uuid": "5e248720-2ab4-42f1-aa88-5a4828bfa520",
             "workflow_outputs": [
                 {
                     "label": "Flye on input dataset(s): consensus",
                     "output_name": "consensus",
-                    "uuid": "f601baa7-7988-4e30-a941-46c5fa833846"
+                    "uuid": "8b3ed09d-33bd-484b-820f-4ccbcd424264"
                 },
                 {
                     "label": "Flye on input dataset(s): assembly info",
                     "output_name": "assembly_info",
-                    "uuid": "cb612ddf-a811-4ac6-b212-9ecc3fc0a8fe"
+                    "uuid": "7e134aef-c3b6-428f-8a32-ac033ffd43a5"
                 }
             ]
         },
@@ -129,14 +134,14 @@
             "name": "V3 : megablast + tblastx (after fly)",
             "outputs": [],
             "position": {
-                "bottom": 742.5,
+                "bottom": 688.5,
                 "height": 266,
-                "left": 1139,
-                "right": 1339,
-                "top": 476.5,
+                "left": 961,
+                "right": 1161,
+                "top": 422.5,
                 "width": 200,
-                "x": 1139,
-                "y": 476.5
+                "x": 961,
+                "y": 422.5
             },
             "subworkflow": {
                 "a_galaxy_workflow": "true",
@@ -495,28 +500,28 @@
             "workflow_outputs": [
                 {
                     "label": null,
-                    "output_name": "3:output",
-                    "uuid": "87876785-430c-4d5d-9c66-2004206a7ef5"
-                },
-                {
-                    "label": null,
-                    "output_name": "4:out_file1",
-                    "uuid": "30a2a893-6714-4d21-984e-b054f562bfe0"
+                    "output_name": "6:output1",
+                    "uuid": "3a4729b0-28af-4a43-85ea-0f6c094f30cf"
                 },
                 {
                     "label": "Filter FASTA on input dataset(s): FASTA sequences",
                     "output_name": "Filter FASTA on input dataset(s): FASTA sequences",
-                    "uuid": "da2517ee-26b9-4fe5-ae0c-b7dcef9e2e1b"
+                    "uuid": "e15ff473-6d44-4d67-8004-c32596b0c166"
                 },
                 {
                     "label": null,
-                    "output_name": "6:output1",
-                    "uuid": "8b7d195c-ce73-4918-b1b5-76574fa95ae1"
+                    "output_name": "4:out_file1",
+                    "uuid": "34178bf8-f81b-4242-909b-30bd611a67d9"
+                },
+                {
+                    "label": null,
+                    "output_name": "3:output",
+                    "uuid": "cb0e729b-b6fa-4bb2-b334-e2d52495e47a"
                 }
             ]
         }
     },
     "tags": [],
-    "uuid": "cc4f056b-b33f-4513-8b70-8a5c2cc08f77",
-    "version": 4
+    "uuid": "037317c1-958b-46d9-a077-1c4b981947f4",
+    "version": 6
 }
