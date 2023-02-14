@@ -1,13 +1,11 @@
 <job_conf>
     <plugins workers="4">
-        <plugin id="local_plugin" type="runner" load="galaxy.jobs.runners.local:LocalJobRunner"/>
-        <plugin id="slurm" type="runner" load="galaxy.jobs.runners.slurm:SlurmJobRunner"/>
+        <plugin id="local" type="runner" load="galaxy.jobs.runners.local:LocalJobRunner"/>
     </plugins>
-    <destinations default="slurm">
-        <destination id="local_destination" runner="local_plugin"/>
-        <destination id="slurm" runner="slurm">
-           <param id="SLURM_JOB_PARTITION">galaxy</param>
-         </destination>
+    <destinations default="local">
+        <destination id="local_destination" runner="local">
+          <param id="local_slots"> 9</params>
+        </destination>
     </destinations>
     <tools>
     </tools>
