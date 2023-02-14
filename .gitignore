@@ -7,3 +7,4 @@
 /planemo/**
 /planemo_cmd/**
 /galaxy_workflow/install*/*.yml
+*.pyc
