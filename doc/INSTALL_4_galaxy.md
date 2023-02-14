@@ -20,26 +20,39 @@ Install galaxy with ansible one line command.
 # SETUP GALAXY
 
 ## API KEY 
-* Connect to  galaxy instance with a navigateur : http://localhost
+* Connect to  galaxy instance with a navigateur : http://localhost for next this while called IP_GALAXY
 * Create a user, use your email to register.
-* Go to settings account and create a API key (copy it)
+* Go to settings account and create a API key (copy it) for next this will called API_GALAXY
 
 ## Install tools and workflow
 
+### Install Ephemeris environement
 
-TODO :  test
+Be sure not be in conda environement ``` conda deactivate ````
+
+Create a virtualenv environement (with pip)
+
+**PATH_PREPMEDVET** is full path where you clone git repository (ex /home/admin/PrepMedVet_Analyses)
+``` 
+virtualenv env 
+source env/bin/activate
+pip install -r PATH_PREPMEDVET/galaxy/tools_workflows_requirements/txt
+``` 
        
-return in directory Prepmetvet galaxy
-* change API key in files tools.yaml and worflow.yaml
 
-execute command line
+### Install tools and after workfow
 
-* ``ansible-playbook tools.yaml -u admin -K `` 
-* ``ansible-playbook workflow.yaml -u admin -K `` 
+You have 1 script in each directory  PATH_PREPMEDVET/galaxy_workflow/install_Y  (Y=1,2,3)
+
+You have launch each in order 1, 2, 3
+
+```
+sh PATH_PREPMEDVET/galaxy_workflow/install_1/workflow-and-tools-install.sh IP  API_GALAXY
+sh PATH_PREPMEDVET/galaxy_workflow/install_2/workflow-and-tools-install.sh IP  API_GALAXY
+sh PATH_PREPMEDVET/galaxy_workflow/install_3/workflow-and-tools-install.sh IP  API_GALAXY
+```
+
+###
 
 
-* TODO : create a var fil with api key and put var api_key in tools.yaml workflow.yaml
-
-
-* TODO : Find a best way for create list of tools with version and updated workflow
 
