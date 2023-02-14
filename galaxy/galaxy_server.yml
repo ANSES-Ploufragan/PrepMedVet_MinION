@@ -2,6 +2,7 @@
 - hosts: galaxyservers
   connection: local
   become: true
+  become_user: root
 
       ##### parti gestion du proxy anses
   tasks:
@@ -32,7 +33,7 @@
   pre_tasks:
       - name: Install Dependencies
         package:
-             name: ['python3-psycopg2', 'git', 'python3-virtualenv', 'make', 'acl','libsasl2-dev','python-dev', 'libldap2-dev', 'libssl-dev', 'virtualenv']
+             name: ['python3-psycopg2', 'git', 'python3-virtualenv', 'make', 'acl','libsasl2-dev','python-dev', 'libldap2-dev', 'libssl-dev', 'virtualenv','libbz2-dev', 'liblzma']
 
       - name: Copy gitconfig to root
         copy:
