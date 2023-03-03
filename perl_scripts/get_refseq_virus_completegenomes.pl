@@ -68,7 +68,7 @@ To display each step done, mainly for debug.
 
 =item [-d]
 
-dry run: to display commands lunch, does not run these commands.
+dry run: to display commands launched, does not run these commands.
 
 =item [-t]
 
