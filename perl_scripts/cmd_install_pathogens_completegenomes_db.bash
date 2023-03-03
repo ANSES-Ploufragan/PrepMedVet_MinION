@@ -10,8 +10,10 @@ sudo mkdir $bactdb
 sudo chown pmv:galaxy $virdb
 sudo chown pmv:galaxy $bactdb
 
-perl -r ../taxid_lists/README.md -o $virdb -keep_taxid
-perl -r ../taxid_lists/README.md -o $bactdb -keep_taxid -b
+perl get_refseq_virus_completegenomes.pl -r ../taxid_lists/README.md -o $virdb -keep_taxid
+perl get_refseq_virus_completegenomes.pl -r ../taxid_lists/README.md -o $bactdb -keep_taxid -b
+
+# makeblastdb command not needed, integrated in previous perl script
 
 sudo chown -R galaxy:galaxy $virdb
 sudo chown -R galaxy:galaxy $bactdb
