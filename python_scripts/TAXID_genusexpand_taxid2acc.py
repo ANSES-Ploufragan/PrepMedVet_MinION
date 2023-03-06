@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 ###
 # USE PYTHON3
@@ -10,31 +10,24 @@
 
 ### Libraries to import:
 import argparse, os, sys, csv, warnings
-from ete3 import NCBITaxa
 from os import path
-from natsort import natsorted
+# from natsort import natsorted
+import ncbi_genome_download as ngd
 
 # to be able to report line number in error messages
 import inspect
 frame = inspect.currentframe()
 
 # debug
-b_test_taxid_genus_expand = True #
-b_test_taxid2accnr = True #
+b_test_load_taxids = True #
+b_test_add_host_chr_taxids_accnr_from_ori_list = True
 
 prog_tag = '[' + os.path.basename(__file__) + ']'
 
 # list of interesting taxid (fathers)
 taxidlist_f = ''
 taxidlist = []
-
-# store key taxid, value accession number for all records in krona tab file
-h_taxid_acc = {}
-
-searched_taxid = -1
-
-# taxid found under the taxid searched for
-tax_in = []
+accnrlist = []
 
 # boolean to know if we download ncbi taxonomy file in current env
 b_load_ncbi_tax_f = False
@@ -45,44 +38,44 @@ b_acc_out_f       = False
 
 b_verbose         = False
 
-rank = '' # rank level retained by user
-rank_num = index of rank retained by user
+# rank = '' # rank level retained by user
+# rank_num = index of rank retained by user
 
-# set to check that provided rank exist to be sure to be able to use it
-ranks = {
-    'superkingdom' => 0,
-    # 'clade', # no, several clade, name is too generic
-    'kingdom'      => 1,
-    'phylum'       => 2,
-    'subphylum'    => 3,
-    'superclass'   => 4,
-    'class'        => 5,
-    'superorder'   => 6,
-    'order'        => 7,
-    'suborder'     => 8,
-    'infraorder'   => 9,
-    'parvorder'    => 10,
-    'superfamily'  => 11,
-    'family'       => 12,
-    'subfamily'    => 13,
-    'genus'        => 14,
-    'species'      => 15,
-    'subspecies'   => 16
-    }
+# # set to check that provided rank exist to be sure to be able to use it
+# ranks = {
+#     'superkingdom' => 0,
+#     # 'clade', # no, several clade, name is too generic
+#     'kingdom'      => 1,
+#     'phylum'       => 2,
+#     'subphylum'    => 3,
+#     'superclass'   => 4,
+#     'class'        => 5,
+#     'superorder'   => 6,
+#     'order'        => 7,
+#     'suborder'     => 8,
+#     'infraorder'   => 9,
+#     'parvorder'    => 10,
+#     'superfamily'  => 11,
+#     'family'       => 12,
+#     'subfamily'    => 13,
+#     'genus'        => 14,
+#     'species'      => 15,
+#     'subspecies'   => 16
+#     }
 
 parser = argparse.ArgumentParser()
-parser.add_argument("-i", "--acc_f", dest='acc_f',
+parser.add_argument("-i", "--acc_in_f", dest='acc_in_f',
                     help="acc number list",
                     metavar="FILE")
 parser.add_argument("-o", "--acc_out_f", dest='acc_out_f',
                     help="[optional if --acc_in_f provided] Output text file with accession numbers from krona_taxid_acc_f NOT found under taxid in ncbi taxonomy tree",
                     metavar="FILE")
-parser.add_argument("-r", "--rank", dest='rank',
-                    help="[Optional] default: genus, rank to retain for each acc number provided. We will retain all the acc number descendant from this 'rank' (genus) taxid list",
-                    action="store_const")
-parser.add_argument("-l", "--load_ncbi_tax_f", dest='b_load_ncbi_tax_f',
-                    help="[Optional] load ncbi tabular file with taxonomy organized to represent a tree in current env at default location (~/.etetoolkit/taxa.sqlite). Only needed for first run",
-                    action='store_true')
+# parser.add_argument("-r", "--rank", dest='rank',
+#                     help="[Optional] default: genus, rank to retain for each acc number provided. We will retain all the acc number descendant from this 'rank' (genus) taxid list",
+#                     action="store_const")
+# parser.add_argument("-l", "--load_ncbi_tax_f", dest='b_load_ncbi_tax_f',
+#                     help="[Optional] load ncbi tabular file with taxonomy organized to represent a tree in current env at default location (~/.etetoolkit/taxa.sqlite). Only needed for first run",
+#                     action='store_true')
 parser.add_argument("-z", "--test_all", dest='b_test_all',
                     help="[Optional] run all tests. Additionally, with --load_ncbi_tax_f, allow to download ncbi ete3 tax db the first time you use the script",
                     action='store_true')
@@ -101,14 +94,14 @@ args = parser.parse_args()
 b_test_all = args.b_test_all
 
 if b_test_all:
-    b_test_taxid_genus_expand = True 
-    b_test_taxid2accnr = True 
+    b_test_load_taxids = True
+    b_test_add_host_chr_taxids_accnr_from_ori_list = True 
     b_test = True
     b_acc_in_f = True
     b_acc_out_f = True
 else:
-    b_test = (b_test_taxid_genus_expand or
-              b_test_taxid2accnr)
+    b_test = (b_test_load_taxids or
+              b_test_add_host_chr_taxids_accnr_from_ori_list)
 
 if ((not b_test)and
     ((len(sys.argv) < 1) or (len(sys.argv) > 5))):
@@ -128,25 +121,20 @@ if ((not b_test)and
 
 # print('args:', args)
 # if(not b_test):
-if args.acc_f is not None:
-    acc_f = os.path.abspath(args.acc_f)
+if args.acc_in_f is not None:
+    acc_in_f = os.path.abspath(args.acc_f)
     b_acc_in_f = True    
 elif(not b_test):
-    sys.exit("[Error] You must provide acc_f")
-if args.ncbi_tax_f is not None:
-    ncbi_tax_f = os.path.abspath(args.ncbi_tax_f)
-else:
-    # ncbi_tax_f = "/nfs/data/db/ete3/taxa.sqlite"
-    ncbi_tax_f = os.path.expanduser("~/.etetoolkit/taxa.sqlite")
+    sys.exit("[Error] You must provide acc_in_f")
 if args.acc_out_f is not None:
     acc_out_f = os.path.abspath(args.acc_out_f)
     b_acc_out_f = True
 elif(not b_test):
     sys.exit("-acc_out_f <accnr_file>n must be provided\n")
-if args.rank is not None:
-    rank = 'genus'
-else:
-    rank = args.rank
+# if args.rank is not None:
+#     rank = 'genus'
+# else:
+#     rank = args.rank
     
 if args.b_verbose is not None:
     b_verbose = int(args.b_verbose)
@@ -155,322 +143,85 @@ if(not b_test):
     if (not b_acc_in_f) and (not b_acc_out_f):
         sys.exit(prog_tag + "[Error] You must provide either --acc_f <file> and -acc_out_f <file>")
 
-# store index of the rank expected by user
-rank_num = ranks{ rank }
+# # store index of the rank expected by user
+# rank_num = ranks{ rank }
 
 # --------------------------------------------------------------------------
-# load krona tab file and record hash table with key:taxid val:accession_number
+# load taxid acc list, return taxidlist
 # --------------------------------------------------------------------------
-def load_h_taxid_acc(taxid_acc_tabular_f):
+def load_taxids(taxid_acc_tabular_f):
 
     if not path.exists(taxid_acc_tabular_f):
         sys.exit("Error " + taxid_acc_tabular_f +
                  " file does not exist, line "+ str(sys._getframe().f_lineno) )
 
-    cmd = "cut -f 1,2 "+taxid_acc_tabular_f+" | sort | uniq "
-    # stream = os.popen(cmd).read()
-    # print(stream)
-    # sys.exit()
+    # cmd = "cut -f 1,2 "+taxid_acc_tabular_f+" | sort | uniq "
+    cmd = "cut -f 1 "+taxid_acc_tabular_f+" | sort | uniq "
+
     for line in os.popen(cmd).readlines():
-        # print("line:"+line)
-        k, v = line.split()
-        # print("v:"+v)
-        if k in h_taxid_acc:
-            if v not in h_taxid_acc[ k ]:
-                h_taxid_acc[ k ].append(v)
-        else:
-            h_taxid_acc[ k ] = [ v ]
+        taxidlist.append(line.rstrip())
 
+    return taxidlist
+# --------------------------------------------------------------------------
 
-# test load_h_taxid_acc procedure
-# display h_taxid_acc, then exit
-if b_test_load_h_taxid_acc:
+# test load_taxids function
+# display taxidlist, then exit
+if b_test_load_taxids:
     taxid_acc_tabular_f = 'megablast_out_f_taxid_acc.tsv'
-    print("START b_test_load_h_taxid_acc")
+    print("START b_test_load_taxids")
     print("loading "+taxid_acc_tabular_f+" file")
-    load_h_taxid_acc(taxid_acc_tabular_f)
-    for k, v in h_taxid_acc.items():
-        print(k, v)
-    print("END b_test_load_h_taxid_acc")
-    if not b_test_read_ncbi_taxonomy_retain_acc_under_taxid:
+    taxidlist = load_taxids(taxid_acc_tabular_f)
+    for k in taxidlist:
+        print(k)
+    print("END b_test_load_taxids")
+    if not b_test_add_host_chr_taxids_accnr_from_ori_list:
         sys.exit()
 # --------------------------------------------------------------------------
 
-# ------------------------------------------------------------------------
-# from a acc nr list, return a taxid list
-# ------------------------------------------------------------------------
-def acc2taxid(acc_list):
-    krona_taxdb_f = os.path.expanduser('~/miniconda3/envs/krona/opt/krona/taxonomy/') # krona['taxdb'] # "/nfs/data/db/tax_krona/"
-    if not os.path.isfile(krona_taxdb_f + 'all.accession2taxid.sorted'):
-        sys.exit(prog_tag + "[Error] missing "+krona_taxdb_f+" file, please run 'ktUpdateTaxonomy.sh --accessions' in your krona conda environment (and 'ktUpdateTaxonomy.sh' before if you have not done)")
+def get_leave_taxid_from_acc_nr(accnrlist):
 
-    # conda: "../envs/krona.yaml"
-    cmd = ' '.join(["cut -f", acc_col_nb_in_megablast_res, megablast_f,
-                   '| ktGetTaxIDFromAcc -tax ',krona_taxdb_f,' -p ',
-                   # '| uniq ', # remove many redundant lines # DO NOT USE because need exact number of each acc nr
-                   '> ',tax_acc_out_f]) # return lines:taxid acc
-    # print("cmd:"+cmd)
-    os.system(cmd)
-    print(prog_tag + ' ' + tax_acc_out_f + " file created")
+    # deduce a list of taxid from a list of accession numbers
+    cmd = "cat megablast_out_f_acc_out_taxid.tsv | epost -db nuccore | esummary | xtract -pattern DocumentSummary -element TaxId | sort -u"
+    for line in os.popen(cmd).readlines():
+        taxidlist.append(line.rstrip())
+
+    return taxidlist
 
 
-# --------------------------------------------------------------------------
-# Read ncbi_tax_f that represent taxid tree only from node taxid
-# retain accession numbers under this node that are found in h_taxid_acc
-# --------------------------------------------------------------------------
-def read_ncbi_taxonomy_retain_acc_under_taxid(taxidlist,  # list of taxids under which we search for accession number of krona tab
-                                              h_taxid_acc,# hash table storing key:taxid val:acc_number in krona tab file
-                                              ncbi_tax_f, # ncbi taxonomy file, browsed to find taxid, then taxid/acc under
-                                              krona_taxid_acc_f, # megablast file reduced to acc and taxid only
-                                              acc_in_f,   # outfile stores acc number of h_taxid_acc found
-                                              acc_out_f   # outfile stores acc number of h_taxid_acc not found
-):
-    if not path.exists(ncbi_tax_f):
-        warnings.warn(prog_tag + "[Warn] "+ ncbi_tax_f+
-                 " file does not exist, line "+ str(sys._getframe().f_lineno) )
-    if not path.exists(krona_taxid_acc_f):
-        sys.exit(prog_tag + "Error ", krona_taxid_acc_f,
-                 " file does not exist, line ", str(sys._getframe().f_lineno) )
+def add_host_chr_taxids_accnr_from_ori_list(taxidlist,
+                                            acc_out_f):
+    # get host complete genome when found using ncbi_genome_download
+    # cmd = "ncbi-genome-download -s genbank --taxids 126889,9606,4530 --assembly-level chromosome --dry-run vertebrate_other,vertebrate_mammalian,plant,invertebrate"
+    # acc_nr, species, acc_nr_bis = `cmd`
+    taxids_list=','.join(taxidlist)
+    acc_nr, species, acc_nr_bis = ngd.download(section='genbank',
+                                               taxids=taxids_list,
+                                               assembly_levels='chromosome',
+                                               output='out', 
+                                               groups='vertebrate_other,vertebrate_mammalian,plant,invertebrate',
+                                               dry_run=True                                                           
+                                            )
 
-    print(prog_tag + " min_nr_reads_by_accnr:"+str(min_nr_reads_by_accnr))
-    print(prog_tag + " List of given taxid"+str(taxidlist))
-    ### Output:
-    if b_acc_in_f and acc_in_f:
-        if path.exists(acc_in_f):
-            os.remove(acc_in_f)
-        acc_in_f_handle = open(acc_in_f,"a")
-
-    if b_acc_out_f and acc_out_f:
-        if path.exists(acc_out_f):
-            os.remove(acc_out_f)
-        acc_out_f_handle = open(acc_out_f,"a")
-
-    ncbi = NCBITaxa()   # Install ete3 db in local user file (.ete_toolkit/ directory)
-    print(prog_tag + " Try to load ncbi tax db file:"+ncbi_tax_f)
-    ncbi = NCBITaxa(dbfile=ncbi_tax_f)
-    if (not os.path.isfile(ncbi_tax_f)) or b_load_ncbi_tax_f:
-        try:
-            ncbi.update_taxonomy_database()
-        except:
-            warnings.warn(prog_tag+"[SQLite Integrity error/warning] due to redundant IDs")
-
-    all_tax_extract = set()
-    for tax in taxidlist:
-        # print("Tax id extracted now:"+tax)
-        all_tax_extract.add(str(tax))
-                
-        list_tax = ncbi.get_descendant_taxa(tax, intermediate_nodes=True)
-        list_tax.sort()
-        # print("Length of tax extracted:"+str(len(list_tax)))
-        for taxl in list_tax:
-            all_tax_extract.add(str(taxl))
-    # # verif ok
-    # print("all_tax_extract:")
-    # print(', '.join(natsorted(all_tax_extract)))
-    # sys.exit("all_tax_extract check end")
-
-    # read acc_f with on each line one accession number
-    krona_taxid_acc_f_handle = open(krona_taxid_acc_f, "r")
-    # print(acc_f, " opened, line ", str(sys._getframe().f_lineno) )
-
-    # get all tax ids of megablast result and all acc
-    all_megablast_tax = set()
-
-    h_megablast_tax = {} # record valid acc (number of occ sufficient) foreach valid tax
-    h_megablast_acc = {} # count occ for each acc nr
-    for line in krona_taxid_acc_f_handle:
-        line = line.rstrip()
-        # get megablast res taxid
-        try:
-            research_tax, acc = line.split()
-
-            # to check
-            #    - if there is a sufficient count of reads
-            #    - if it is complet genome or chromosome, to avoid partial genome, only genes, etc...
-            b_valid_acc = False
-
-            if acc not in h_megablast_acc:
-                h_megablast_acc[acc] = 1
-
-                if  h_megablast_acc[acc] == min_nr_reads_by_accnr:
-                    # print("num acc:"+acc+" (tax:"+research_tax+"), "+ str(h_megablast_acc[acc]) + ": RECORDED >= "+str(min_nr_reads_by_accnr))
-                    all_megablast_tax.add(research_tax)
-                    b_valid_acc = True
-            elif h_megablast_acc[acc] < min_nr_reads_by_accnr:
-                h_megablast_acc[acc] += 1
-                if  h_megablast_acc[acc] == min_nr_reads_by_accnr:
-                    # print("num acc:"+acc+" (tax:"+research_tax+"), "+ str(h_megablast_acc[acc]) + ": RECORDED >= "+str(min_nr_reads_by_accnr))
-                    all_megablast_tax.add(research_tax)
-                    b_valid_acc = True
-            else:
-                h_megablast_acc[ acc ] += 1
-
-            if b_valid_acc:
-                if research_tax not in h_megablast_tax:
-                    h_megablast_tax[ research_tax ] = [acc]
-                else:
-                    h_megablast_tax[ research_tax ].append(acc)
-       
-
-
-            # ------------------------------------------------------------------------------------
-            # check rank of current taxid, if descendant of rank expected by user, deduce this rank taxid
-            rank_curr_taxid = ncbi.get_rank(str(tax_from_acc))
-            if ranks{ rank_curr_taxid } > rank_num: # means expected rank is not already included in this taxid
-                
-                # deduce taxid of the expected rank for current taxid (ex: genus taxid when current taxid is for species)
-                taxid_at_expectedrank = ncbi.get_lineage(str(tax_from_acc))[ rank_num ]
-                all_megablast_tax.add( taxid_at_expectedrank )
-            # ------------------------------------------------------------------------------------
-
-
-            
-            
-
-            if b_complete:
-                    # print("num acc:"+acc+" (tax:"+research_tax+"), "+ str(h_megablast_acc[acc]) + ": RECORDED >= "+str(min_nr_reads_by_accnr))
-                    all_megablast_tax.add(research_tax)
-                    b_valid_acc = True
-            else:
-                b_valid_acc = True
-
-            if b_valid_acc:
-                if research_tax not in h_megablast_tax:
-                    h_megablast_tax[ research_tax ] = [acc]
-                else:
-                    h_megablast_tax[ research_tax ].append(acc)
-
-
-        # sometimes triggered when taxid related to acc number is missing
-        # you can also have an error message on first line to tail krona tax db must be
-        # updated because of missing acc
-        except ValueError:
-            # print("No taxid found for an acc in line ",line)
-            sys.exit("No taxid found for an acc in line ",line)
-
-    print(prog_tag + " Number of different taxid in krona_taxid_acc_f results:"+ str(len(all_megablast_tax)))
-    # # verif ok
-    # print("all_megablast_tax:")
-    # print(', '.join(all_megablast_tax))
-    # sys.exit("all_megablast_tax check end")
-
-    acc_f_handle.close()
-    
-    # intersection of the two lists to get tax in megablast results that are in the
-    # phylogeny of taxids provided by user
-    tax_in_set = all_tax_extract.intersection(all_megablast_tax)
-    tax_in = natsorted(list(tax_in_set))
-
-    # remove all ncbi tax ids found to be under the one wanted by user
-    # to the list of all megablast taxids
-    tax_out_set = all_megablast_tax.difference(tax_in_set)
-    tax_out = natsorted(list(tax_out_set))
-
-    # # verif ok
-    # print("tax_in:")
-    # print(', '.join(tax_in))
-    # sys.exit("tax_in check end")
-
-    # write output file of acc numbers included in taxid provided by user
-    if b_acc_in_f:
-        accnum_list = []
-        accocc_list = []
-        for tax in tax_in:
-
-            # get all acc for current tax
-            accnum_list.extend(h_megablast_tax[ tax ])
-            # get all number of occ of acc for current tax
-            for acc in h_megablast_tax[ tax ]:
-                accocc_list.append(h_megablast_acc[acc])
-
-        # sort accnum according to accocc (number of occ) in decreasing order
-        if b_verbose:
-            print(prog_tag + " accnum_list not sorted:"+ str(accnum_list))
-            print(prog_tag + " accocc_list not sorted:"+ str(accocc_list))
-        if len(accnum_list) > 1:
-            # # python2
-            # accocc_list, accnum_list = zip(*sorted(zip(accocc_list,accnum_list), reverse=True))
-            # python3
-            accocc_list, accnum_list = (list(x) for x in zip(*sorted(zip(accocc_list,accnum_list), reverse=True)))            
-        if b_verbose:
-            print(prog_tag + " accnum_list     sorted:"+ str(accnum_list))
-            print(prog_tag + " accocc_list     sorted:"+ str(accocc_list))
-
-        # ints conversion to strings
-        accnum_list = list(map(str, accnum_list))
-
-        # write only recorded acc for current taxid (only those are are >= min_nr_reads_by_accnr)
-        acc_in_f_handle.write("\n".join(accnum_list))
-        acc_in_f_handle.write("\n")
-        if b_verbose:
-            print(prog_tag + " record acc in :"+",".join(accnum_list)+" from taxids:"+",".join(tax_in))
-
-        acc_in_f_handle.close()
-        print(prog_tag + ' '+ acc_in_f+" file created")
-
-    # write output file of acc numbers NOT included in taxid provided by user
-    if b_acc_out_f:
-        accnum_list = []
-        accocc_list = []
-        for tax in tax_out:
-
-            # get all acc for current tax
-            accnum_list.extend(h_megablast_tax[ tax ])
-            # get all number of occ of acc for current tax
-            for acc in h_megablast_tax[ tax ]:
-                accocc_list.append(h_megablast_acc[acc])
-
-        # sort accnum according to accocc (number of occ) in decreasing order
-        if b_verbose:
-            print(prog_tag + " accnum_list not sorted:"+ str(accnum_list))
-            print(prog_tag + " accocc_list not sorted:"+ str(accocc_list))
-        if len(accnum_list) > 1:
-            ## python2
-            # accnum_occ, accnum_list = zip(*sorted(zip(accocc_list,accnum_list), reverse=True))
-            # python3
-            accocc_list, accnum_list = (list(x) for x in zip(*sorted(zip(accocc_list,accnum_list), reverse=True)))
-        if b_verbose:
-            print(prog_tag + " accnum_list     sorted:"+ str(accnum_list))
-            print(prog_tag + " accocc_list     sorted:"+ str(accocc_list))
-
-        # ints conversion to strings
-        accnum_list = list(map(str, accnum_list))
-
-        # write only recorded acc for current taxid (only those are are >= min_nr_reads_by_accnr)
-        acc_out_f_handle.write("\n".join(accnum_list))
-        acc_out_f_handle.write("\n")
-        if b_verbose:
-            print(prog_tag + " record acc out:"+",".join(accnum_list)+" from taxids:"+",".join(tax_out))
-
-        acc_out_f_handle.close()
-        print(prog_tag + ' '+ acc_out_f+" file created")
+    accnum_list.append(acc_nr)
+    for i in range(length(acc_nr)):
+        accocc_list.append('100')
         
-if b_test_read_ncbi_taxonomy_retain_acc_under_taxid:
-    print("START b_test_read_ncbi_taxonomy_retain_acc_under_taxid")
-    ncbi_tax_f = os.path.expanduser("~/.etetoolkit/taxa.sqlite")
-    acc_in_f = "megablast_out_f_acc_in_taxid.tsv"
-    acc_out_f = "megablast_out_f_acc_out_taxid.tsv"
-#     taxidlist = ['10295', '10293'] # bovine herpes virus, alphaherpesvirinae
-#     taxidlist = ['10295'] # bovine herpes virus ok 2022 01 27
-    taxidlist = ['10239'] # virus ok 2022 01 27
-    # min_nr_reads_by_accnr = 1
-    krona_taxid_acc_f = 'megablast_out_f_taxid_acc.tsv'
+    if b_verbose:
+        print(prog_tag + " we found "+ str(length(species)) + " chr fasta for host genome "+ ','.join(species))
 
-    print("load krona_taxid_acc_f:"+krona_taxid_acc_f)
-    load_h_taxid_acc(krona_taxid_acc_f)
-    # for k, v in h_taxid_acc.items():
-    #    print(k, v)
-    print("load krona_taxid_acc_f: done")
+    print(prog_tag + acc_out_f + " file created")
 
-    read_ncbi_taxonomy_retain_acc_under_taxid(taxidlist,
-                                              h_taxid_acc,
-                                              ncbi_tax_f,
-                                              krona_taxid_acc_f,
-                                              acc_in_f,
-                                              acc_out_f)
-    print("END b_test_read_ncbi_taxonomy_retain_acc_under_taxid")
-    sys.exit()
-    
+if b_test_add_host_chr_taxids_accnr_from_ori_list:
+   acc_in_f = 'megablast_out_f_taxid_acc.tsv'
+   acc_out_f = 'megablast_out_f_taxid_acc_expanded.tsv'
+   print("START b_test_add_host_chr_taxids_accnr_from_ori_list")
+   print("loading "+taxid_acc_tabular_f+" file")
+   taxidlist = load_taxids(acc_in_f)
+   print("end loading")   
+   
+   add_host_chr_taxids_accnr_from_ori_list(taxidlist,
+                                           acc_out_f)
+   print("END b_test_add_host_chr_taxids_accnr_from_ori_list")   
 # --------------------------------------------------------------------------
 
 # --------------------------------------------------------------------------
@@ -479,14 +230,10 @@ if b_test_read_ncbi_taxonomy_retain_acc_under_taxid:
 ##### MAIN
 def __main__():
     # load taxid_acc file
-    load_h_taxid_acc(taxid_acc_tabular_f)
+    load_taxids(taxid_acc_tabular_f)
     # check in ncbi taxonomy which acc number are in and out of given taxid
-    read_ncbi_taxonomy_retain_acc_under_taxid(taxidlist,
-                                              h_taxid_acc,
-                                              ncbi_tax_f,
-                                              taxid_acc_tabular_f,
-                                              acc_in_f,
-                                              acc_out_f)
+    add_host_chr_taxids_accnr_from_ori_list(taxidlist,
+                                            acc_out_f)
     # --------------------------------------------------------------------------
 #### MAIN END
 if __name__ == "__main__": __main__()
