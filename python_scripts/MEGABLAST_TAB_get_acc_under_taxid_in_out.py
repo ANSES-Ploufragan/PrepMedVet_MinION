@@ -407,6 +407,7 @@ def read_ncbi_taxonomy_retain_acc_under_taxid(taxidlist,  # list of taxids under
         if len(accnum_list) > 1:
             # python2
             accocc_list, accnum_list = zip(*sorted(zip(accocc_list,accnum_list), reverse=True))
+         
             # python3
             # accocc_list, accnum_list = (list(x) for x in zip(*sorted(zip(accocc_list,accnum_list), reverse=True)))               
         if b_verbose:
