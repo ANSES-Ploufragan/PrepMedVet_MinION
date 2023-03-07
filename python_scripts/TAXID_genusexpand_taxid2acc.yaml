@@ -1,0 +1,8 @@
+name: TAXID_genusexpand_taxid2acc
+channels:
+  - defaults
+dependencies:
+  - python>=3.9
+  - ete3
+  - natsort
+  - ncbi-genome-download
