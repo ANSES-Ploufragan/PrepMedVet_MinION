@@ -2,14 +2,14 @@
 # -*- coding: utf-8 -*-
 ###
 # USE PYTHON3
-# From a file of accession numbers, deduce equivalent taxids, deduce related genus taxids, traduc it to species accession number ideally only with complete genomes (chromosomes)
+# From a file of taxid and accession numbers (tsv), deduce species taxids, get ref genome acc nr list (all chr). (it will allow to have complete genomes when aligning with host to remove host reads)
 # provide 2 files:
 # - file with all acc numbers that are included in taxid(s) provided by user (extended to genus level)
 # - file with all acc numbers that are excluded in taxid(s) provided by user (extended to genus level)
 ###
 
 ### Libraries to import:
-import argparse, os, sys, csv, warnings
+import argparse, os, sys, csv, warnings, re
 from os import path
 # from natsort import natsorted
 import ncbi_genome_download as ngd
@@ -64,11 +64,11 @@ b_verbose         = False
 #     }
 
 parser = argparse.ArgumentParser()
-parser.add_argument("-i", "--acc_in_f", dest='acc_in_f',
-                    help="acc number list",
+parser.add_argument("-i", "--taxid_acc_in_f", dest='taxid_acc_in_f',
+                    help="taxid acc_number list in tsv (tabular separated at each line)",
                     metavar="FILE")
 parser.add_argument("-o", "--acc_out_f", dest='acc_out_f',
-                    help="[optional if --acc_in_f provided] Output text file with accession numbers from krona_taxid_acc_f NOT found under taxid in ncbi taxonomy tree",
+                    help="[optional if --taxid_acc_in_f provided] Output text file with accession numbers from krona_taxid_acc_f NOT found under taxid in ncbi taxonomy tree",
                     metavar="FILE")
 # parser.add_argument("-r", "--rank", dest='rank',
 #                     help="[Optional] default: genus, rank to retain for each acc number provided. We will retain all the acc number descendant from this 'rank' (genus) taxid list",
@@ -106,14 +106,12 @@ else:
 if ((not b_test)and
     ((len(sys.argv) < 1) or (len(sys.argv) > 5))):
     print("\n".join(["To use this scripts, run:",
-                                "conda activate MEGABLAST_TAB_select_acc_under_taxids",
-                                "./TAXID_genusexpand_taxid2acc.py --load_ncbi_tax_f",
+                                "conda activate TAXID_genusexpand_taxid2acc",
                                 " ",
-                                "Then you won't need --load_ncbi_tax_f options\n\n",
-                     "Example: "+ ' '.join(['./TAXID_genusexpand_taxid2acc.py',
-                                                  '-i accnr_list.txt',
-                                                  '-r megablast_out_f_taxid_acc.tsv',
-                                                  '-o genus']),"\n\n" ]))
+                                "Then, as an example:\n",
+                     ' '.join(['./TAXID_genusexpand_taxid2acc.py',
+                                                  '-i taxid_accnr_list.tsv',
+                                                  '-o accnr_out_list.txt']),"\n\n" ]))
     parser.print_help()
     print(prog_tag + "[Error] we found "+str(len(sys.argv)) +
           " arguments, exit line "+str(frame.f_lineno))
@@ -121,11 +119,11 @@ if ((not b_test)and
 
 # print('args:', args)
 # if(not b_test):
-if args.acc_in_f is not None:
-    acc_in_f = os.path.abspath(args.acc_f)
+if args.taxid_acc_in_f is not None:
+    taxid_acc_in_f = os.path.abspath(args.taxid_acc_f)
     b_acc_in_f = True    
 elif(not b_test):
-    sys.exit("[Error] You must provide acc_in_f")
+    sys.exit("[Error] You must provide taxid_acc_in_f")
 if args.acc_out_f is not None:
     acc_out_f = os.path.abspath(args.acc_out_f)
     b_acc_out_f = True
@@ -155,11 +153,13 @@ def load_taxids(taxid_acc_tabular_f):
         sys.exit("Error " + taxid_acc_tabular_f +
                  " file does not exist, line "+ str(sys._getframe().f_lineno) )
 
-    # cmd = "cut -f 1,2 "+taxid_acc_tabular_f+" | sort | uniq "
-    cmd = "cut -f 1 "+taxid_acc_tabular_f+" | sort | uniq "
+    cmd = "cut -f 1,2 "+taxid_acc_tabular_f+" | sort | uniq "
+    # cmd = "cut -f 1 "+taxid_acc_tabular_f+" | sort | uniq "
 
     for line in os.popen(cmd).readlines():
-        taxidlist.append(line.rstrip())
+        k, v = line.rstrip().split()
+        taxidlist.append(k)
+        accnrlist.append(v)
 
     return taxidlist
 # --------------------------------------------------------------------------
@@ -167,56 +167,90 @@ def load_taxids(taxid_acc_tabular_f):
 # test load_taxids function
 # display taxidlist, then exit
 if b_test_load_taxids:
-    taxid_acc_tabular_f = 'megablast_out_f_taxid_acc.tsv'
+    taxid_acc_tabular_f = 'megablast_out_f_taxid_acc_host.tsv'
     print("START b_test_load_taxids")
     print("loading "+taxid_acc_tabular_f+" file")
     taxidlist = load_taxids(taxid_acc_tabular_f)
-    for k in taxidlist:
-        print(k)
+    for i in range(len(taxidlist)):
+        print(f"{taxidlist[i]}\t{accnrlist[i]}")
     print("END b_test_load_taxids")
     if not b_test_add_host_chr_taxids_accnr_from_ori_list:
         sys.exit()
 # --------------------------------------------------------------------------
 
-def get_leave_taxid_from_acc_nr(accnrlist):
+# # --------------------------------------------------------------------------
+# # needs internet connexion, not possible
+# # --------------------------------------------------------------------------
+# def get_leave_taxid_from_acc_nr(accnrlist):
 
-    # deduce a list of taxid from a list of accession numbers
-    cmd = "cat megablast_out_f_acc_out_taxid.tsv | epost -db nuccore | esummary | xtract -pattern DocumentSummary -element TaxId | sort -u"
-    for line in os.popen(cmd).readlines():
-        taxidlist.append(line.rstrip())
+#     # deduce a list of taxid from a list of accession numbers
+#     cmd = "cat megablast_out_f_acc_out_taxid.tsv | epost -db nuccore | esummary | xtract -pattern DocumentSummary -element TaxId | sort -u"
+#     for line in os.popen(cmd).readlines():
+#         taxidlist.append(line.rstrip())
 
-    return taxidlist
+#     return taxidlist
+# # --------------------------------------------------------------------------
 
-
+# --------------------------------------------------------------------------
+# read taxids, deduce complete genomes available in genblank, provides in output file
+# the acc number in addition  to those already listed
+# --------------------------------------------------------------------------
 def add_host_chr_taxids_accnr_from_ori_list(taxidlist,
                                             acc_out_f):
     # get host complete genome when found using ncbi_genome_download
-    # cmd = "ncbi-genome-download -s genbank --taxids 126889,9606,4530 --assembly-level chromosome --dry-run vertebrate_other,vertebrate_mammalian,plant,invertebrate"
-    # acc_nr, species, acc_nr_bis = `cmd`
     taxids_list=','.join(taxidlist)
-    acc_nr, species, acc_nr_bis = ngd.download(section='genbank',
-                                               taxids=taxids_list,
-                                               assembly_levels='chromosome',
-                                               output='out', 
-                                               groups='vertebrate_other,vertebrate_mammalian,plant,invertebrate',
-                                               dry_run=True                                                           
-                                            )
 
-    accnum_list.append(acc_nr)
-    for i in range(length(acc_nr)):
-        accocc_list.append('100')
-        
-    if b_verbose:
-        print(prog_tag + " we found "+ str(length(species)) + " chr fasta for host genome "+ ','.join(species))
+    # # ------------------------------------------
+    # # ncbi-genome-download as a library
+    # ngd_out_f= os.getcwd()+'/accnr_sp_accnr.tsv'
+    # ngd.download(section='genbank',
+    #              taxids=taxids_list,
+    #              assembly_levels='chromosome',
+    #              flat_output=True,
+    #              output=ngd_out_f,
+    #              groups='vertebrate_other,vertebrate_mammalian,plant,invertebrate',
+    #              dry_run=True                                                           
+    #              )
+
+
+    # cmd = "cut -f 1,2 "+ngd_out_f
+
+    # for line in os.popen(cmd).readlines():
+    #     acc_nr, species = line.rstrip().split()
+    #     accnrlist.append(acc_nr)
+
+    #     if b_verbose:
+    #         print(f"{prog_tag} we found for {species} chr fasta for host genome with accnr {acc_nr}")
+    # # ------------------------------------------
+
+    # ------------------------------------------
+    # ncbi-genome-download as executable script
+    # ------------------------------------------
+    cmd = f"ncbi-genome-download -s genbank --taxids {taxids_list} --assembly-level chromosome --dry-run vertebrate_other,vertebrate_mammalian,plant,invertebrate"
+    for line in os.popen(cmd).readlines():
+        print(f"line:{line.rstrip()}")
+        if not re.match("^Considering", line):
+            acc_nr, species, name = line.rstrip().split("\t")
+        # if acc_nr != 'Considering':
+            accnrlist.append(acc_nr)
+            if b_verbose:
+                print(f"{prog_tag} we found for {species} chr fasta for host genome with accnr {acc_nr} (name:{name})")
+
+    with open(acc_out_f, "w") as record_file:
+        for accnr in accnrlist:
+            record_file.write("%s\n" % (accnr))
+    # ------------------------------------------
 
     print(prog_tag + acc_out_f + " file created")
 
+# --------------------------------------------------------------------------
+# test
 if b_test_add_host_chr_taxids_accnr_from_ori_list:
-   acc_in_f = 'megablast_out_f_taxid_acc.tsv'
-   acc_out_f = 'megablast_out_f_taxid_acc_expanded.tsv'
+   taxid_acc_in_f = 'megablast_out_f_taxid_acc_host.tsv'
+   acc_out_f = 'megablast_out_f_taxid_acc_hostexpanded.tsv'
    print("START b_test_add_host_chr_taxids_accnr_from_ori_list")
    print("loading "+taxid_acc_tabular_f+" file")
-   taxidlist = load_taxids(acc_in_f)
+   taxidlist = load_taxids(taxid_acc_in_f)
    print("end loading")   
    
    add_host_chr_taxids_accnr_from_ori_list(taxidlist,
