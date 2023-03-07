@@ -13,6 +13,8 @@ import argparse, os, sys, csv, warnings, re
 from os import path
 # from natsort import natsorted
 import ncbi_genome_download as ngd
+# to find all lineage and in case of no complete genome, the deduction of closests complete genomes (same genus, order...)
+from ete3 import NCBITaxa
 
 # to be able to report line number in error messages
 import inspect
@@ -20,9 +22,12 @@ frame = inspect.currentframe()
 
 # debug
 b_test_load_taxids = False                            # ok 2023 03 07
-b_test_add_host_chr_taxids_accnr_from_ori_list = True # ok 2023 03 07
+b_test_add_host_chr_taxids_accnr_from_ori_list = False # ok 2023 03 07
 
 prog_tag = '[' + os.path.basename(__file__) + ']'
+
+# boolean to know if we dowload ncbi taxonomy file in current env
+b_load_ncbi_tax_f = False
 
 # list of interesting taxid (fathers)
 taxidlist_f = ''
@@ -73,9 +78,12 @@ parser.add_argument("-o", "--acc_out_f", dest='acc_out_f',
 # parser.add_argument("-r", "--rank", dest='rank',
 #                     help="[Optional] default: genus, rank to retain for each acc number provided. We will retain all the acc number descendant from this 'rank' (genus) taxid list",
 #                     action="store_const")
-# parser.add_argument("-l", "--load_ncbi_tax_f", dest='b_load_ncbi_tax_f',
-#                     help="[Optional] load ncbi tabular file with taxonomy organized to represent a tree in current env at default location (~/.etetoolkit/taxa.sqlite). Only needed for first run",
-#                     action='store_true')
+parser.add_argument("-n", "--ncbi_tax_f", dest='ncbi_tax_f',
+                    help="[Optional] ncbi tabular file with taxonomy organized to represent a tree",
+                    metavar="FILE")
+parser.add_argument("-l", "--load_ncbi_tax_f", dest='b_load_ncbi_tax_f',
+                    help="[Optional] load ncbi tabular file with taxonomy organized to represent a tree in current env at default location (~/.etetoolkit/taxa.sqlite). Only needed for first run",
+                    action='store_true')
 parser.add_argument("-z", "--test_all", dest='b_test_all',
                     help="[Optional] run all tests. Additionally, with --load_ncbi_tax_f, allow to download ncbi ete3 tax db the first time you use the script",
                     action='store_true')
@@ -107,8 +115,10 @@ if ((not b_test)and
     ((len(sys.argv) < 1) or (len(sys.argv) > 5))):
     print("\n".join(["To use this scripts, run:",
                                 "conda activate TAXID_genusexpand_taxid2acc",
+                                "./TAXID_genusexpand_taxid2acc.py --test_all --load_ncbi_tax_f",
                                 " ",
-                                "Then, as an example:\n",
+                                "Then you won't need --test_all --load_ncbi_tax_f options\n\n",
+                                "Then, as an example:\n\n",
                      ' '.join(['./TAXID_genusexpand_taxid2acc.py',
                                                   '-i taxid_accnr_list.tsv',
                                                   '-o accnr_out_list.txt']),"\n\n" ]))
@@ -119,6 +129,11 @@ if ((not b_test)and
 
 # print('args:', args)
 # if(not b_test):
+if args.ncbi_tax_f is not None:
+    ncbi_tax_f = os.path.abspath(args.ncbi_tax_f)
+else:
+    # ncbi_tax_f = "/nfs/data/db/ete3/taxa.sqlite"
+    ncbi_tax_f = os.path.expanduser("~/.etetoolkit/taxa.sqlite")
 if args.taxid_acc_in_f is not None:
     taxid_acc_in_f = os.path.abspath(args.taxid_acc_f)
     b_acc_in_f = True    
@@ -226,20 +241,66 @@ def add_host_chr_taxids_accnr_from_ori_list(taxidlist,
     # ------------------------------------------
     # ncbi-genome-download as executable script
     # ------------------------------------------
-    cmd = f"ncbi-genome-download -s genbank --taxids {taxids_list} --assembly-level chromosome --dry-run vertebrate_other,vertebrate_mammalian,plant,invertebrate"
-    for line in os.popen(cmd).readlines():
-        if not re.match("^Considering", line):
-            if b_verbose:
-                print(f"line:{line.rstrip()}")
-            acc_nr, species, name = line.rstrip().split("\t")
-        # if acc_nr != 'Considering':
-            accnrlist.append(acc_nr)
-            if b_verbose:
-                print(f"{prog_tag} we found for {species} chr fasta for host genome with accnr {acc_nr} (name:{name})")
 
-    with open(acc_out_f, "w") as record_file:
-        for accnr in accnrlist:
-            record_file.write("%s\n" % (accnr))
+    # load NCBITaxa
+    ncbi = NCBITaxa()   # Install ete3 db in local user file (.ete_toolkit/ directory)
+    print(prog_tag + " Try to load ncbi tax db file:"+ncbi_tax_f)
+    ncbi = NCBITaxa(dbfile=ncbi_tax_f)
+    if (not os.path.isfile(ncbi_tax_f)) or b_load_ncbi_tax_f:
+        try:
+            ncbi.update_taxonomy_database()
+        except:
+            warnings.warn(prog_tag+"[SQLite Integrity error/warning] due to redundant IDs")
+
+    # cmd = f"ncbi-genome-download -s genbank --taxids {taxids_list} --assembly-level chromosome --dry-run vertebrate_other,vertebrate_mammalian,plant,invertebrate"
+    for taxid_u in taxidlist:
+        cmd = f"ncbi-genome-download -s genbank --taxids {taxid_u} --assembly-level chromosome --dry-run vertebrate_other,vertebrate_mammalian,plant,invertebrate 2>&1"
+        for line in os.popen(cmd).readlines():
+            # ERROR: No downloads matched your filter. Please check your options.
+            if re.match("^(?:ERROR|Error): No downloads", line):
+                # get complete lineage: accept ONLY leave taxid? (species)
+                print(f"taxid_u:'{taxid_u}'")
+                lineage = ncbi.get_lineage(int(taxid_u))
+                print(f"lineage:{lineage}")
+                # lineage  = list(map(int, lineage )) # convert strings to int
+#                for i in range(len(lineage)):
+                    # translate to scientific name for verbosity/debug
+                name = ncbi.get_taxid_translator(lineage)
+                name = ncbi.translate_to_names(lineage)
+                print(f"taxid:{taxid_u}\tlineage:{lineage}\tname:{name}")
+                # deduce up rank, search complet genome/chr in
+                upper_taxid=str(lineage[-4]) # order when last is species
+                rank = ncbi.get_rank([lineage[-4]])
+                print(f"{prog_tag} test with taxid:{upper_taxid} corresponding to rank:{rank}")
+                leaves_taxids = ncbi.get_descendant_taxa(upper_taxid,
+                                                         intermediate_nodes=False,
+                                                         # collapse_subspecies=False,
+                                                         # return_tree=False
+                                                         )
+                # ints conversion to strings
+                leaves_taxids = list(map(str, leaves_taxids))
+                leaves_taxids_list = ','.join(leaves_taxids) 
+                cmd = f"ncbi-genome-download -s genbank --taxids {leaves_taxids_list} --assembly-level chromosome --dry-run vertebrate_other,vertebrate_mammalian,plant,invertebrate"
+                for line in os.popen(cmd).readlines():
+                    if not re.match("^Considering", line):
+                        print(f"line:{line.rstrip()}")
+                        if re.match("^(?:ERROR|Error): No downloads", line):
+                            print(f"{prog_tag} No chr/complete genome for taxid:{upper_taxid} rank:{rank} (expanding name:{name})")
+                        else:
+                            acc_nr, species, name = line.rstrip().split("\t")
+                            accnrlist.append(acc_nr)
+                            if b_verbose:
+                                print(f"{prog_tag} we found for {species} chr fasta for host genome with accnr {acc_nr} (name:{name})")
+            elif not re.match("^Considering", line):
+                print(f"line:{line.rstrip()}")
+                acc_nr, species, name = line.rstrip().split("\t")
+                accnrlist.append(acc_nr)
+                if b_verbose:
+                    print(f"{prog_tag} we found for {species} chr fasta for host genome with accnr {acc_nr} (name:{name})")
+
+        with open(acc_out_f, "w") as record_file:
+            for accnr in accnrlist:
+                record_file.write("%s\n" % (accnr))
     # ------------------------------------------
 
     print(f"{prog_tag} {acc_out_f} file created")
