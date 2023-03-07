@@ -19,8 +19,8 @@ import inspect
 frame = inspect.currentframe()
 
 # debug
-b_test_load_taxids = True #
-b_test_add_host_chr_taxids_accnr_from_ori_list = True
+b_test_load_taxids = False                            # ok 2023 03 07
+b_test_add_host_chr_taxids_accnr_from_ori_list = True # ok 2023 03 07
 
 prog_tag = '[' + os.path.basename(__file__) + ']'
 
@@ -228,8 +228,9 @@ def add_host_chr_taxids_accnr_from_ori_list(taxidlist,
     # ------------------------------------------
     cmd = f"ncbi-genome-download -s genbank --taxids {taxids_list} --assembly-level chromosome --dry-run vertebrate_other,vertebrate_mammalian,plant,invertebrate"
     for line in os.popen(cmd).readlines():
-        print(f"line:{line.rstrip()}")
         if not re.match("^Considering", line):
+            if b_verbose:
+                print(f"line:{line.rstrip()}")
             acc_nr, species, name = line.rstrip().split("\t")
         # if acc_nr != 'Considering':
             accnrlist.append(acc_nr)
@@ -241,21 +242,23 @@ def add_host_chr_taxids_accnr_from_ori_list(taxidlist,
             record_file.write("%s\n" % (accnr))
     # ------------------------------------------
 
-    print(prog_tag + acc_out_f + " file created")
+    print(f"{prog_tag} {acc_out_f} file created")
 
 # --------------------------------------------------------------------------
 # test
 if b_test_add_host_chr_taxids_accnr_from_ori_list:
+   taxid_acc_tabular_f = 'megablast_out_f_taxid_acc_host.tsv'
    taxid_acc_in_f = 'megablast_out_f_taxid_acc_host.tsv'
    acc_out_f = 'megablast_out_f_taxid_acc_hostexpanded.tsv'
-   print("START b_test_add_host_chr_taxids_accnr_from_ori_list")
-   print("loading "+taxid_acc_tabular_f+" file")
+   print(f"{prog_tag} START b_test_add_host_chr_taxids_accnr_from_ori_list")
+   print(f"{prog_tag} loading {taxid_acc_tabular_f} file")
    taxidlist = load_taxids(taxid_acc_in_f)
-   print("end loading")   
+   print(f"{prog_tag} end loading")   
    
    add_host_chr_taxids_accnr_from_ori_list(taxidlist,
                                            acc_out_f)
-   print("END b_test_add_host_chr_taxids_accnr_from_ori_list")   
+   print(f"{prog_tag} END b_test_add_host_chr_taxids_accnr_from_ori_list")
+   sys.exit()
 # --------------------------------------------------------------------------
 
 # --------------------------------------------------------------------------
