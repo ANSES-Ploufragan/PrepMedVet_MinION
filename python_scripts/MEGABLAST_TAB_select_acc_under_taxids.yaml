@@ -2,6 +2,7 @@ name: MEGABLAST_TAB_select_acc_under_taxids
 channels:
   - defaults
 dependencies:
+  - python>=3.9
   - ete3
   - natsort
   - pytz
