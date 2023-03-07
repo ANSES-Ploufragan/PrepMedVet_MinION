@@ -63,8 +63,14 @@ parser.add_argument("-r", "--taxid_acc_tabular_f", dest='taxid_acc_tabular_f',
 parser.add_argument("-i", "--acc_in_f", dest='acc_in_f',
                     help="[optional if --acc_out_f provided] Output text file with accession numbers from krona_taxid_acc_f found under taxid in ncbi taxonomy tree",
                     metavar="FILE")
+parser.add_argument("-j", "--taxidacc_in_f", dest='taxidacc_in_f',
+                    help="[optional if --acc_out_f provided] Output text file with taxid and accession numbers from krona_taxid_acc_f found under taxid in ncbi taxonomy tree",
+                    metavar="FILE")
 parser.add_argument("-o", "--acc_out_f", dest='acc_out_f',
                     help="[optional if --acc_in_f provided] Output text file with accession numbers from krona_taxid_acc_f NOT found under taxid in ncbi taxonomy tree",
+                    metavar="FILE")
+parser.add_argument("-p", "--taxidacc_out_f", dest='taxidacc_out_f',
+                    help="[optional if --acc_in_f provided] Output text file with taxid and accession numbers from krona_taxid_acc_f NOT found under taxid in ncbi taxonomy tree",
                     metavar="FILE")
 parser.add_argument("-m", "--min_number_off_reads_by_acc_nr", dest='min_nr_reads_by_accnr',
                     help="[Optional] minimal number of reads matching an accession number to take it into account (default:1)",
@@ -104,7 +110,7 @@ else:
               b_test_read_ncbi_taxonomy_retain_acc_under_taxid)
 
 if ((not b_test)and
-    ((len(sys.argv) < 9) or (len(sys.argv) > 15))):
+    ((len(sys.argv) < 9) or (len(sys.argv) > 19))):
     print("\n".join(["To use this scripts, run:",
                                 "conda activate MEGABLAST_TAB_select_acc_under_taxids",
                                 "./MEGABLAST_TAB_select_acc_under_taxids.py --test_all --load_ncbi_tax_f",
@@ -134,8 +140,14 @@ else:
 if args.acc_in_f is not None:
     acc_in_f = os.path.abspath(args.acc_in_f)
     b_acc_in_f = True
+if args.taxidacc_in_f is not None:
+    taxidacc_in_f = os.path.abspath(args.taxidacc_in_f)
+    b_acc_in_f = True
 if args.acc_out_f is not None:
     acc_out_f = os.path.abspath(args.acc_out_f)
+    b_acc_out_f = True
+if args.taxidacc_out_f is not None:
+    taxidacc_out_f = os.path.abspath(args.taxidacc_out_f)
     b_acc_out_f = True
 if args.taxidlist_f is not None:
     taxidlist_f = os.path.abspath(args.taxidlist_f)
@@ -201,7 +213,9 @@ def read_ncbi_taxonomy_retain_acc_under_taxid(taxidlist,  # list of taxids under
                                               ncbi_tax_f, # ncbi taxonomy file, browsed to find taxid, then taxid/acc under
                                               krona_taxid_acc_f, # megablast file reduced to acc and taxid only
                                               acc_in_f,   # outfile stores acc number of h_taxid_acc found
-                                              acc_out_f   # outfile stores acc number of h_taxid_acc not found
+                                              taxidacc_in_f,  # outfile stores taxid and acc number of h_taxid_acc found
+                                              acc_out_f,  # outfile stores acc number of h_taxid_acc not found
+                                              taxidacc_out_f  # outfile stores taxid and acc number of h_taxid_acc not found
 ):
     if not path.exists(ncbi_tax_f):
         warnings.warn(prog_tag + "[Warn] "+ ncbi_tax_f+
@@ -216,12 +230,18 @@ def read_ncbi_taxonomy_retain_acc_under_taxid(taxidlist,  # list of taxids under
     if b_acc_in_f and acc_in_f:
         if path.exists(acc_in_f):
             os.remove(acc_in_f)
-        acc_in_f_handle = open(acc_in_f,"a")
+        if path.exists(taxidacc_in_f):
+            os.remove(taxidacc_in_f)
+        acc_in_f_handle      = open(acc_in_f     ,"a")
+        taxidacc_in_f_handle = open(taxidacc_in_f,"a")
 
     if b_acc_out_f and acc_out_f:
         if path.exists(acc_out_f):
             os.remove(acc_out_f)
-        acc_out_f_handle = open(acc_out_f,"a")
+        if path.exists(taxidacc_out_f):
+            os.remove(taxidacc_out_f)
+        acc_out_f_handle      = open(acc_out_f     ,"a")
+        taxidacc_out_f_handle = open(taxidacc_out_f,"a")
 
     ncbi = NCBITaxa()   # Install ete3 db in local user file (.ete_toolkit/ directory)
     print(prog_tag + " Try to load ncbi tax db file:"+ncbi_tax_f)
@@ -320,10 +340,16 @@ def read_ncbi_taxonomy_retain_acc_under_taxid(taxidlist,  # list of taxids under
     if b_acc_in_f:
         accnum_list = []
         accocc_list = []
+        # for taxid_acc in_f
+        taxid_list  = [] # to store taxid of each accnum in accnum_list
         for tax in tax_in:
 
             # get all acc for current tax
             accnum_list.extend(h_megablast_tax[ tax ])
+            # for taxid_acc in_f
+            # add n times current taxid (where n is the number of accnum found)
+            taxid_list.extend( [ tax for i in range(len(h_megablast_tax)) ] )
+
             # get all number of occ of acc for current tax
             for acc in h_megablast_tax[ tax ]:
                 accocc_list.append(h_megablast_acc[acc])
@@ -331,18 +357,22 @@ def read_ncbi_taxonomy_retain_acc_under_taxid(taxidlist,  # list of taxids under
         # sort accnum according to accocc (number of occ) in decreasing order
         if b_verbose:
             print(prog_tag + " accnum_list not sorted:"+ str(accnum_list))
+            print(prog_tag + " taxid_list  not sorted:"+ str(taxid_list ))
             print(prog_tag + " accocc_list not sorted:"+ str(accocc_list))
         if len(accnum_list) > 1:
             # # python2
             # accocc_list, accnum_list = zip(*sorted(zip(accocc_list,accnum_list), reverse=True))
             # python3
-            accocc_list, accnum_list = (list(x) for x in zip(*sorted(zip(accocc_list,accnum_list), reverse=True)))            
+            # accocc_list, accnum_list = (list(x) for x in zip(*sorted(zip(accocc_list,accnum_list), reverse=True)))
+            accocc_list, accnum_list, taxid_list = (list(x) for x in zip(*sorted(zip(accocc_list,accnum_list,taxid_list), reverse=True)))            
         if b_verbose:
             print(prog_tag + " accnum_list     sorted:"+ str(accnum_list))
+            print(prog_tag + " taxid_list  not sorted:"+ str(taxid_list ))
             print(prog_tag + " accocc_list     sorted:"+ str(accocc_list))
 
         # ints conversion to strings
         accnum_list = list(map(str, accnum_list))
+        taxid_list  = list(map(str, taxid_list ))
 
         # write only recorded acc for current taxid (only those are are >= min_nr_reads_by_accnr)
         acc_in_f_handle.write("\n".join(accnum_list))
@@ -353,14 +383,31 @@ def read_ncbi_taxonomy_retain_acc_under_taxid(taxidlist,  # list of taxids under
         acc_in_f_handle.close()
         print(prog_tag + ' '+ acc_in_f+" file created")
 
+        # write recorded taxid acc for current taxid (only those are are >= min_nr_reads_by_accnr)
+        for i in range(len(accnum_list)):
+            taxidacc_in_f_handle.write(f"{taxid_list[i]}\t{accnum_list[i]}\n")
+            if b_verbose:
+                print(f"{prog_tag} record taxidacc in:{taxid_list[i]}\t{accnum_list[i]} from taxids:"+",".join(tax_in))
+
+        taxidacc_in_f_handle.write("\n")
+
+        taxidacc_in_f_handle.close()
+        print(prog_tag + ' '+ taxidacc_in_f+" file created")
+
     # write output file of acc numbers NOT included in taxid provided by user
     if b_acc_out_f:
         accnum_list = []
         accocc_list = []
+        # for taxid_acc out_f
+        taxid_list  = [] # to store taxid of each accnum in accnum_list
         for tax in tax_out:
 
             # get all acc for current tax
             accnum_list.extend(h_megablast_tax[ tax ])
+            # for taxid_acc out_f
+            # add n times current taxid (where n is the number of accnum found)
+            taxid_list.extend( [ tax for i in range(len(h_megablast_tax)) ] )
+
             # get all number of occ of acc for current tax
             for acc in h_megablast_tax[ tax ]:
                 accocc_list.append(h_megablast_acc[acc])
@@ -368,18 +415,22 @@ def read_ncbi_taxonomy_retain_acc_under_taxid(taxidlist,  # list of taxids under
         # sort accnum according to accocc (number of occ) in decreasing order
         if b_verbose:
             print(prog_tag + " accnum_list not sorted:"+ str(accnum_list))
+            print(prog_tag + " taxid_list  not sorted:"+ str(taxid_list ))
             print(prog_tag + " accocc_list not sorted:"+ str(accocc_list))
         if len(accnum_list) > 1:
             ## python2
             # accnum_occ, accnum_list = zip(*sorted(zip(accocc_list,accnum_list), reverse=True))
             # python3
-            accocc_list, accnum_list = (list(x) for x in zip(*sorted(zip(accocc_list,accnum_list), reverse=True)))
+            # accocc_list, accnum_list = (list(x) for x in zip(*sorted(zip(accocc_list,accnum_list), reverse=True)))
+            accocc_list, accnum_list, taxid_list = (list(x) for x in zip(*sorted(zip(accocc_list,accnum_list,taxid_list), reverse=True)))
         if b_verbose:
             print(prog_tag + " accnum_list     sorted:"+ str(accnum_list))
+            print(prog_tag + " taxid_list  not sorted:"+ str(taxid_list ))
             print(prog_tag + " accocc_list     sorted:"+ str(accocc_list))
 
         # ints conversion to strings
         accnum_list = list(map(str, accnum_list))
+        taxid_list  = list(map(str, taxid_list ))
 
         # write only recorded acc for current taxid (only those are are >= min_nr_reads_by_accnr)
         acc_out_f_handle.write("\n".join(accnum_list))
@@ -389,12 +440,25 @@ def read_ncbi_taxonomy_retain_acc_under_taxid(taxidlist,  # list of taxids under
 
         acc_out_f_handle.close()
         print(prog_tag + ' '+ acc_out_f+" file created")
-        
+
+        # write recorded taxid acc for current taxid (only those are are >= min_nr_reads_by_accnr)
+        for i in range(len(accnum_list)):
+            taxidacc_out_f_handle.write(f"{taxid_list[i]}\t{accnum_list[i]}\n")
+            if b_verbose:
+                print(f"{prog_tag} record taxidacc out:{taxid_list[i]}\t{accnum_list[i]} from taxids:"+",".join(tax_out))
+
+        taxidacc_out_f_handle.write("\n")
+
+        taxidacc_out_f_handle.close()
+        print(prog_tag + ' '+ taxidacc_out_f+" file created")
+
 if b_test_read_ncbi_taxonomy_retain_acc_under_taxid:
     print("START b_test_read_ncbi_taxonomy_retain_acc_under_taxid")
-    ncbi_tax_f = os.path.expanduser("~/.etetoolkit/taxa.sqlite")
-    acc_in_f = "megablast_out_f_acc_in_taxid.tsv"
-    acc_out_f = "megablast_out_f_acc_out_taxid.tsv"
+    ncbi_tax_f     = os.path.expanduser("~/.etetoolkit/taxa.sqlite")
+    acc_in_f       = "megablast_out_f_acc_in_taxid.tsv"
+    taxidacc_in_f  = "megablast_out_f_taxidacc_in_taxid.tsv"
+    acc_out_f      = "megablast_out_f_acc_out_taxid.tsv"
+    taxidacc_out_f = "megablast_out_f_taxidacc_out_taxid.tsv"
 #     taxidlist = ['10295', '10293'] # bovine herpes virus, alphaherpesvirinae
 #     taxidlist = ['10295'] # bovine herpes virus ok 2022 01 27
     taxidlist = ['10239'] # virus ok 2022 01 27
@@ -412,7 +476,9 @@ if b_test_read_ncbi_taxonomy_retain_acc_under_taxid:
                                               ncbi_tax_f,
                                               krona_taxid_acc_f,
                                               acc_in_f,
-                                              acc_out_f)
+                                              taxidacc_in_f,
+                                              acc_out_f,
+                                              taxidacc_out_f)
     print("END b_test_read_ncbi_taxonomy_retain_acc_under_taxid")
     sys.exit()
     
@@ -431,8 +497,10 @@ def __main__():
                                               ncbi_tax_f,
                                               taxid_acc_tabular_f,
                                               acc_in_f,
-                                              acc_out_f)
-    # --------------------------------------------------------------------------
+                                              taxidacc_in_f,
+                                              acc_out_f,
+                                              taxidacc_out_f)
+# --------------------------------------------------------------------------
 #### MAIN END
 if __name__ == "__main__": __main__()
   
