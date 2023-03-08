@@ -190,7 +190,6 @@ def load_taxids(taxid_acc_tabular_f):
                  " file does not exist, line "+ str(sys._getframe().f_lineno) )
 
     cmd = "cut -f 1,2 "+taxid_acc_tabular_f+" | sort | uniq "
-    # cmd = "cut -f 1 "+taxid_acc_tabular_f+" | sort | uniq "
 
     for line in os.popen(cmd).readlines():
         k, v = line.rstrip().split()
