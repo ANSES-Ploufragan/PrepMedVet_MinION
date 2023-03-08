@@ -11,7 +11,6 @@
 ### Libraries to import:
 import argparse, os, sys, csv, warnings, re
 from os import path
-# from natsort import natsorted
 import ncbi_genome_download as ngd
 # to find all lineage and in case of no complete genome, the deduction of closests complete genomes (same genus, order...)
 from ete3 import NCBITaxa
