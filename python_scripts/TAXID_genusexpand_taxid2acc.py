@@ -9,7 +9,7 @@
 ###
 
 ### Libraries to import:
-import argparse, os, sys, csv, warnings, re
+import argparse, os, sys, csv, warnings, re, itertools, operator
 from os import path
 import ncbi_genome_download as ngd
 # to find all lineage and in case of no complete genome, the deduction of closests complete genomes (same genus, order...)
@@ -32,6 +32,12 @@ b_load_ncbi_tax_f = False
 taxidlist_f = ''
 taxidlist = []
 accnrlist = []
+    
+# order = -4
+# family or clade = -3
+# subtribe or genus = -2
+curr_index_in_lineage = -2
+min_index_in_lineage = -4
 
 # boolean to know if we download ncbi taxonomy file in current env
 b_load_ncbi_tax_f = False
@@ -101,7 +107,7 @@ args = parser.parse_args()
 b_test_all = args.b_test_all
 
 if b_test_all:
-    b_test_load_taxids = True
+    b_test_load_taxids = False
     b_test_add_host_chr_taxids_accnr_from_ori_list = True 
     b_test = True
     b_acc_in_f = True
@@ -159,6 +165,16 @@ if(not b_test):
 # rank_num = ranks{ rank }
 
 # --------------------------------------------------------------------------
+# to sort uniq, for a list, only need to add list conversion
+# --------------------------------------------------------------------------
+mapper= map # Python ≥ 3
+def sort_uniq(sequence):
+    return mapper(
+        operator.itemgetter(0),
+        itertools.groupby(sorted(sequence)))
+# --------------------------------------------------------------------------
+
+# --------------------------------------------------------------------------
 # load taxid acc list, return taxidlist
 # --------------------------------------------------------------------------
 def load_taxids(taxid_acc_tabular_f):
@@ -206,11 +222,126 @@ if b_test_load_taxids:
 # # --------------------------------------------------------------------------
 
 # --------------------------------------------------------------------------
+# function to retain the most recent acc nr for host complete genome found:
+# - return acc nr of most recent complete genome
+# - print accnr species and name retained
+# - reinitiate tmp lists of accnrlisttmp speciestmp and nametmp 
+# --------------------------------------------------------------------------
+def retain_1accnr(accnrlisttmp, speciestmp, nametmp):
+
+    max_accnr_version  = 0
+    curr_accnr_version = 0
+    max_accnr_nr       = 0
+    curr_accnr_nr      = 0
+    kept_accnr_i       = 0
+    p = re.compile(".*?(\d+)\.(\d+)$")
+
+    # print(f"{prog_tag} retain_1accnr({accnrlisttmp}, {speciestmp}, {nametmp}")
+
+    for i in range(len(accnrlisttmp)):
+        m = p.match( accnrlisttmp[i] )
+        if m:
+            # print('Match found: ', m.group(2))
+            curr_accnr_version = int(m.group(2))
+            accnr_nr = int(m.group(1))
+            if curr_accnr_version > max_accnr_version:
+                max_accnr_version = curr_accnr_version
+                kept_accnr_i = i
+                # print(f"record kept_accnr_i:{kept_accnr_i}")
+            elif  curr_accnr_nr > max_accnr_nr:
+                max_accnr_nr = curr_accnr_nr
+                kept_accnr_i = i
+                # print(f"record kept_accnr_i:{kept_accnr_i}")
+            
+        else:
+            sys.exit(f"{prog_tag} No version found for accnr:{accnrlisttmp[i]}")
+            
+    print(f"retained accnr:{accnrlisttmp[kept_accnr_i]}\tspecies:{speciestmp[kept_accnr_i]}\tname:{nametmp[kept_accnr_i]}")
+    kept_accn = accnrlisttmp[kept_accnr_i]
+
+    return kept_accn
+# --------------------------------------------------------------------------
+
+# --------------------------------------------------------------------------
+# procedure to find complete genome closely related to current taxid
+# goes upper in taxonomy if nothing found until order
+# --------------------------------------------------------------------------
+def ngd_upper_lineage(curr_index_in_lineage,
+                      lineage,
+                      ncbi,                      
+                      accnrlisttmp, # current working list
+                      accnrlist,    # final list, if something added (or min index reached), recursivity stop
+                      speciestmp,
+                      nametmp
+                      ):
+    print(f"{prog_tag} ngd_upper_lineage with curr_index_in_lineage:{curr_index_in_lineage}")
+    
+    # deduce up rank, search complet genome/chr in
+    upper_taxid=str(lineage[curr_index_in_lineage]) # order when last is species
+    rank = ncbi.get_rank([lineage[curr_index_in_lineage]])
+    name = ncbi.get_taxid_translator([lineage[curr_index_in_lineage]])
+    print(f"{prog_tag} test with taxid:{upper_taxid} corresponding to rank:{rank}")
+    leaves_taxids = ncbi.get_descendant_taxa(upper_taxid,
+                                             intermediate_nodes=False,
+                                             collapse_subspecies=False,
+                                             return_tree=False
+                                             )
+    # int conversion to strings
+    leaves_taxids = list(map(str, leaves_taxids))
+    leaves_taxids_list = ','.join(leaves_taxids) 
+    cmd = f"ncbi-genome-download -s genbank --taxids {leaves_taxids_list} --assembly-level complete,chromosome --dry-run vertebrate_other,vertebrate_mammalian,plant,invertebrate 2>&1"
+    # print(f"{prog_tag} cmd:{cmd}")
+
+    # specific to retain_1accn to avoid lists are crashed by other ngd call
+    accnrlisttmp_r = []
+    speciestmp_r   = []
+    nametmp_r      = []
+    for line in os.popen(cmd).readlines():
+
+        if not re.match("^Considering", line):
+            # print(f"line:{line.rstrip()}")
+            if re.match("^(?:ERROR|Error): No downloads", line):
+                print(f"{prog_tag} No chr/complete genome for taxid:{upper_taxid} rank:{rank} (expanding name:{name})")
+                if curr_index_in_lineage > min_index_in_lineage: # need to go on with upper lineage if not last accepted
+                    curr_index_in_lineage = curr_index_in_lineage - 1
+                    print(f"{prog_tag} ngd_upper_lineage call {curr_index_in_lineage} line {str(sys._getframe().f_lineno)}") 
+                    return ngd_upper_lineage(curr_index_in_lineage,
+                                             lineage,
+                                             ncbi,                                      
+                                             accnrlisttmp, # current working list
+                                             accnrlist,    # final list, if something added (or min index reached), recursivity stop
+                                             speciestmp,
+                                             nametmp                                     
+                                             )
+            else:
+                acc_nr, species, name = line.rstrip().split("\t")
+                accnrlisttmp_r.append(acc_nr)
+                speciestmp_r.append(species)
+                nametmp_r.append(name)                                  
+                if b_verbose:
+                    print(f"{prog_tag} we found for {species} chr fasta for host genome with accnr {acc_nr} (name:{name})")
+
+                # retain only the most recent complete genome for current treated taxid
+                return retain_1accnr(accnrlisttmp_r, speciestmp_r, nametmp_r)
+                
+        # else:
+        #     print(f"line matching Considering:{line}")
+# --------------------------------------------------------------------------
+
+# --------------------------------------------------------------------------
 # read taxids, deduce complete genomes available in genblank, provides in output file
 # the acc number in addition  to those already listed
 # --------------------------------------------------------------------------
 def add_host_chr_taxids_accnr_from_ori_list(taxidlist,
+                                            accnrlist,
                                             acc_out_f):
+
+    # store all accnr found for complete genome of current taxid (or from same family/order)
+    # the aim is to keep only the most recent/complete
+    accnrlisttmp = []
+    speciestmp   = []
+    nametmp      = []
+        
     # get host complete genome when found using ncbi_genome_download
     taxids_list=','.join(taxidlist)
 
@@ -251,55 +382,52 @@ def add_host_chr_taxids_accnr_from_ori_list(taxidlist,
         except:
             warnings.warn(prog_tag+"[SQLite Integrity error/warning] due to redundant IDs")
 
-    # cmd = f"ncbi-genome-download -s genbank --taxids {taxids_list} --assembly-level chromosome --dry-run vertebrate_other,vertebrate_mammalian,plant,invertebrate"
     for taxid_u in taxidlist:
-        cmd = f"ncbi-genome-download -s genbank --taxids {taxid_u} --assembly-level chromosome --dry-run vertebrate_other,vertebrate_mammalian,plant,invertebrate 2>&1"
+        cmd = f"ncbi-genome-download -s genbank --taxids {taxid_u} --assembly-level complete,chromosome --dry-run vertebrate_other,vertebrate_mammalian,plant,invertebrate 2>&1"
         for line in os.popen(cmd).readlines():
             # ERROR: No downloads matched your filter. Please check your options.
             if re.match("^(?:ERROR|Error): No downloads", line):
                 # get complete lineage: accept ONLY leave taxid? (species)
-                print(f"taxid_u:'{taxid_u}'")
                 lineage = ncbi.get_lineage(int(taxid_u))
-                print(f"lineage:{lineage}")
-                # lineage  = list(map(int, lineage )) # convert strings to int
-#                for i in range(len(lineage)):
-                    # translate to scientific name for verbosity/debug
-                name = ncbi.get_taxid_translator(lineage)
                 name = ncbi.translate_to_names(lineage)
-                print(f"taxid:{taxid_u}\tlineage:{lineage}\tname:{name}")
-                # deduce up rank, search complet genome/chr in
-                upper_taxid=str(lineage[-4]) # order when last is species
-                rank = ncbi.get_rank([lineage[-4]])
-                print(f"{prog_tag} test with taxid:{upper_taxid} corresponding to rank:{rank}")
-                leaves_taxids = ncbi.get_descendant_taxa(upper_taxid,
-                                                         intermediate_nodes=False,
-                                                         # collapse_subspecies=False,
-                                                         # return_tree=False
-                                                         )
-                # ints conversion to strings
-                leaves_taxids = list(map(str, leaves_taxids))
-                leaves_taxids_list = ','.join(leaves_taxids) 
-                cmd = f"ncbi-genome-download -s genbank --taxids {leaves_taxids_list} --assembly-level chromosome --dry-run vertebrate_other,vertebrate_mammalian,plant,invertebrate"
-                for line in os.popen(cmd).readlines():
-                    if not re.match("^Considering", line):
-                        print(f"line:{line.rstrip()}")
-                        if re.match("^(?:ERROR|Error): No downloads", line):
-                            print(f"{prog_tag} No chr/complete genome for taxid:{upper_taxid} rank:{rank} (expanding name:{name})")
-                        else:
-                            acc_nr, species, name = line.rstrip().split("\t")
-                            accnrlist.append(acc_nr)
-                            if b_verbose:
-                                print(f"{prog_tag} we found for {species} chr fasta for host genome with accnr {acc_nr} (name:{name})")
+                if b_verbose:
+                    print(f"taxid:{taxid_u}\tlineage:{lineage}\tname:{name}")
+
+                # same search but going upper in taxonomy, finding leaves taxid to find new closeley related complete genome
+                # print(f"{prog_tag} ngd_upper_lineage call {curr_index_in_lineage} line {str(sys._getframe().f_lineno)}") 
+                new_acc_nr = ngd_upper_lineage(curr_index_in_lineage,
+                                               lineage,
+                                               ncbi,
+                                               accnrlisttmp, # current working list
+                                               accnrlist, # final list, if something added (or min index reached), recursivity stop
+                                               speciestmp,
+                                               nametmp
+                                               )
+                accnrlist.append( new_acc_nr )
+                
+                # initialize for next search
+                accnrlisttmp = []
+                speciestmp   = []
+                nametmp      = []
+                
             elif not re.match("^Considering", line):
-                print(f"line:{line.rstrip()}")
+                # print(f"line:{line.rstrip()}")
                 acc_nr, species, name = line.rstrip().split("\t")
-                accnrlist.append(acc_nr)
+                accnrlisttmp.append(acc_nr)
+                speciestmp.append(species)
+                nametmp.append(name)                                  
                 if b_verbose:
                     print(f"{prog_tag} we found for {species} chr fasta for host genome with accnr {acc_nr} (name:{name})")
 
-        with open(acc_out_f, "w") as record_file:
-            for accnr in accnrlist:
-                record_file.write("%s\n" % (accnr))
+        # retain only the most recent complete genome for current treated taxid
+        if len(accnrlisttmp):
+            accnrlist.append( retain_1accnr(accnrlisttmp, speciestmp, nametmp) )
+
+    # remove redundant accnr
+    accnrlist = list(sort_uniq(accnrlist))
+    with open(acc_out_f, "w") as record_file:
+        for accnr in accnrlist:
+            record_file.write("%s\n" % (accnr))
     # ------------------------------------------
 
     print(f"{prog_tag} {acc_out_f} file created")
@@ -316,6 +444,7 @@ if b_test_add_host_chr_taxids_accnr_from_ori_list:
    print(f"{prog_tag} end loading")   
    
    add_host_chr_taxids_accnr_from_ori_list(taxidlist,
+                                           accnrlist,
                                            acc_out_f)
    print(f"{prog_tag} END b_test_add_host_chr_taxids_accnr_from_ori_list")
    sys.exit()
@@ -330,6 +459,7 @@ def __main__():
     load_taxids(taxid_acc_tabular_f)
     # check in ncbi taxonomy which acc number are in and out of given taxid
     add_host_chr_taxids_accnr_from_ori_list(taxidlist,
+                                            accnrlist,                                            
                                             acc_out_f)
     # --------------------------------------------------------------------------
 #### MAIN END
