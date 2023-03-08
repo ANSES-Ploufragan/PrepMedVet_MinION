@@ -78,7 +78,7 @@ parser.add_argument("-i", "--taxid_acc_in_f", dest='taxid_acc_in_f',
                     help="taxid acc_number list in tsv (tabular separated at each line)",
                     metavar="FILE")
 parser.add_argument("-o", "--acc_out_f", dest='acc_out_f',
-                    help="[optional if --taxid_acc_in_f provided] Output text file with accession numbers from krona_taxid_acc_f NOT found under taxid in ncbi taxonomy tree",
+                    help="[optional if --taxid_acc_in_f provided] Output text file with accession numbers of COMPLETE GENOMES under taxid in ncbi taxonomy tree",
                     metavar="FILE")
 # parser.add_argument("-r", "--rank", dest='rank',
 #                     help="[Optional] default: genus, rank to retain for each acc number provided. We will retain all the acc number descendant from this 'rank' (genus) taxid list",
@@ -118,15 +118,21 @@ else:
 
 if ((not b_test)and
     ((len(sys.argv) < 1) or (len(sys.argv) > 5))):
-    print("\n".join(["To use this scripts, run:",
-                                "conda activate TAXID_genusexpand_taxid2acc",
-                                "./TAXID_genusexpand_taxid2acc.py --test_all --load_ncbi_tax_f",
-                                " ",
-                                "Then you won't need --test_all --load_ncbi_tax_f options\n\n",
-                                "Then, as an example:\n\n",
-                     ' '.join(['./TAXID_genusexpand_taxid2acc.py',
-                                                  '-i taxid_accnr_list.tsv',
-                                                  '-o accnr_out_list.txt']),"\n\n" ]))
+    print("\n".join([
+        "Aim: find accession numbers of complete genomes related to provided taxids.",
+        "If not found at species level, try at upper taxonomic level until order.",
+        "Retains only 1 complete genome is several available:",
+        "  - the one with the highest version number, if not sufficient",
+        "  - the one with the highest accession number",        
+        "To use this scripts, run:",
+        "conda activate TAXID_genusexpand_taxid2acc",
+        "./TAXID_genusexpand_taxid2acc.py --test_all --load_ncbi_tax_f",
+        " ",
+        "Then you won't need --test_all --load_ncbi_tax_f options\n\n",
+        "Then, as an example:\n\n",
+        ' '.join(['./TAXID_genusexpand_taxid2acc.py',
+                  '-i taxid_accnr_list.tsv',
+                  '-o accnr_out_list.txt']),"\n\n" ]))
     parser.print_help()
     print(prog_tag + "[Error] we found "+str(len(sys.argv)) +
           " arguments, exit line "+str(frame.f_lineno))
@@ -248,7 +254,8 @@ def retain_1accnr(accnrlisttmp, speciestmp, nametmp):
                 max_accnr_version = curr_accnr_version
                 kept_accnr_i = i
                 # print(f"record kept_accnr_i:{kept_accnr_i}")
-            elif  curr_accnr_nr > max_accnr_nr:
+            elif(( curr_accnr_version == max_accnr_version)and
+                 (curr_accnr_nr > max_accnr_nr)):
                 max_accnr_nr = curr_accnr_nr
                 kept_accnr_i = i
                 # print(f"record kept_accnr_i:{kept_accnr_i}")
