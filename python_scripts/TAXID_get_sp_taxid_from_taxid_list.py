@@ -17,7 +17,7 @@ import inspect
 frame = inspect.currentframe()
 
 # debug
-b_test_creates_sp_taxid_f_from_taxid_f = True # ? 2022 08 19
+b_test_creates_sp_taxid_f_from_taxid_f = False # ok 2022 08 19
 
 prog_tag = '[' + os.path.basename(__file__) + ']'
 
