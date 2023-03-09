@@ -1,0 +1,37 @@
+name: MEGABLAST_TAB_get_taxid_acc
+channels:
+  - bioconda
+  - conda-forge
+  - defaults
+  - r
+dependencies:
+  - _libgcc_mutex=0.1=main
+  - _openmp_mutex=5.1=1_gnu
+  - c-ares=1.18.1=h7f8727e_0
+  - ca-certificates=2023.01.10=h06a4308_0
+  - certifi=2020.6.20=pyhd3eb1b0_3
+  - curl=7.87.0=h5eee18b_0
+  - krb5=1.19.4=h568e23c_0
+  - krona=2.8.1=pl5321hdfd78af_1
+  - libcurl=7.87.0=h91b91d3_0
+  - libedit=3.1.20221030=h5eee18b_0
+  - libev=4.33=h7f8727e_1
+  - libffi=3.4.2=h6a678d5_6
+  - libgcc-ng=11.2.0=h1234567_1
+  - libgomp=11.2.0=h1234567_1
+  - libnghttp2=1.46.0=hce63b2e_0
+  - libnsl=2.0.0=h5eee18b_0
+  - libssh2=1.10.0=h8f2d780_0
+  - libstdcxx-ng=11.2.0=h1234567_1
+  - ncurses=6.4=h6a678d5_0
+  - openssl=1.1.1t=h7f8727e_0
+  - perl=5.32.1=0_h5eee18b_perl5
+  - pip=19.3.1=py27_0
+  - python=2.7.18=h42bf7aa_3
+  - readline=8.2=h5eee18b_0
+  - setuptools=44.0.0=py27_0
+  - sqlite=3.40.1=h5082296_0
+  - tk=8.6.12=h1ccaba5_0
+  - wheel=0.37.1=pyhd3eb1b0_0
+  - zlib=1.2.13=h5eee18b_0
+
