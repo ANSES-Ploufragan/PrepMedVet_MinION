@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2
 # -*- coding: utf-8 -*-
 ###
 # From a megablast file of results (tabular 25 columns) and taxid(s) user is interested in,
