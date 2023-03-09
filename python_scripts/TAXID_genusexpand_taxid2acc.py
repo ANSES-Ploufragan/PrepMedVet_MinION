@@ -117,7 +117,7 @@ else:
               b_test_add_host_chr_taxids_accnr_from_ori_list)
 
 if ((not b_test)and
-    ((len(sys.argv) < 1) or (len(sys.argv) > 5))):
+    ((len(sys.argv) < 2) or (len(sys.argv) > 5))):
     print("\n".join([
         "Aim: find accession numbers of complete genomes related to provided taxids.",
         "If not found at species level, try at upper taxonomic level until order.",
