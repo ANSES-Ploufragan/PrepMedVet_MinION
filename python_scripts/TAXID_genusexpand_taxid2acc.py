@@ -48,6 +48,11 @@ b_acc_out_f       = False
 
 b_verbose         = False
 
+# variables for ncbi-genome-download
+ncbigenomedownload_section = 'refseq' # genbank
+organisms_to_search_in = 'vertebrate_other,vertebrate_mammalian,plant,invertebrate'
+assembly_level = 'complete,chromosome'
+
 # rank = '' # rank level retained by user
 # rank_num = index of rank retained by user
 
@@ -192,9 +197,11 @@ def load_taxids(taxid_acc_tabular_f):
     cmd = "cut -f 1,2 "+taxid_acc_tabular_f+" | sort | uniq "
 
     for line in os.popen(cmd).readlines():
-        k, v = line.rstrip().split()
-        taxidlist.append(k)
-        accnrlist.append(v)
+        if line.rstrip() != "":
+            k, v = line.rstrip().split()
+            taxidlist.append(k)
+            accnrlist.append(v)
+            # print(f"last item added to accnrlist:{accnrlist[-1]}, line {str(sys._getframe().f_lineno)}")
 
     return taxidlist
 # --------------------------------------------------------------------------
@@ -295,7 +302,8 @@ def ngd_upper_lineage(curr_index_in_lineage,
     # int conversion to strings
     leaves_taxids = list(map(str, leaves_taxids))
     leaves_taxids_list = ','.join(leaves_taxids) 
-    cmd = f"ncbi-genome-download -s genbank --taxids {leaves_taxids_list} --assembly-level complete,chromosome --dry-run vertebrate_other,vertebrate_mammalian,plant,invertebrate 2>&1"
+#    cmd = f"ncbi-genome-download -s genbank --taxids {leaves_taxids_list} --assembly-level complete,chromosome --dry-run vertebrate_other,vertebrate_mammalian,plant,invertebrate 2>&1"
+    cmd = f"ncbi-genome-download -s {ncbigenomedownload_section} --taxids {leaves_taxids_list} --assembly-level {assembly_level} --dry-run {organisms_to_search_in} 2>&1"    
     # print(f"{prog_tag} cmd:{cmd}")
 
     # specific to retain_1accn to avoid lists are crashed by other ngd call
@@ -354,13 +362,13 @@ def add_host_chr_taxids_accnr_from_ori_list(taxidlist,
     # # ------------------------------------------
     # # ncbi-genome-download as a library
     # ngd_out_f= os.getcwd()+'/accnr_sp_accnr.tsv'
-    # ngd.download(section='genbank',
+    # ngd.download(section=ncbigenomedownload_section,
     #              taxids=taxids_list,
-    #              assembly_levels='chromosome',
+    #              assembly_levels=assembly_level,
     #              flat_output=True,
     #              output=ngd_out_f,
-    #              groups='vertebrate_other,vertebrate_mammalian,plant,invertebrate',
-    #              dry_run=True                                                           
+    #              groups=organisms_to_search_in,
+    #              dry_run=True   
     #              )
 
 
@@ -389,7 +397,7 @@ def add_host_chr_taxids_accnr_from_ori_list(taxidlist,
             warnings.warn(prog_tag+"[SQLite Integrity error/warning] due to redundant IDs")
 
     for taxid_u in taxidlist:
-        cmd = f"ncbi-genome-download -s genbank --taxids {taxid_u} --assembly-level complete,chromosome --dry-run vertebrate_other,vertebrate_mammalian,plant,invertebrate 2>&1"
+        cmd = f"ncbi-genome-download -s {ncbigenomedownload_section} --taxids {taxid_u} --assembly-level {assembly_level} --dry-run {organisms_to_search_in} 2>&1"
         for line in os.popen(cmd).readlines():
             # ERROR: No downloads matched your filter. Please check your options.
             if re.match("^(?:ERROR|Error): No downloads", line):
@@ -409,7 +417,11 @@ def add_host_chr_taxids_accnr_from_ori_list(taxidlist,
                                                speciestmp,
                                                nametmp
                                                )
-                accnrlist.append( new_acc_nr )
+                if new_acc_nr is None:
+                    print(f"No acc_nr found after going up in taxonomy, line {str(sys._getframe().f_lineno)}")
+                else:
+                    accnrlist.append( new_acc_nr )
+                    # print(f"last item added to accnrlist:{accnrlist[-1]}, line {str(sys._getframe().f_lineno)}")
                 
                 # initialize for next search
                 accnrlisttmp = []
@@ -420,6 +432,8 @@ def add_host_chr_taxids_accnr_from_ori_list(taxidlist,
                 # print(f"line:{line.rstrip()}")
                 acc_nr, species, name = line.rstrip().split("\t")
                 accnrlisttmp.append(acc_nr)
+                # print(f"last item added to accnrlist:{accnrlist[-1]}, line {str(sys._getframe().f_lineno)}")
+                            
                 speciestmp.append(species)
                 nametmp.append(name)                                  
                 if b_verbose:
@@ -428,8 +442,10 @@ def add_host_chr_taxids_accnr_from_ori_list(taxidlist,
         # retain only the most recent complete genome for current treated taxid
         if len(accnrlisttmp):
             accnrlist.append( retain_1accnr(accnrlisttmp, speciestmp, nametmp) )
+            # print(f"last item added to accnrlist:{accnrlist[-1]}, line {str(sys._getframe().f_lineno)}")
 
     # remove redundant accnr
+    print(f"accnrlist to sort:{accnrlist}")
     accnrlist = list(sort_uniq(accnrlist))
     with open(acc_out_f, "w") as record_file:
         for accnr in accnrlist:
