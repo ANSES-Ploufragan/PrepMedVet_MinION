@@ -40,12 +40,12 @@ Workflow Galaxy PrepMedVet
 
 ### MinION reads
 
-* To upload taxid (text) files:
+* To upload read (fastq.gz) files:
   - select: __collection__
   - click on __"Choose local file"__
   - browse to:
       - ```/home/pmv/PrepMedVet_test/fastq_raw/[sample]/``` for test data or
-	  - ```/var/lib/minknow/data/``` for real MinION reads freshly created by MinKNOW/guppy_gpu
+	  - ```/var/lib/minknow/data/run_name``` for real MinION reads freshly created by MinKNOW/guppy_gpu
 	  
   - select the 20 first ```.fastq``` or ```.fastq.gz``` files (each file contains 4000 reads) for your first analysis
   - click on __"Open"__ ("Ouvrir")
