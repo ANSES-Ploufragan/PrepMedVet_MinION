@@ -8,29 +8,29 @@
 
 ## Fetch Prepmetvet repository
 
-* git clone **url_to_prepmetvet_repositoty**
+* git clone **url_to_prepmetvet_repository**
 
 # INSTALL GALAXY
 Install galaxy with ansible one line command.
 
 * `cd Prepmetvet_analyses/galaxy`
-* `ansible-playbook galaxy_server.yml -u admin -K `` where admin is a sudo user, depend on your settings.
+* `ansible-playbook galaxy_server.yml -u admin -K `` where admin is a sudo user, depends on your settings.
 
 
 # SETUP GALAXY
 
 ## API KEY 
-* Connect to  galaxy instance with a navigateur : http://localhost for next this while called IP_GALAXY
+* Connect to the galaxy instance with a web browser : http://localhost for next steps, this element will be called IP_GALAXY
 * Create a user, use your email to register.
-* Go to settings account and create a API key (copy it) for next this will called API_GALAXY
+* Go to settings account and create a API key (copy it) for next steps, this element will be called API_GALAXY
 
 ## Install tools and workflow
 
-### Install Ephemeris environement
+### Install Ephemeris environment
 
-Be sure not be in conda environement ``` conda deactivate ````
+Be sure not to be in a conda environment by typing  ```conda deactivate``` in your terminal, then _Enter_ key.
 
-Create a virtualenv environement (with pip)
+Create a virtualenv environment (with pip)
 
 **PATH_PREPMEDVET** is full path where you clone git repository (ex /home/admin/PrepMedVet_Analyses)
 ``` 
@@ -44,7 +44,7 @@ pip install -r PATH_PREPMEDVET/galaxy/tools_workflows_requirements/txt
 
 You have 1 script in each directory  PATH_PREPMEDVET/galaxy_workflow/install_Y  (Y=1,2,3)
 
-You have launch each in order 1, 2, 3
+You have to launch them in increasing order, 1, 2, 3 as described bellow:
 
 ```
 sh PATH_PREPMEDVET/galaxy_workflow/install_1/workflow-and-tools-install.sh IP  API_GALAXY
