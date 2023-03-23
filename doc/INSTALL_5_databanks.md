@@ -16,8 +16,7 @@ Databank to install and their purpose:
 __rvcg_blast_db__ databank is for first search of virus/phages pathogens and contains all ref/type complete genomes of pathogens (results prefered to more general approach so as to privilegiate complete genomes in results).
 __rbcg_blast_db__ databank is for first search of bacteria/fungi/archea pathogens and contains all ref/type complete genomes of pathogens (results prefered to more general approach so as to privilegiate complete genomes in results).
 
-Go to directory:
-```~/PrepMedVet_analyses/perl_scripts```
+Go to directory: ```~/PrepMedVet_analyses/perl_scripts```
 
 Run command:
 
@@ -27,10 +26,8 @@ Run command:
 
 ## nt and nr
 
-> Note: 
 
-Go to directory:
-```~/PrepMedVet_analyses/perl_scripts```
+Go to directory: ```~/PrepMedVet_analyses/perl_scripts```
 
 Run command:
 
