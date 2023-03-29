@@ -39,11 +39,6 @@ Output directory.
 
 If leave taxids already downloaded, avoid to download them again.
 
-=item [-no_seqid_taxid_f]
-
-To deactivate parsing of taxid.metadata.tsv files created by ncbi-genome-download.
-Deativate when blastdb is already created.
-
 =item [-no_create_blastdb]
 
 To deactivate blastdb creation (merging of fasta files and indexation as ncbi db)
@@ -91,7 +86,7 @@ my $db_name = 'host_complete_genomes_db';
 my $log_f   = "host_complete_genomes_log.txt";
 
 my $b_download               = 1;
-my $b_create_seqid_taxid_f   = 1;
+# my $b_create_seqid_taxid_f   = 1;
 my $b_create_blastdb         = 1;
 
 my $cmd = undef; # store commands to run
@@ -113,7 +108,7 @@ GetOptions(
     "force"                     => sub { $b_force                = 1 },
     "verbose"                   => sub { $b_verbose              = 1 },
     "no_download"               => sub { $b_download       = 0 },
-    "no_seqid_taxid_f"          => sub { $b_create_seqid_taxid_f = 0 },
+#    "no_seqid_taxid_f"          => sub { $b_create_seqid_taxid_f = 0 },
     "no_create_blastdb"         => sub { $b_create_blastdb       = 0 },
     "d"                         => sub { $b_run                  = 0 },
     "t"                         => sub { $b_test                 = 0 }
@@ -150,7 +145,7 @@ print(join("\n",
            "b_force:$b_force",
            "b_verbose:$b_verbose",
            "b_download:$b_download",
-           "b_create_seqid_taxid_f:$b_create_seqid_taxid_f",
+#           "b_create_seqid_taxid_f:$b_create_seqid_taxid_f",
            "b_create_blastdb:$b_create_blastdb",
            "b_run:$b_run",
            "b_test:$b_test\n"));
@@ -176,44 +171,6 @@ conda deactivate";
 
 }
 
-# creates seqid_taxid file with GenBlank IDs and taxids to be used by blastdbcmd (allow to know
-# taxonomy when doing a blast)
-my $seqid_taxid_f = 'seqid_taxid.txt';
-if($b_create_seqid_taxid_f)
-{
-    print("$prog_tag get genomes_metadata.tsv files\n");
-    my @taxids_genomes_metadata = glob("*genomes_metadata.tsv");
-
-    print("$prog_tag deduce $seqid_taxid_f files\n");
-    # seqid_taxid.txt Format:<SequenceId> <TaxonomyId><newline>
-    # used by makeblastdb to have the link between GenBank_id and taxid
-    
-    $b_run and (open(ST,'>',$seqid_taxid_f) or die("$prog_tag [Error] Cannot create $seqid_taxid_f:$!, line ".__LINE__."\n"));
-    for my $metadata_f(@taxids_genomes_metadata)
-    {
-        my $taxid = '';
-        if($metadata_f =~ /^(\d+)/)
-        {
-            # get taxid
-            $taxid = $1;
-        }
-        open(OMDF,'<',$metadata_f)or die("$prog_tag [Error] Cannot open $metadata_f:$!, line ".__LINE__."\n");
-        while(<OMDF>)
-        {
-            # get fasta GenBank identifier
-            /^>(\S+)/ and do
-            {
-                # print in file genbankid taxid
-                if($b_run){ print ST "$1 $taxid\n";  }
-                else      { print    "$1 $taxid\n";  }
-            };
-        }
-        $b_run and close(OMDF);
-    }
-    $b_run and close(ST);
-    print("$prog_tag $seqid_taxid_f file created\n");
-}
-
 if($b_create_blastdb)
 {
     print("$prog_tag move to $out_d dir\n");
@@ -223,7 +180,8 @@ if($b_create_blastdb)
 
     print("$prog_tag uncompress fasta files, create blastdb in ${pwd_str}$db_name directory\n");
     # create merged fasta file as stream, give it to makeblastdb
-    my $cmd = "pigz -d -p 8 -k -c fasta_dir/*.fna.gz | makeblastdb -dbtype 'nucl' -input_type 'fasta' -title $db_name -parse_seqids -out ${out_d}$db_name/$db_name -blastdb_version '5' -logfile $log_f -taxid_map ${taxid_dir}$seqid_taxid_f";
+    my $cmd = "pigz -d -p 8 -k -c ${out_d}*.fna.gz | makeblastdb -dbtype 'nucl' -input_type 'fasta' -title $db_name -parse_seqids -out ${out_d}$db_name -blastdb_version '5' -logfile ${out_d}$log_f ";
+    # -taxid_map ${out_d}$seqid_taxid_f";
     # run command and display output
     print("$prog_tag $cmd\n");
     my @res = ();
