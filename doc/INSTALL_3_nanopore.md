@@ -1,13 +1,14 @@
 Installations instruction for __Ubuntu 20.04 LTS__
 
-# Table of contents
+<!-- # Table of contents
 
 1. [MinKNOW](#MinKNOW)
 2. [guppy_gpu](#guppy-gpu)
 3. [Troubleshooting](#Troubleshooting)
 4. [Make MinKNOW working offline](#Make)
-5. [Update](#Update)
+5. [Update](#Update) -->
 
+[[_TOC_]]
 
 # MinKNOW
 
@@ -484,3 +485,12 @@ must provide the same version as
 
 <!-- > bonito models are also used by fast-bonito -->
 
+# Update MinKNOW
+
+* To update MinKNOW (with gpu usage), you need to type:
+```
+sudo apt clean
+sudo apt update
+sudo apt install ont-standalone-minknow-gpu-release
+sudo reboot
+```
