@@ -10,6 +10,8 @@
 
 ### Libraries to import:
 import argparse, os, sys, csv, warnings, re, itertools, operator
+#from subprocess import Popen,PIPE
+import subprocess
 from os import path
 import ncbi_genome_download as ngd
 # to find all lineage and in case of no complete genome, the deduction of closests complete genomes (same genus, order...)
@@ -20,8 +22,8 @@ import inspect
 frame = inspect.currentframe()
 
 # debug
-b_test_load_taxids = False                            # ok 2023 03 07
-b_test_add_host_chr_taxids_accnr_from_ori_list = False # ok 2023 03 07
+b_test_load_taxids = False                             # ok 2023 08 25
+b_test_add_host_chr_taxids_accnr_from_ori_list = False # ok 2023 08 25
 
 prog_tag = '[' + os.path.basename(__file__) + ']'
 
@@ -51,7 +53,7 @@ b_verbose         = False
 # variables for ncbi-genome-download
 ncbigenomedownload_section = 'refseq' # genbank
 organisms_to_search_in = 'vertebrate_other,vertebrate_mammalian,plant,invertebrate'
-assembly_level = 'complete,chromosome'
+assembly_levels = 'complete,chromosome'
 
 # rank = '' # rank level retained by user
 # rank_num = index of rank retained by user
@@ -299,21 +301,26 @@ def ngd_upper_lineage(curr_index_in_lineage,
                                              collapse_subspecies=False,
                                              return_tree=False
                                              )
+
     # int conversion to strings
     leaves_taxids = list(map(str, leaves_taxids))
-    leaves_taxids_list = ','.join(leaves_taxids) 
-#    cmd = f"ncbi-genome-download -s genbank --taxids {leaves_taxids_list} --assembly-level complete,chromosome --dry-run vertebrate_other,vertebrate_mammalian,plant,invertebrate 2>&1"
-    cmd = f"ncbi-genome-download -s {ncbigenomedownload_section} --taxids {leaves_taxids_list} --assembly-level {assembly_level} --dry-run {organisms_to_search_in} 2>&1"    
-    # print(f"{prog_tag} cmd:{cmd}")
+    leaves_taxids_list = ','.join(leaves_taxids)
+
+    if b_verbose:
+        print(f"{prog_tag} leaves_taxids for taxid {upper_taxid}:{leaves_taxids_list}")    
+    cmd = f"ncbi-genome-download -s {ncbigenomedownload_section} --taxids {leaves_taxids_list} --assembly-levels {assembly_levels} --dry-run {organisms_to_search_in} 2>&1"
+    if b_verbose:
+        print(f"{prog_tag} cmd:{cmd}")
 
     # specific to retain_1accn to avoid lists are crashed by other ngd call
     accnrlisttmp_r = []
     speciestmp_r   = []
     nametmp_r      = []
+    
     for line in os.popen(cmd).readlines():
-
+#        print(f"line 314:{line.rstrip()}")
         if not re.match("^Considering", line):
-            # print(f"line:{line.rstrip()}")
+#            print(f"line 316:{line.rstrip()}")
             if re.match("^(?:ERROR|Error): No downloads", line):
                 print(f"{prog_tag} No chr/complete genome for taxid:{upper_taxid} rank:{rank} (expanding name:{name})")
                 if curr_index_in_lineage > min_index_in_lineage: # need to go on with upper lineage if not last accepted
@@ -328,7 +335,11 @@ def ngd_upper_lineage(curr_index_in_lineage,
                                              nametmp                                     
                                              )
             else:
-                acc_nr, species, name = line.rstrip().split("\t")
+#                print(f"line 331:{line}")
+                try:
+                    acc_nr, species, name = line.rstrip().split("\t")
+                except ValueError as ve:
+                    sys.exit(f"ValueError {ve}: for split of line '{line}'")
                 accnrlisttmp_r.append(acc_nr)
                 speciestmp_r.append(species)
                 nametmp_r.append(name)                                  
@@ -364,7 +375,7 @@ def add_host_chr_taxids_accnr_from_ori_list(taxidlist,
     # ngd_out_f= os.getcwd()+'/accnr_sp_accnr.tsv'
     # ngd.download(section=ncbigenomedownload_section,
     #              taxids=taxids_list,
-    #              assembly_levels=assembly_level,
+    #              assembly_levels=assembly_levels,
     #              flat_output=True,
     #              output=ngd_out_f,
     #              groups=organisms_to_search_in,
@@ -397,8 +408,11 @@ def add_host_chr_taxids_accnr_from_ori_list(taxidlist,
             warnings.warn(prog_tag+"[SQLite Integrity error/warning] due to redundant IDs")
 
     for taxid_u in taxidlist:
-        cmd = f"ncbi-genome-download -s {ncbigenomedownload_section} --taxids {taxid_u} --assembly-level {assembly_level} --dry-run {organisms_to_search_in} 2>&1"
+        print(f"{prog_tag} treating global taxid:{taxid_u}")
+        cmd = f"ncbi-genome-download -s {ncbigenomedownload_section} --taxids {taxid_u} --assembly-levels {assembly_levels} --dry-run {organisms_to_search_in} 2>&1"
         for line in os.popen(cmd).readlines():
+            if b_verbose:
+                print(f"{prog_tag} cmd:{cmd} ran, read output")
             # ERROR: No downloads matched your filter. Please check your options.
             if re.match("^(?:ERROR|Error): No downloads", line):
                 # get complete lineage: accept ONLY leave taxid? (species)
@@ -463,6 +477,8 @@ if b_test_add_host_chr_taxids_accnr_from_ori_list:
    print(f"{prog_tag} START b_test_add_host_chr_taxids_accnr_from_ori_list")
    print(f"{prog_tag} loading {taxid_acc_tabular_f} file")
    taxidlist = load_taxids(taxid_acc_in_f)
+   for i in range(len(taxidlist)):
+       print(f"{taxidlist[i]}\t{accnrlist[i]}")
    print(f"{prog_tag} end loading")   
    
    add_host_chr_taxids_accnr_from_ori_list(taxidlist,
