@@ -1,7 +1,12 @@
 name: TAXID_genusexpand_taxid2acc
 channels:
   - defaults
+  - bioconda
+  - anaconda
+  - conda-forge
 dependencies:
-  - python>=3.9
+  - python=3.9.16
   - ete3
   - ncbi-genome-download=0.3.3
+  - natsort
+
