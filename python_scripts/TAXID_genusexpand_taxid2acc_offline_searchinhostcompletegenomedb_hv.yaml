@@ -1,0 +1,13 @@
+name: TAXID_genusexpand_taxid2acc_offline_searchinhostcompletegenomed
+channels:
+  - bioconda
+  - anaconda
+  - conda-forge
+  - defaults
+dependencies:
+  - ca-certificates=2023.05.30=h06a4308_0
+  - certifi=2023.7.22=py39h06a4308_0
+  - ete3=3.1.2=pyh9f0ad1d_0
+  - natsort=7.1.1=pyhd3eb1b0_0
+  - openssl=1.1.1v=h7f8727e_0
+  - python=3.9.16=h7a1cb2a_1

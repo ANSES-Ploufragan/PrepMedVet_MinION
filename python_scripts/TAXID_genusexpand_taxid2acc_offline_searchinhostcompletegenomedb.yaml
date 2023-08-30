@@ -1,0 +1,10 @@
+name: TAXID_genusexpand_taxid2acc_offline_searchinhostcompletegenomedb
+channels:
+  - defaults
+  - bioconda
+  - anaconda
+  - conda-forge
+dependencies:
+  - python=3.9.16
+  - ete3
+  - natsort=7.1.1=pyhd3eb1b0_0
