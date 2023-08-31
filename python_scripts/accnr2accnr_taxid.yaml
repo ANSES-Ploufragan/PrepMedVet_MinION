@@ -1,0 +1,6 @@
+name: accnr2accnr_taxid
+channels:
+  - conda-forge
+dependencies:
+  - biopython=1.81
+
