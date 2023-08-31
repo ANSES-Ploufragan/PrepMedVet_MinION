@@ -105,7 +105,6 @@ parser.set_defaults(b_load_ncbi_tax_f=False)
 parser.set_defaults(b_test_all=False)
 parser.set_defaults(b_verbose=False)
 
-# get absolute path in case of files
 args = parser.parse_args()
 
 # -------------------------------------------
@@ -149,6 +148,7 @@ if ((not b_test)and
 # print('args:', args)
 # if(not b_test):
 if args.ncbi_tax_f is not None:
+    # get absolute path in case of files
     ncbi_tax_f = os.path.abspath(args.ncbi_tax_f)
 else:
     # ncbi_tax_f = "/nfs/data/db/ete3/taxa.sqlite"
