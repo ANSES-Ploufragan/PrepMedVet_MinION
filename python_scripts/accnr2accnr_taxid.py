@@ -16,7 +16,7 @@ prog_tag = '[' + os.path.basename(__file__) + ']'
 # variables
 b_test                   = False
 b_test_load_taxids       = False # ok 2023 08 31
-b_test_accession2taxid   = False # ok 2023 08 31
+b_test_accession2taxid   = True # ok 2023 08 31
 b_test_accessions2taxids = True # 
 
 b_acc_in_f        = False
@@ -118,19 +118,19 @@ if b_test_load_taxids:
 # --------------------------------------------------------------------------
 # Function: deduce 1 taxid from 1 accession number
 # --------------------------------------------------------------------------
-def accession2taxid(acc: str, db="nucleotide") -> str:
-    handle = Entrez.esearch(db=db, term=acc)
+def accession2taxid(acc: list, db="nucleotide") -> list:
+    handle = Entrez.esearch(db=db, term=','.join(acc))
     record = Entrez.read(handle)
     gi = record["IdList"][0]
     handle = Entrez.esummary(db=db, id=gi, retmode="json")
     result = json.load(handle)["result"]
     taxid = result[gi]["taxid"]
-    return str(taxid)
+    return taxid
 
 if b_test_accession2taxid:
     print(f"{prog_tag} [TEST accession2taxid] START")
-    taxid = 'GCA_000005845.2'
-    accnr = accession2taxid(taxid)
+    accnr = ['GCA_000005845.2','GCF_000001735.4']
+    taxid = accession2taxid(accnr)
     print(f"accnr:{accnr} taxid:{taxid}")
     print(f"{prog_tag} [TEST accession2taxid] END")
 # --------------------------------------------------------------------------
@@ -138,33 +138,25 @@ if b_test_accession2taxid:
 # --------------------------------------------------------------------------
 # Function: deduce taxidS from an accession numberS (many IDs)
 # --------------------------------------------------------------------------
-def accessions2taxids(acc: list, db="nucleotide") -> list:
+def accessions2taxids(acc: list) -> list:
 
-    print(f"acc:{acc} line {str(frame.f_lineno)}")
-    # first we do a post with the list of ids and we get the cookie (under the form of a web environnement) and a query id :
-    id_str = ','.join(acc)
-    try:
-        handle = Entrez.epost(db = 'nucleotide', id = acc)
-    except IOError:
-        sys.exit(f"{prog_tag} [Error] Network error for Entrez.epost line {str(frame.f_lineno)}")
+    curr_first_index = 0 
+    curr_last_index = min(len(acc),200)
 
-    print(f"id:{id_str} line {str(frame.f_lineno)}")
-    result = Entrez.read(handle)
-    webEnv = result['WebEnv']
-    queryKey = result['QueryKey']
-    gi = result["IdList"][0]
-        
-    # then, we reuse this env to ask for the related entries :
-    handle = Entrez.efetch(db = 'genome', webenv = webEnv, query_key = queryKey,
-                           rettype = 'taxid', retmode = 'json')
-    result = Entrez.read(handle)
-    handle.close()
-    print(f"results:{result}")
-    return result
+    taxids_a2t = []
+    while curr_first_index <= len(acc):
+        id_str = ','.join( acc[curr_first_index:curr_last_index] )
+        taxids_a2t.append( accession2taxid(id_str) )
+        curr_first_index += 200 
+        curr_last_index += 200 
+        curr_last_index = min(curr_last_index, len(acc))
+
+    print(f"results:{','.join(str(taxids_a2t))}")
+    return taxids_a2t
 
 if b_test_accessions2taxids:
     print(f"{prog_tag} [TEST accessions2taxids] START")
-    taxids = ['GCA_000005845.2','GCF_000091125.1']
+    taxids = ['GCA_000005845.2','GCF_000001735.4']
     accnrs = accessions2taxids(taxids)
     if len(accnrs) != len(taxids):
         sys.exit(f"{prog_tag} [ERROR] number of taxids returned by accessions2taxids diff from number of accnrs provided, line {str(frame.f_lineno)}")
