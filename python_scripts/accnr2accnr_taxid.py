@@ -16,8 +16,8 @@ prog_tag = '[' + os.path.basename(__file__) + ']'
 # variables
 b_test                   = False
 b_test_load_taxids       = False # ok 2023 08 31
-b_test_accession2taxid   = True # ok 2023 08 31
-b_test_accessions2taxids = True # 
+b_test_accession2taxid   = False # ok 2023 08 31
+b_test_accessions2taxids = True  # 
 
 b_acc_in_f        = False
 acc_in_f          = None
@@ -118,7 +118,7 @@ if b_test_load_taxids:
 # --------------------------------------------------------------------------
 # Function: deduce 1 taxid from 1 accession number
 # --------------------------------------------------------------------------
-def accession2taxid(acc: list, db="nucleotide") -> list:
+def accession2taxid(acc: str, db="nucleotide") -> str:
     handle = Entrez.esearch(db=db, term=','.join(acc))
     record = Entrez.read(handle)
     gi = record["IdList"][0]
@@ -130,16 +130,41 @@ def accession2taxid(acc: list, db="nucleotide") -> list:
 if b_test_accession2taxid:
     print(f"{prog_tag} [TEST accession2taxid] START")
     accnr = ['GCA_000005845.2','GCF_000001735.4']
-    taxid = accession2taxid(accnr)
-    print(f"accnr:{accnr} taxid:{taxid}")
+    taxid = accession2taxid(accnr[1])
+    print(f"accnr:{accnr[1]} taxid:{taxid}")
     print(f"{prog_tag} [TEST accession2taxid] END")
 # --------------------------------------------------------------------------
 
 # --------------------------------------------------------------------------
 # Function: deduce taxidS from an accession numberS (many IDs)
 # --------------------------------------------------------------------------
-def accessions2taxids(acc: list) -> list:
+def accessions2taxids(acc: list, db="refseq") -> list:
 
+    handle = Entrez.efetch(db=db, id=','.join(acc), rettype='fasta')
+    record = Entrez.read(handle)
+    print(f"record:{record}")
+    taxids = record["TSeq_taxid"]
+    handle.close()
+    return taxids
+
+    """
+    # post avec la liste des ids, on récupère en retour le cookie (environnement web) 
+    # et un id de query :
+    handle = Entrez.epost(db='nuccore', id=','.join(acc), idtype='acc')
+    result = Entrez.read(handle)
+    webEnv = result['WebEnv']
+    queryKey = result['QueryKey']
+        
+
+    # puis, on réutilise cet environnement pour demander les entrées correspondantes :
+    handle = Entrez.efetch(db = 'nuccore', webenv = webEnv, query_key = queryKey,
+                           rettype = 'fasta', retmod = 'xml')
+    result = Entrez.read(handle)
+    handle.close()
+    print(f"result:{result}")
+    """
+    
+    """
     curr_first_index = 0 
     curr_last_index = min(len(acc),200)
 
@@ -152,12 +177,14 @@ def accessions2taxids(acc: list) -> list:
         curr_last_index = min(curr_last_index, len(acc))
 
     print(f"results:{','.join(str(taxids_a2t))}")
+    """
+
     return taxids_a2t
 
 if b_test_accessions2taxids:
     print(f"{prog_tag} [TEST accessions2taxids] START")
-    taxids = ['GCA_000005845.2','GCF_000001735.4']
-    accnrs = accessions2taxids(taxids)
+    accnrs = ['GCA_000005845.2','GCF_000001735.4']
+    taxids = accessions2taxids(accnrs)
     if len(accnrs) != len(taxids):
         sys.exit(f"{prog_tag} [ERROR] number of taxids returned by accessions2taxids diff from number of accnrs provided, line {str(frame.f_lineno)}")
     for i in range(taxids):
