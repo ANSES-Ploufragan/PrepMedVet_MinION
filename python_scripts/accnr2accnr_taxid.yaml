@@ -1,6 +1,9 @@
 name: accnr2accnr_taxid
 channels:
+  - defaults
+  - bioconda
+  - anaconda
   - conda-forge
 dependencies:
   - biopython=1.81
-
+  - entrez-direct=16.2
