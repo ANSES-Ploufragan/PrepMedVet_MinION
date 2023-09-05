@@ -262,12 +262,11 @@ if b_test_accessions2taxids_1by1:
 accnrs = load_taxids(acc_in_f)
 taxids = accessions2taxids_1by1(accnrs)
 if b_out_f:
-    taxid_acc_out_f
     with open(taxid_acc_out_f, "w") as record_file:
         for a in range(len(accnrs)):
             record_file.write("%s %s\n" % (taxids[a], accnrs[a]))
     record_del.close()
-    taxid_acc_out_f.close()
+    record_file.close()
     print(f"{prog_tag} {taxid_acc_out_f} file written")
     print(f"{prog_tag} {miss_acc_out_f} file written")
    
