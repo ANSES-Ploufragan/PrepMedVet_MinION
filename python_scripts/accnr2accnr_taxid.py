@@ -152,7 +152,7 @@ def accession2taxid(acc: str, db="nucleotide") -> str:
             gi = record["IdList"][0]
         except IndexError as err:
             warnings.warn("{prog_tag} {acc_ssnr} does not exist anymore in ncbi, check this accnr manually using {deleted_accnrs_f} file")
-            record_del.write(acc)
+            record_del.write(f"{acc}\n")
             return ''
 
     handle = Entrez.esummary(db=db, id=gi, retmode="json")
@@ -265,7 +265,7 @@ if b_out_f:
     taxid_acc_out_f
     with open(taxid_acc_out_f, "w") as record_file:
         for a in range(len(accnrs)):
-            record_file.write("%s %s %s\n" % (taxids[a], accnrs[a]))
+            record_file.write("%s %s\n" % (taxids[a], accnrs[a]))
     record_del.close()
     taxid_acc_out_f.close()
     print(f"{prog_tag} {taxid_acc_out_f} file written")
