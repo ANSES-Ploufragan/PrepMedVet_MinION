@@ -151,7 +151,7 @@ def accession2taxid(acc: str, db="nucleotide") -> str:
         try:
             gi = record["IdList"][0]
         except IndexError as err:
-            warnings.warn("{prog_tag} {acc_ssnr} does not exist anymore in ncbi, check this accnr manually using {deleted_accnrs_f} file")
+            warnings.warn("{prog_tag} {acc_ssnr} does not exist anymore in ncbi, check this accnr manually using {miss_acc_out_f} file")
             record_del.write(f"{acc}\n")
             return ''
 
