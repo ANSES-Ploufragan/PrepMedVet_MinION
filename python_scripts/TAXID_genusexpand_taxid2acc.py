@@ -22,6 +22,7 @@ import inspect
 frame = inspect.currentframe()
 
 # debug
+test_dir = 'test_TAXID_genusexpand_taxid2acc/'
 b_test_load_taxids = False                             # ok 2023 08 25
 b_test_add_host_chr_taxids_accnr_from_ori_list = False # ok 2023 08 25
 
@@ -188,7 +189,7 @@ def sort_uniq(sequence):
 # --------------------------------------------------------------------------
 
 # --------------------------------------------------------------------------
-# load taxid acc list, return taxidlist
+# Procedure: load taxid acc list, return taxidlist
 # --------------------------------------------------------------------------
 def load_taxids(taxid_acc_tabular_f):
 
@@ -205,16 +206,15 @@ def load_taxids(taxid_acc_tabular_f):
             accnrlist.append(v)
             # print(f"last item added to accnrlist:{accnrlist[-1]}, line {str(sys._getframe().f_lineno)}")
 
-    return taxidlist
 # --------------------------------------------------------------------------
 
 # test load_taxids function
 # display taxidlist, then exit
 if b_test_load_taxids:
-    taxid_acc_tabular_f = 'megablast_out_f_taxid_acc_host.tsv'
+    taxid_acc_tabular_f = test_dir + 'megablast_out_f_taxid_acc_host.tsv'
     print("START b_test_load_taxids")
     print("loading "+taxid_acc_tabular_f+" file")
-    taxidlist = load_taxids(taxid_acc_tabular_f)
+    load_taxids(taxid_acc_tabular_f)
     for i in range(len(taxidlist)):
         print(f"{taxidlist[i]}\t{accnrlist[i]}")
     print("END b_test_load_taxids")
@@ -278,7 +278,7 @@ def retain_1accnr(accnrlisttmp, speciestmp, nametmp):
 # --------------------------------------------------------------------------
 
 # --------------------------------------------------------------------------
-# procedure to find complete genome closely related to current taxid
+# Function to find complete genome closely related to current taxid
 # goes upper in taxonomy if nothing found until order
 # --------------------------------------------------------------------------
 def ngd_upper_lineage(curr_index_in_lineage,
@@ -471,12 +471,11 @@ def add_host_chr_taxids_accnr_from_ori_list(taxidlist,
 # --------------------------------------------------------------------------
 # test
 if b_test_add_host_chr_taxids_accnr_from_ori_list:
-   taxid_acc_tabular_f = 'megablast_out_f_taxid_acc_host.tsv'
-   taxid_acc_in_f = 'megablast_out_f_taxid_acc_host.tsv'
-   acc_out_f = 'megablast_out_f_taxid_acc_hostexpanded.tsv'
+   taxid_acc_in_f = test_dir + 'megablast_out_f_taxid_acc_host.tsv'
+   acc_out_f = test_dir + 'megablast_out_f_taxid_acc_hostexpanded.tsv'
    print(f"{prog_tag} START b_test_add_host_chr_taxids_accnr_from_ori_list")
-   print(f"{prog_tag} loading {taxid_acc_tabular_f} file")
-   taxidlist = load_taxids(taxid_acc_in_f)
+   print(f"{prog_tag} loading {taxid_acc_in_f} file")
+   load_taxids(taxid_acc_in_f)
    for i in range(len(taxidlist)):
        print(f"{taxidlist[i]}\t{accnrlist[i]}")
    print(f"{prog_tag} end loading")   
