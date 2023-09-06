@@ -1,0 +1,43 @@
+[TAXID_genusexpand_taxid2acc.py] START b_test_add_host_chr_taxids_accnr_from_ori_list
+[TAXID_genusexpand_taxid2acc.py] loading test_TAXID_genusexpand_taxid2acc/megablast_out_f_taxid_acc_host.tsv file
+126889	KJ453152.1
+4520	GCA_022539505.1
+4530	M59351.1
+9187	MZ345596.1
+9606	NM_181464.3
+[TAXID_genusexpand_taxid2acc.py] end loading
+[TAXID_genusexpand_taxid2acc.py] Try to load ncbi tax db file:/home/touzain/.etetoolkit/taxa.sqlite
+[TAXID_genusexpand_taxid2acc.py] treating global taxid:126889
+[TAXID_genusexpand_taxid2acc.py] ngd_upper_lineage with curr_index_in_lineage:-2
+[TAXID_genusexpand_taxid2acc.py] test with taxid:48156 corresponding to rank:{48156: 'species'}
+[TAXID_genusexpand_taxid2acc.py] No chr/complete genome for taxid:48156 rank:{48156: 'species'} (expanding name:{48156: 'Acrocephalus scirpaceus'})
+[TAXID_genusexpand_taxid2acc.py] ngd_upper_lineage call -3 line 329
+[TAXID_genusexpand_taxid2acc.py] ngd_upper_lineage with curr_index_in_lineage:-3
+[TAXID_genusexpand_taxid2acc.py] test with taxid:39620 corresponding to rank:{39620: 'genus'}
+[TAXID_genusexpand_taxid2acc.py] No chr/complete genome for taxid:39620 rank:{39620: 'genus'} (expanding name:{39620: 'Acrocephalus'})
+[TAXID_genusexpand_taxid2acc.py] ngd_upper_lineage call -4 line 329
+[TAXID_genusexpand_taxid2acc.py] ngd_upper_lineage with curr_index_in_lineage:-4
+[TAXID_genusexpand_taxid2acc.py] test with taxid:330750 corresponding to rank:{330750: 'subfamily'}
+[TAXID_genusexpand_taxid2acc.py] No chr/complete genome for taxid:330750 rank:{330750: 'subfamily'} (expanding name:{330750: 'Acrocephalinae'})
+No acc_nr found after going up in taxonomy, line 436
+[TAXID_genusexpand_taxid2acc.py] treating global taxid:4520
+[TAXID_genusexpand_taxid2acc.py] ngd_upper_lineage with curr_index_in_lineage:-2
+[TAXID_genusexpand_taxid2acc.py] test with taxid:640630 corresponding to rank:{640630: 'subtribe'}
+retained accnr:GCF_022539505.1	species:Lolium rigidum	name:na
+[TAXID_genusexpand_taxid2acc.py] treating global taxid:4530
+[TAXID_genusexpand_taxid2acc.py] ngd_upper_lineage with curr_index_in_lineage:-2
+[TAXID_genusexpand_taxid2acc.py] test with taxid:4527 corresponding to rank:{4527: 'genus'}
+retained accnr:GCF_000231095.2	species:Oryza brachyantha	name:na
+[TAXID_genusexpand_taxid2acc.py] treating global taxid:9187
+[TAXID_genusexpand_taxid2acc.py] ngd_upper_lineage with curr_index_in_lineage:-2
+[TAXID_genusexpand_taxid2acc.py] test with taxid:9186 corresponding to rank:{9186: 'genus'}
+[TAXID_genusexpand_taxid2acc.py] No chr/complete genome for taxid:9186 rank:{9186: 'genus'} (expanding name:{9186: 'Turdus'})
+[TAXID_genusexpand_taxid2acc.py] ngd_upper_lineage call -3 line 329
+[TAXID_genusexpand_taxid2acc.py] ngd_upper_lineage with curr_index_in_lineage:-3
+[TAXID_genusexpand_taxid2acc.py] test with taxid:9183 corresponding to rank:{9183: 'family'}
+retained accnr:GCF_009819885.2	species:Catharus ustulatus	name:na
+[TAXID_genusexpand_taxid2acc.py] treating global taxid:9606
+retained accnr:GCF_000001405.40	species:Homo sapiens	name:na
+accnrlist to sort:['KJ453152.1', 'GCA_022539505.1', 'M59351.1', 'MZ345596.1', 'NM_181464.3', 'GCF_022539505.1', 'GCF_000231095.2', 'GCF_009819885.2', 'GCF_000001405.40']
+[TAXID_genusexpand_taxid2acc.py] test_TAXID_genusexpand_taxid2acc/megablast_out_f_taxid_acc_hostexpanded.tsv file created
+[TAXID_genusexpand_taxid2acc.py] END b_test_add_host_chr_taxids_accnr_from_ori_list
