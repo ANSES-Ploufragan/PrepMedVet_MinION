@@ -269,7 +269,7 @@ if($b_download_taxid)
         {
             $cmd = "eval \"\$(conda shell.bash hook)\"
 conda activate ncbi-genome-download-0.3.1
-ncbi-genome-download -s refseq --format fasta --assembly-levels complete --taxids $taxid_f -m $taxid_metadata_f --flat-output viral --output-folder $fasta_dir --flat-output
+ncbi-genome-download -s refseq --format fasta --assembly-levels complete --taxids $taxid_f -m $taxid_metadata_f --flat-output --output-folder $fasta_dir --flat-output viral
 conda deactivate";        
         }
         else
