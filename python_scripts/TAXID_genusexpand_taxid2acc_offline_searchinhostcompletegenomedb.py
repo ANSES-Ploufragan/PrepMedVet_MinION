@@ -42,7 +42,7 @@ accnrlisthosts = []
 # order = -4
 # family or clade = -3
 # subtribe or genus = -2
-curr_index_in_lineage = -2
+curr_index_in_lineage = -1
 min_index_in_lineage = -4
 
 # boolean to know if we download ncbi taxonomy file in current env
@@ -291,6 +291,9 @@ def retain_1accnr(accnrlisttmp, speciestmp, nametmp):
                 max_accnr_nr = curr_accnr_nr
                 kept_accnr_i = iacc
                 print(f"{prog_tag} record kept_accnr_i:{kept_accnr_i} for accnr:{curr_accnr}, line {str(frame.f_lineno)}")
+            #elif b_verbose:
+            else:
+                print(f"{prog_tag} keep   kept_accnr_i:{kept_accnr_i} for accnr:{curr_accnr}, line {str(frame.f_lineno)}")
             
         else:
             sys.exit(f"{prog_tag} No version found for accnr:{accnrlisttmp[iacc]}, line {str(frame.f_lineno)}")
@@ -299,6 +302,41 @@ def retain_1accnr(accnrlisttmp, speciestmp, nametmp):
     kept_accn = accnrlisttmp[kept_accnr_i]
 
     return kept_accn
+# --------------------------------------------------------------------------
+
+
+# --------------------------------------------------------------------------
+# Function to find complete genome closely related to current taxid
+# goes upper in taxonomy if nothing found until order
+# --------------------------------------------------------------------------
+def ngd_upper_lineage(curr_index_in_lineage,
+                      lineage,
+                      ncbi
+                      ):
+    print(f"{prog_tag} [ngd_upper_lineage] with curr_index_in_lineage:{curr_index_in_lineage}")
+    
+    leaves_taxids_ints = []
+    
+    # deduce up rank, search complet genome/chr in
+    upper_taxid=str(lineage[curr_index_in_lineage]) # order when last is species
+    rank = ncbi.get_rank([lineage[curr_index_in_lineage]])
+    name = ncbi.get_taxid_translator([lineage[curr_index_in_lineage]])
+    print(f"{prog_tag} [ngd_upper_lineage] test with taxid:{upper_taxid} corresponding to rank:{rank}")
+    leaves_taxids_ints = ncbi.get_descendant_taxa(upper_taxid,
+                                             intermediate_nodes=False,
+                                             collapse_subspecies=False,
+                                             return_tree=False
+                                             )
+
+    # int conversion to strings
+    leaves_taxids = list(map(str, leaves_taxids_ints))
+    leaves_taxids_list = ','.join(leaves_taxids)
+
+    #if b_verbose:
+    print(f"{prog_tag} [ngd_upper_lineage] number leaves_taxids returned for taxid {upper_taxid}:{len(leaves_taxids_list)}")          
+    return leaves_taxids_ints   
+    
+    
 # --------------------------------------------------------------------------
 
 # ----------------------------------------------------------------------
@@ -320,6 +358,10 @@ def get_host_complete_genome_acc_nr_found(  host_complete_genome_taxids,
                                             curr_index_in_lineage,
                                             lineage,
                                             ncbi):
+    
+    # -------------------------------------------------------------------------
+    # part shared for all taxid searched (comparison to host taxids from db)
+    
     # initi local working var
     host_complete_genomes_acc_nr = []        # result
     host_complete_genomes_acc_nr_set = set() # result (set)
@@ -328,14 +370,18 @@ def get_host_complete_genome_acc_nr_found(  host_complete_genome_taxids,
     host_complete_genome_taxids_set = set() # knwown host complete genomes
     for host_taxid in host_complete_genome_taxids:
         host_complete_genome_taxids_set.add(str(host_taxid))
-
+    # -------------------------------------------------------------------------
+    
+    print(f"{prog_tag} [get_host_complete_genome_acc_nr_found] curr_index_in_lineage:{curr_index_in_lineage}")   
+    print(f"{prog_tag} [get_host_complete_genome_acc_nr_found] treating {len(leaves_taxids)} global taxid:{leaves_taxids[0]}...")
+        
     # get result taxids as a set
     leaves_taxids_set = set() # taxid found in results
     for res_taxid in leaves_taxids:
         leaves_taxids_set.add(res_taxid)
 
     print(f"{prog_tag} We intersect:{len(host_complete_genome_taxids)} host complete genomes with")
-    print(f"{prog_tag}             :{len(leaves_taxids)} genomes in results, line {str(frame.f_lineno)}")
+    print(f"{prog_tag}             :{len(leaves_taxids)} genomes in result, line {str(frame.f_lineno)}")
 
     # do intersection for taxids shared (host complete genomes found in results)
     host_complete_genomes_taxids_intersect_leaves_set = leaves_taxids_set.intersection(host_complete_genome_taxids_set)
@@ -346,7 +392,7 @@ def get_host_complete_genome_acc_nr_found(  host_complete_genome_taxids,
     # get taxid not found to go up in taxonomy, get leave taxids again and cross again with 
     # available taxid/accnr found in hot complete genome db
     not_found_taxids_set = list(leaves_taxids_set.difference(host_complete_genomes_taxids_intersect_leaves_set))
-    print(f"{prog_tag} not_found_taxids:{not_found_taxids_set}")
+    print(f"{prog_tag} Number of not_found_taxids:{len(not_found_taxids_set)}")
     
     # get index of retained taxids in original host_complete_genome_taxids to deduce related acc numbers
     try:
@@ -365,13 +411,19 @@ def get_host_complete_genome_acc_nr_found(  host_complete_genome_taxids,
         print(f"{prog_tag} After intersec, nr accnr retained: {len(host_complete_genomes_acc_nr)}, line {str(frame.f_lineno)}")  
         
         if len(host_complete_genomes_acc_nr) == 0:
-            print(f"{prog_tag} no acc nr found for provided leaves_taxids_ints, line {str(frame.f_lineno)}")
+            print(f"no acc nr found for provided leaves_taxids_ints, line {str(frame.f_lineno)}")
         elif len(host_complete_genomes_acc_nr) == 1:
+            accnr = host_complete_genomes_acc_nr
+            taxid = host_complete_genomes_taxids_intersect_leaves_list
+            name = list(ncbi.get_taxid_translator(host_complete_genomes_taxids_intersect_leaves_list).values())
+            species = name
+            print(f"retained accnr:{accnr}\tspecies:{species}\tname:{name}, line {str(frame.f_lineno)}")
             return host_complete_genomes_acc_nr
         elif len(host_complete_genomes_acc_nr) > 1:
             accnrlisttmp = host_complete_genomes_acc_nr
             nametmp = list(ncbi.get_taxid_translator(host_complete_genomes_taxids_intersect_leaves_list).values())
             speciestmp = nametmp
+            print(f"{prog_tag} retain_1accnr in {accnrlisttmp}, line {str(frame.f_lineno)}")
             return retain_1accnr(accnrlisttmp, speciestmp, nametmp)
         else:
             sys.exit(f"{prog_tag} [Error] Case not treated len of found_complete_genomes:{len(host_complete_genomes_acc_nr)}, curr_index_in_lineage:{curr_index_in_lineage}, line {str(frame.f_lineno)}")
@@ -388,71 +440,94 @@ def get_host_complete_genome_acc_nr_found(  host_complete_genome_taxids,
         if( (len(host_complete_genomes_acc_nr) == 0) and (curr_index_in_lineage > min_index_in_lineage)):
             curr_index_in_lineage = curr_index_in_lineage - 1
             upper_taxid = lineage[curr_index_in_lineage]
-            rank = ncbi.get_rank(upper_taxid)
-            print(f"{prog_tag} No chr/complete genome for taxid:{upper_taxid} rank:{rank} (expanding name:{name})")
+            rank = ncbi.get_rank(upper_taxid[curr_index_in_lineage])
+            print(f"{prog_tag} No chr/complete genome for taxid:{upper_taxid} rank:{rank} (expanding name:{name}), line {str(frame.f_lineno)}")
             print(f"{prog_tag} ngd_upper_lineage call {curr_index_in_lineage} line {str(sys._getframe().f_lineno)}") 
             
             # get complete lineage: accept ONLY leave taxid? (species)
-            name = ncbi.get_taxid_translator(upper_taxid)
+            # name = ncbi.get_taxid_translator(upper_taxid)
             if b_verbose:
                 print(f"taxid:{upper_taxid}\tlineage:{lineage}\tname:{name}")
-            ngd_upper_lineage(  curr_index_in_lineage,
+            leave_taxid_ints = ngd_upper_lineage(  curr_index_in_lineage,
                                 lineage,
-                                ncbi,                                      
-                                accnrlisttmp, # current working list
-                                accnrlist,    # final list, if something added (or min index reached), recursivity stop
-                                speciestmp,
-                                nametmp,
-                                host_complete_genome_acc_numbers,
-                                host_complete_genome_taxids                                     
+                                ncbi                                   
                                 )
+                    # we search if one of the accession numbers of complete genome is included in leaves_taxids_ints  
+            if b_verbose:
+                print(f"{prog_tag} get_host_complete_genome_acc_nr_found(\nhost_complete_genome_taxids,\nhost_complete_genome_acc_numbers,\nleaves_taxids_ints) ran")
+
+            found_complete_genomes = get_host_complete_genome_acc_nr_found(
+                host_complete_genome_taxids,
+                host_complete_genome_acc_numbers,
+                leave_taxid_ints,
+                # for further taxonomy analysis
+                curr_index_in_lineage,
+                lineage,
+                ncbi)      
+        
         # retain only the most recent complete genome for current treated taxid
         # return retain_1accnr(accnrlisttmp_r, speciestmp_r, nametmp_r)
         elif len(host_complete_genomes_acc_nr) == 0:
-            print(f"{prog_tag} no acc nr found for provided leaves_taxids_ints, line {str(frame.f_lineno)}")
+            print(f"no acc nr found for provided leaves_taxids_ints, line {str(frame.f_lineno)}")
             return ''
         elif len(host_complete_genomes_acc_nr) == 1:
+            print(f"retained accnr:{accnr}\tspecies:{species}\tname:{name}, line {str(frame.f_lineno)}")
             return host_complete_genomes_acc_nr
         elif len(host_complete_genomes_acc_nr) > 1:
             accnrlisttmp = host_complete_genomes_acc_nr
-            speciestmp = list(ncbi.get_taxid_translator(host_complete_genomes_taxids_list).values())
+            speciestmp = list(ncbi.get_taxid_translator(host_complete_genomes_taxids_intersect_leaves_list).values())
             nametmp = speciestmp
+            print(f"{prog_tag} retain_1accnr in {accnrlisttmp}, line {str(frame.f_lineno)}")
             return retain_1accnr(accnrlisttmp, speciestmp, nametmp)
         else:
             sys.exit(f"{prog_tag} [Error] Case not treated len of found_complete_genomes:{len(host_complete_genomes_acc_nr)}, curr_index_in_lineage:{curr_index_in_lineage}, line {str(frame.f_lineno)}")
 
- 
+
     # goes up in taxonomy to get a larger number of taxids to cross with host genome taxids
     if( (len(host_complete_genomes_acc_nr) == 0) and (curr_index_in_lineage > min_index_in_lineage)):
         curr_index_in_lineage = curr_index_in_lineage - 1
-        upper_taxid = str(lineage[curr_index_in_lineage])
-        rank = ncbi.get_rank(upper_taxid)
-        name = ncbi.get_taxid_translator(upper_taxid)
-        print(f"{prog_tag} No chr/complete genome for taxid:{upper_taxid} rank:{rank} (expanding name:{name})")
+        upper_taxid_int = lineage[curr_index_in_lineage]
+        upper_taxid = str(upper_taxid_int)
+        rank = ncbi.get_rank([upper_taxid_int])
+        name = ncbi.get_taxid_translator([upper_taxid_int])
+        print(f"{prog_tag} No chr/complete genome for taxid:{upper_taxid} rank:{rank} (expanding name:{name}), line {str(frame.f_lineno)}")
         print(f"{prog_tag} ngd_upper_lineage call {curr_index_in_lineage} line {str(sys._getframe().f_lineno)}") 
-            
+        
         # get complete lineage: accept ONLY leave taxid? (species)
-        name = ncbi.get_taxid_translator(upper_taxid)
         if b_verbose:
             print(f"taxid:{upper_taxid}\tlineage:{lineage}\tname:{name}")
-            ngd_upper_lineage(  curr_index_in_lineage,
-                                lineage,
-                                ncbi,                                      
-                                accnrlisttmp, # current working list
-                                accnrlist,    # final list, if something added (or min index reached), recursivity stop
-                                speciestmp,
-                                nametmp,
-                                host_complete_genome_acc_numbers,
-                                host_complete_genome_taxids                                     
-                                )
+            
+        # get taxids for current lineage up some lines earlier, we want to get leave taxids for this species/group/genus/family etc...
+        leave_taxid_ints = ngd_upper_lineage(  curr_index_in_lineage,
+                            lineage,
+                            ncbi
+                            )
+        print(f"{prog_tag} number of leave_taxid_ints obtained for rank:{rank}: {len(leave_taxid_ints)}, line {str(frame.f_lineno)}")
+        
+        # we search if one of the accession numbers of complete genome is included in leaves_taxids_ints  
+        if b_verbose:
+            print(f"{prog_tag} get_host_complete_genome_acc_nr_found(\nhost_complete_genome_taxids,\nhost_complete_genome_acc_numbers,\nleaves_taxids_ints) ran")
+
+        found_complete_genomes = get_host_complete_genome_acc_nr_found(
+            host_complete_genome_taxids,
+            host_complete_genome_acc_numbers,
+            leave_taxid_ints,
+            # for further taxonomy analysis
+            curr_index_in_lineage,
+            lineage,
+            ncbi)         
 
 
     
 if b_test_get_host_complete_genome_acc_nr_found:
     taxid_acc_in_f = test_dir + 'megablast_out_f_taxid_acc_host.tsv'
     taxid_acc_hostdb_in_f = test_dir + 'host_complete_genomes_taxid_accnr.tsv'
-    taxid_u = []
-    taxid_u.append('4520') # we must obtain retained accnr:GCF_022539505.1	species:Lolium rigidum	name:na
+    # taxid_u = ['4520','4530','9606']
+    # we must obtain retained 
+    # accnr:GCF_022539505.1	species:Lolium rigidum	name:na
+    # accnr:GCF_000231095.2	species:Oryza brachyantha	name:na
+    # accnr:GCF_000001405.40	species:Homo sapiens	name:na
+    taxid_u = ['126889','4520','4530','9187','9606']
     
     # load taxid_acc file
     load_taxids(taxid_acc_in_f,
@@ -474,89 +549,46 @@ if b_test_get_host_complete_genome_acc_nr_found:
         except:
             warnings.warn(prog_tag+"[SQLite Integrity error/warning] due to redundant IDs")
 
-    # get complete lineage: accept ONLY leave taxid? (species)
-    lineage = ncbi.get_lineage(taxid_u[0])
-    # get species and names
-    # accnrlisttmp = acc nr of found complete genomes
-    nametmp = list(ncbi.get_taxid_translator(lineage).values())
-    speciestmp = nametmp
-    # get species name
-    for taxid in reversed(str(lineage)):
-        if ncbi.get_rank(taxid) == 'species':
-            speciestmp = ncbi.get_taxid_translator(taxid)
-            break
-        
-    if b_verbose:
-        print(f"taxid:{taxid_u}\tlineage:{lineage}\tname:{nametmp}")
-
     print(f"{prog_tag} [TEST get_host_complete_genome_acc_nr_found] START")
-    print(f"{prog_tag} We search for host complete genome related to species {speciestmp}")
     # check in ncbi taxonomy which acc number are in and out of given taxid
-    accnrlisttmp = get_host_complete_genome_acc_nr_found(
-                taxidlisthosts,
-                accnrlisthosts,
-                taxid_u,
-                # for further taxonomy analysis
-                curr_index_in_lineage,
-                lineage,
-                ncbi)     
+    
+    accnrlisttmp = []
+    for glob_taxid in taxid_u:
+
+        # important
+        curr_index_in_lineage = -1
+
+        # get complete lineage: accept ONLY leave taxid? (species)
+        lineage = ncbi.get_lineage(glob_taxid)
+        # get species and names
+        # accnrlisttmp = acc nr of found complete genomes
+        nametmp = list(ncbi.get_taxid_translator(lineage).values())
+    
+        # get species name
+        speciestmp = ''
+        for taxid in reversed(str(lineage)):
+            if ncbi.get_rank(taxid) == 'species':
+                speciestmp = ncbi.get_taxid_translator(taxid)
+                break
+            
+        if b_verbose:
+            print(f"taxid:{glob_taxid}\tlineage:{lineage}\tname:{nametmp}")
+
+        print(f"{prog_tag} We search for host complete genome related to species {speciestmp}")
+
+        accnrlisttmp.append( 
+                        get_host_complete_genome_acc_nr_found(
+                            taxidlisthosts,
+                            accnrlisthosts,
+                            [glob_taxid],
+                            # for further taxonomy analysis
+                            curr_index_in_lineage,
+                            lineage,
+                            ncbi)     
+    )
     print(f"{prog_tag} [TEST get_host_complete_genome_acc_nr_found] END")
     sys.exit()
 # ----------------------------------------------------------------------
-
-# --------------------------------------------------------------------------
-# procedure to find complete genome closely related to current taxid
-# goes upper in taxonomy if nothing found until order
-# --------------------------------------------------------------------------
-def ngd_upper_lineage(curr_index_in_lineage,
-                      lineage,
-                      ncbi,                    
-                      accnrlisttmp, # current working list
-                      accnrlist,    # final list, if something added (or min index reached), recursivity stop
-                      speciestmp,
-                      nametmp,
-                      host_complete_genome_acc_numbers,
-                      host_complete_genome_taxids
-                      ):
-    print(f"{prog_tag} ngd_upper_lineage with curr_index_in_lineage:{curr_index_in_lineage}")
-    
-    # deduce up rank, search complet genome/chr in
-    upper_taxid=str(lineage[curr_index_in_lineage]) # order when last is species
-    rank = ncbi.get_rank([lineage[curr_index_in_lineage]])
-    name = ncbi.get_taxid_translator([lineage[curr_index_in_lineage]])
-    print(f"{prog_tag} test with taxid:{upper_taxid} corresponding to rank:{rank}")
-    leaves_taxids_ints = ncbi.get_descendant_taxa(upper_taxid,
-                                             intermediate_nodes=False,
-                                             collapse_subspecies=False,
-                                             return_tree=False
-                                             )
-
-    # int conversion to strings
-    leaves_taxids = list(map(str, leaves_taxids_ints))
-    leaves_taxids_list = ','.join(leaves_taxids)
-
-    if b_verbose:
-        print(f"{prog_tag} leaves_taxids for taxid {upper_taxid}:{leaves_taxids_list}")
-
-    # get host_complete_genome_acc_numbers: given as argument host_complete_genome_acc_numbers
-    
-    # get host_complete_genome_taxids: given as argument host_complete_genome_taxids
-        
-    # we search if one of the accession numbers of complete genome is included in leaves_taxids_ints  
-    if b_verbose:
-        print(f"{prog_tag} get_host_complete_genome_acc_nr_found(\nhost_complete_genome_taxids,\nhost_complete_genome_acc_numbers,\nleaves_taxids_ints) ran")
-  
-    found_complete_genomes = get_host_complete_genome_acc_nr_found(
-        host_complete_genome_taxids,
-        host_complete_genome_acc_numbers,
-        leaves_taxids_ints,
-        # for further taxonomy analysis
-        curr_index_in_lineage,
-        lineage,
-        ncbi)                                   
-                                             
-                    
-# --------------------------------------------------------------------------
 
 # --------------------------------------------------------------------------
 # read taxids, deduce complete genomes available in genblank, provides in output file
