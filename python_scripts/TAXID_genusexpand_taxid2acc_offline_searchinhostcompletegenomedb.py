@@ -221,7 +221,7 @@ def load_taxids(taxid_acc_tabular_f,
     for line in os.popen(cmd).readlines():
         if line.rstrip() != "":
             k, v = line.rstrip().split()
-            taxid_list_l.append(k)
+            taxid_list_l.append(int(k))
             accnr_list_l.append(v)
             # print(f"last item added to accnr_list_l:{accnr_list_l[-1]}, line {str(sys._getframe().f_lineno)}")
 
@@ -369,7 +369,7 @@ def get_host_complete_genome_acc_nr_found(  host_complete_genome_taxids,
     # get host complete genomes as a set
     host_complete_genome_taxids_set = set() # knwown host complete genomes
     for host_taxid in host_complete_genome_taxids:
-        host_complete_genome_taxids_set.add(str(host_taxid))
+        host_complete_genome_taxids_set.add(host_taxid)
     # -------------------------------------------------------------------------
     
     print(f"{prog_tag} [get_host_complete_genome_acc_nr_found] curr_index_in_lineage:{curr_index_in_lineage}")   
@@ -380,14 +380,15 @@ def get_host_complete_genome_acc_nr_found(  host_complete_genome_taxids,
     for res_taxid in leaves_taxids:
         leaves_taxids_set.add(res_taxid)
 
-    print(f"{prog_tag} We intersect:{len(host_complete_genome_taxids)} host complete genomes with")
-    print(f"{prog_tag}             :{len(leaves_taxids)} genomes in result, line {str(frame.f_lineno)}")
+    print(f"{prog_tag} We intersect:{len(host_complete_genome_taxids)} host complete genomes\n{host_complete_genome_taxids}\nwith")
+    print(f"{prog_tag}             :{len(leaves_taxids)} genomes in result, line {str(frame.f_lineno)}\n{leaves_taxids}")
 
     # do intersection for taxids shared (host complete genomes found in results)
     host_complete_genomes_taxids_intersect_leaves_set = leaves_taxids_set.intersection(host_complete_genome_taxids_set)
     host_complete_genomes_taxids_intersect_leaves_list = list(host_complete_genomes_taxids_intersect_leaves_set)
 
-    print(f"{prog_tag} After intersec, we retain:{len(host_complete_genomes_taxids_intersect_leaves_list)} taxid to get related acc nr, line {str(frame.f_lineno)}")
+    print(f"{prog_tag} After intersec, we retain set :{len(host_complete_genomes_taxids_intersect_leaves_set)} taxid to get related acc nr, line {str(frame.f_lineno)}\n{host_complete_genomes_taxids_intersect_leaves_set}")
+    print(f"{prog_tag} After intersec, we retain list:{len(host_complete_genomes_taxids_intersect_leaves_list)} taxid to get related acc nr, line {str(frame.f_lineno)}\n{host_complete_genomes_taxids_intersect_leaves_list}")
     
     # get taxid not found to go up in taxonomy, get leave taxids again and cross again with 
     # available taxid/accnr found in hot complete genome db
@@ -527,7 +528,9 @@ if b_test_get_host_complete_genome_acc_nr_found:
     # accnr:GCF_022539505.1	species:Lolium rigidum	name:na
     # accnr:GCF_000231095.2	species:Oryza brachyantha	name:na
     # accnr:GCF_000001405.40	species:Homo sapiens	name:na
-    taxid_u = ['126889','4520','4530','9187','9606']
+    taxid_u = [126889,4520,4530,9187,9606]
+    
+    taxid_u = [4530] # oriza
     
     # load taxid_acc file
     load_taxids(taxid_acc_in_f,
