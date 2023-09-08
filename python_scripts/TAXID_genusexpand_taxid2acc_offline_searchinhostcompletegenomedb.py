@@ -285,14 +285,13 @@ def retain_1accnr(accnrlisttmp, speciestmp, nametmp):
             if curr_accnr_version > max_accnr_version:
                 max_accnr_version = curr_accnr_version
                 kept_accnr_i = iacc
-                print(f"{prog_tag} record kept_accnr_i:{kept_accnr_i} for accnr:{curr_accnr}, line {str(frame.f_lineno)}")
+                # print(f"{prog_tag} record kept_accnr_i:{kept_accnr_i} for accnr:{curr_accnr}, line {str(frame.f_lineno)}")
             elif(( curr_accnr_version == max_accnr_version)and
                  (curr_accnr_nr > max_accnr_nr)):
                 max_accnr_nr = curr_accnr_nr
                 kept_accnr_i = iacc
-                print(f"{prog_tag} record kept_accnr_i:{kept_accnr_i} for accnr:{curr_accnr}, line {str(frame.f_lineno)}")
-            #elif b_verbose:
-            else:
+                # print(f"{prog_tag} record kept_accnr_i:{kept_accnr_i} for accnr:{curr_accnr}, line {str(frame.f_lineno)}")
+            elif b_verbose:
                 print(f"{prog_tag} keep   kept_accnr_i:{kept_accnr_i} for accnr:{curr_accnr}, line {str(frame.f_lineno)}")
             
         else:
@@ -380,15 +379,19 @@ def get_host_complete_genome_acc_nr_found(  host_complete_genome_taxids,
     for res_taxid in leaves_taxids:
         leaves_taxids_set.add(res_taxid)
 
-    print(f"{prog_tag} We intersect:{len(host_complete_genome_taxids)} host complete genomes\n{host_complete_genome_taxids}\nwith")
-    print(f"{prog_tag}             :{len(leaves_taxids)} genomes in result, line {str(frame.f_lineno)}\n{leaves_taxids}")
+    print(f"{prog_tag} We intersect:{len(host_complete_genome_taxids)} host complete genomes with")
+    #\n{host_complete_genome_taxids}\n
+    print(f"{prog_tag}             :{len(leaves_taxids)} genomes in result, line {str(frame.f_lineno)}")
+    #\n{leaves_taxids}")
 
     # do intersection for taxids shared (host complete genomes found in results)
     host_complete_genomes_taxids_intersect_leaves_set = leaves_taxids_set.intersection(host_complete_genome_taxids_set)
     host_complete_genomes_taxids_intersect_leaves_list = list(host_complete_genomes_taxids_intersect_leaves_set)
 
-    print(f"{prog_tag} After intersec, we retain set :{len(host_complete_genomes_taxids_intersect_leaves_set)} taxid to get related acc nr, line {str(frame.f_lineno)}\n{host_complete_genomes_taxids_intersect_leaves_set}")
-    print(f"{prog_tag} After intersec, we retain list:{len(host_complete_genomes_taxids_intersect_leaves_list)} taxid to get related acc nr, line {str(frame.f_lineno)}\n{host_complete_genomes_taxids_intersect_leaves_list}")
+    print(f"{prog_tag} After intersec, we retain set :{len(host_complete_genomes_taxids_intersect_leaves_set)} taxid to get related acc nr, line {str(frame.f_lineno)}") 
+    #\n{host_complete_genomes_taxids_intersect_leaves_set}")
+    print(f"{prog_tag} After intersec, we retain list:{len(host_complete_genomes_taxids_intersect_leaves_list)} taxid to get related acc nr, line {str(frame.f_lineno)}")
+    #\n{host_complete_genomes_taxids_intersect_leaves_list}")
     
     # get taxid not found to go up in taxonomy, get leave taxids again and cross again with 
     # available taxid/accnr found in hot complete genome db
@@ -530,7 +533,7 @@ if b_test_get_host_complete_genome_acc_nr_found:
     # accnr:GCF_000001405.40	species:Homo sapiens	name:na
     taxid_u = [126889,4520,4530,9187,9606]
     
-    taxid_u = [4530] # oriza
+    # taxid_u = [4530] # oriza
     
     # load taxid_acc file
     load_taxids(taxid_acc_in_f,
@@ -592,161 +595,6 @@ if b_test_get_host_complete_genome_acc_nr_found:
     print(f"{prog_tag} [TEST get_host_complete_genome_acc_nr_found] END")
     sys.exit()
 # ----------------------------------------------------------------------
-
-# --------------------------------------------------------------------------
-# read taxids, deduce complete genomes available in genblank, provides in output file
-# the acc number in addition  to those already listed
-# --------------------------------------------------------------------------
-def add_host_chr_taxids_accnr_from_ori_list(taxidlist,
-                                            accnrlist,
-                                            acc_out_f,
-                                            taxidlisthost,
-                                            accnrlisthost):
-
-    # store all accnr found for complete genome of current taxid (or from same family/order)
-    # the aim is to keep only the most recent/complete
-    accnrlisttmp = []
-    speciestmp   = []
-    nametmp      = []
-        
-    # get host complete genome when found using ncbi_genome_download
-    taxids_list=','.join(taxidlist)
-
-    # # ------------------------------------------
-    # # ncbi-genome-download as a library
-    # ngd_out_f= os.getcwd()+'/accnr_sp_accnr.tsv'
-    # ngd.download(section=ncbigenomedownload_section,
-    #              taxids=taxids_list,
-    #              assembly_levels=assembly_levels,
-    #              flat_output=True,
-    #              output=ngd_out_f,
-    #              groups=organisms_to_search_in,
-    #              dry_run=True   
-    #              )
-
-
-    # cmd = "cut -f 1,2 "+ngd_out_f
-
-    # for line in os.popen(cmd).readlines():
-    #     acc_nr, species = line.rstrip().split()
-    #     accnrlist.append(acc_nr)
-
-    #     if b_verbose:
-    #         print(f"{prog_tag} we found for {species} chr fasta for host genome with accnr {acc_nr}")
-    # # ------------------------------------------
-
-    # ------------------------------------------
-    # ncbi-genome-download as executable script
-    # ------------------------------------------
-
-    # load NCBITaxa
-    ncbi = NCBITaxa()   # Install ete3 db in local user file (.ete_toolkit/ directory)
-    print(prog_tag + " Try to load ncbi tax db file:"+ncbi_tax_f)
-    ncbi = NCBITaxa(dbfile=ncbi_tax_f)
-    if (not os.path.isfile(ncbi_tax_f)) or b_load_ncbi_tax_f:
-        try:
-            ncbi.update_taxonomy_database()
-        except:
-            warnings.warn(prog_tag+"[SQLite Integrity error/warning] due to redundant IDs")
-
-    for taxid_u in taxidlist:
-        print(f"{prog_tag} treating global taxid:{taxid_u}")
-        cmd = f"ncbi-genome-download -s {ncbigenomedownload_section} --taxids {taxid_u} --assembly-levels {assembly_levels} --dry-run {organisms_to_search_in} 2>&1"
-        for line in os.popen(cmd).readlines():
-            if b_verbose:
-                print(f"{prog_tag} cmd:{cmd} ran, read output")
-            # ERROR: No downloads matched your filter. Please check your options.
-            if re.match("^(?:ERROR|Error): No downloads", line):
-                # get complete lineage: accept ONLY leave taxid? (species)
-                lineage = ncbi.get_lineage(int(taxid_u))
-                name = ncbi.translate_to_names(lineage)
-                if b_verbose:
-                    print(f"taxid:{taxid_u}\tlineage:{lineage}\tname:{name}")
-
-                # same search but going upper in taxonomy, finding leaves taxid to find new closeley related complete genome
-                # print(f"{prog_tag} ngd_upper_lineage call {curr_index_in_lineage} line {str(sys._getframe().f_lineno)}") 
-                new_acc_nr = ngd_upper_lineage( curr_index_in_lineage,
-                                                lineage,
-                                                ncbi,
-                                                accnrlisttmp, # current working list
-                                                accnrlist, # final list, if something added (or min index reached), recursivity stop
-                                                speciestmp,
-                                                nametmp,
-                                                taxidlisthosts,
-                                                accnrlisthosts
-                                               )
-                if new_acc_nr is None:
-                    print(f"No acc_nr found after going up in taxonomy, line {str(sys._getframe().f_lineno)}")
-                else:
-                    accnrlist.append( new_acc_nr )
-                    # print(f"last item added to accnrlist:{accnrlist[-1]}, line {str(sys._getframe().f_lineno)}")
-                
-                # initialize for next search
-                accnrlisttmp = []
-                speciestmp   = []
-                nametmp      = []
-                
-            elif not re.match("^Considering", line):
-                # print(f"line:{line.rstrip()}")
-                acc_nr, species, name = line.rstrip().split("\t")
-                accnrlisttmp.append(acc_nr)
-                # print(f"last item added to accnrlist:{accnrlist[-1]}, line {str(sys._getframe().f_lineno)}")
-                            
-                speciestmp.append(species)
-                nametmp.append(name)                                  
-                if b_verbose:
-                    print(f"{prog_tag} we found for {species} chr fasta for host genome with accnr {acc_nr} (name:{name})")
-
-        # retain only the most recent complete genome for current treated taxid
-        if len(accnrlisttmp):
-            accnrlist.append( retain_1accnr(accnrlisttmp, speciestmp, nametmp) )
-            # print(f"last item added to accnrlist:{accnrlist[-1]}, line {str(sys._getframe().f_lineno)}")
-
-    # remove redundant accnr
-    print(f"accnrlist to sort:{accnrlist}")
-    accnrlist = list(sort_uniq(accnrlist))
-    with open(acc_out_f, "w") as record_file:
-        for accnr in accnrlist:
-            record_file.write("%s\n" % (accnr))
-    # ------------------------------------------
-
-    print(f"{prog_tag} {acc_out_f} file created")
-
-# --------------------------------------------------------------------------
-# test
-if b_test_add_host_chr_taxids_accnr_from_ori_list:
-    # taxid_acc_tabular_f = 'megablast_out_f_taxid_acc_host.tsv'
-    taxid_acc_in_f = test_dir + 'megablast_out_f_taxid_acc_host.tsv'
-    acc_out_f = test_dir + 'megablast_out_f_taxid_acc_hostexpanded.tsv'
-    print(f"{prog_tag} START b_test_add_host_chr_taxids_accnr_from_ori_list")
-
-    print(f"{prog_tag} loading {taxid_acc_in_f} file")
-    load_taxids(taxid_acc_in_f,
-               taxidlist,
-               accnrlist)
-    for i in range(len(taxidlist)):
-        print(f"{taxidlist[i]}\t{accnrlist[i]}")
-    print(f"{prog_tag} end loading")   
-
-    # load host db taxid acc
-    # taxid_acc_hostdb_in_f = test_dir + 'host_complete_genomes_taxid_accnr_subset.tsv'
-    taxid_acc_hostdb_in_f = test_dir + 'host_complete_genomes_taxid_accnr.tsv'
-    print(f"{prog_tag} loading {taxid_acc_in_f} file")  
-    load_taxids(taxid_acc_hostdb_in_f,
-                taxidlisthosts,
-                accnrlisthosts)
-    for i in range(len(taxidlisthosts)):
-        print(f"{taxidlisthosts[i]}\t{accnrlisthosts[i]}")
-    print(f"{prog_tag} end loading") 
-
-    add_host_chr_taxids_accnr_from_ori_list( taxidlist,
-                                            accnrlist,
-                                            acc_out_f,
-                                            taxidlisthosts,
-                                            accnrlisthosts)
-    print(f"{prog_tag} END b_test_add_host_chr_taxids_accnr_from_ori_list")
-    sys.exit()
-# --------------------------------------------------------------------------
 
 # --------------------------------------------------------------------------
 # MAIN
