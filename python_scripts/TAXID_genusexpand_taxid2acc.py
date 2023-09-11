@@ -39,7 +39,7 @@ accnrlist = []
 # order = -4
 # family or clade = -3
 # subtribe or genus = -2
-curr_index_in_lineage = -2
+curr_index_in_lineage = -1
 min_index_in_lineage = -4
 
 # boolean to know if we download ncbi taxonomy file in current env
@@ -182,7 +182,7 @@ if(not b_test):
 # to sort uniq, for a list, only need to add list conversion
 # --------------------------------------------------------------------------
 mapper= map # Python ≥ 3
-def sort_uniq(sequence):
+def sort_uniq(sequence: list):
     return mapper(
         operator.itemgetter(0),
         itertools.groupby(sorted(sequence)))
@@ -191,13 +191,13 @@ def sort_uniq(sequence):
 # --------------------------------------------------------------------------
 # Procedure: load taxid acc list, return taxidlist
 # --------------------------------------------------------------------------
-def load_taxids(taxid_acc_tabular_f):
+def load_taxids(taxid_acc_tabular_f: str):
 
     if not path.exists(taxid_acc_tabular_f):
         sys.exit("Error " + taxid_acc_tabular_f +
                  " file does not exist, line "+ str(sys._getframe().f_lineno) )
 
-    cmd = "cut -f 1,2 "+taxid_acc_tabular_f+" | sort | uniq "
+    cmd = "cut -f 1,2 "+taxid_acc_tabular_f+" | sort -u "
 
     for line in os.popen(cmd).readlines():
         if line.rstrip() != "":
@@ -241,7 +241,7 @@ if b_test_load_taxids:
 # - print accnr species and name retained
 # - reinitiate tmp lists of accnrlisttmp speciestmp and nametmp 
 # --------------------------------------------------------------------------
-def retain_1accnr(accnrlisttmp, speciestmp, nametmp):
+def retain_1accnr(accnrlisttmp: list, speciestmp: list, nametmp: list) -> str:
 
     max_accnr_version  = 0
     curr_accnr_version = 0
@@ -281,14 +281,14 @@ def retain_1accnr(accnrlisttmp, speciestmp, nametmp):
 # Function to find complete genome closely related to current taxid
 # goes upper in taxonomy if nothing found until order
 # --------------------------------------------------------------------------
-def ngd_upper_lineage(curr_index_in_lineage,
-                      lineage,
-                      ncbi,                      
-                      accnrlisttmp, # current working list
-                      accnrlist,    # final list, if something added (or min index reached), recursivity stop
-                      speciestmp,
-                      nametmp
-                      ):
+def ngd_upper_lineage(curr_index_in_lineage: int,
+                      lineage: list,
+                      ncbi: NCBITaxa,                      
+                      accnrlisttmp: list, # current working list
+                      accnrlist: list,    # final list, if something added (or min index reached), recursivity stop
+                      speciestmp: list,
+                      nametmp: list
+                      ) -> str:
     print(f"{prog_tag} ngd_upper_lineage with curr_index_in_lineage:{curr_index_in_lineage}")
     
     # deduce up rank, search complet genome/chr in
@@ -357,9 +357,9 @@ def ngd_upper_lineage(curr_index_in_lineage,
 # read taxids, deduce complete genomes available in genblank, provides in output file
 # the acc number in addition  to those already listed
 # --------------------------------------------------------------------------
-def add_host_chr_taxids_accnr_from_ori_list(taxidlist,
-                                            accnrlist,
-                                            acc_out_f):
+def add_host_chr_taxids_accnr_from_ori_list(taxidlist: list,
+                                            accnrlist: list,
+                                            acc_out_f: str):
 
     # store all accnr found for complete genome of current taxid (or from same family/order)
     # the aim is to keep only the most recent/complete
