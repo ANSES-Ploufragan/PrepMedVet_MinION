@@ -313,7 +313,7 @@ if b_test_load_taxids:
 # --------------------------------------------------------------------------
 def retain_1accnr(accnrlisttmp: list, 
                   speciestmp: list, 
-                  nametmp: list) -> str:
+                  nametmp: list) -> list:
 
     max_accnr_version  = 0
     curr_accnr_version = 0
@@ -347,7 +347,7 @@ def retain_1accnr(accnrlisttmp: list,
             sys.exit(f"{prog_tag} No version found for accnr:{accnrlisttmp[iacc]}, line {lineno()}")
     print(f"{prog_tag} kept_accnr_i:{kept_accnr_i}, line {lineno()}")     
     print(f"retained accnr:{accnrlisttmp[kept_accnr_i]}\tspecies:{speciestmp[kept_accnr_i]}\tname:{nametmp[kept_accnr_i]}")
-    kept_accn = accnrlisttmp[kept_accnr_i]
+    kept_accn = [ accnrlisttmp[kept_accnr_i] ]
 
     return kept_accn
 # --------------------------------------------------------------------------
@@ -466,9 +466,9 @@ def get_host_complete_genome_acc_nr_found(  host_complete_genome_taxids: list,
         if len(host_complete_genomes_acc_nr) == 0:
             print(f"no acc nr found for provided leaves_taxids_ints, line {lineno()}")
         elif len(host_complete_genomes_acc_nr) == 1:
-            accnr = host_complete_genomes_acc_nr
-            taxid = host_complete_genomes_taxids_intersect_leaves_list
-            name = list(ncbi.get_taxid_translator(host_complete_genomes_taxids_intersect_leaves_list).values())
+            accnr = host_complete_genomes_acc_nr[0]
+            taxid = host_complete_genomes_taxids_intersect_leaves_list[0]
+            name = list(ncbi.get_taxid_translator(host_complete_genomes_taxids_intersect_leaves_list).values())[0]
             species = name
             print(f"retained accnr:{accnr}\tspecies:{species}\tname:{name}, line {lineno()}")
             return host_complete_genomes_acc_nr
@@ -510,14 +510,14 @@ def get_host_complete_genome_acc_nr_found(  host_complete_genome_taxids: list,
             if b_verbose:
                 print(f"{prog_tag} get_host_complete_genome_acc_nr_found(\nhost_complete_genome_taxids,\nhost_complete_genome_acc_numbers,\nleaves_taxids_ints) ran")
 
-            found_complete_genomes = get_host_complete_genome_acc_nr_found(
+            return get_host_complete_genome_acc_nr_found(
                 host_complete_genome_taxids,
                 host_complete_genome_acc_numbers,
                 leave_taxid_ints,
                 # for further taxonomy analysis
                 curr_index_in_lineage,
                 lineage,
-                ncbi)      
+                ncbi)
         
         # retain only the most recent complete genome for current treated taxid
         # return retain_1accnr(accnrlisttmp_r, speciestmp_r, nametmp_r)
@@ -563,7 +563,7 @@ def get_host_complete_genome_acc_nr_found(  host_complete_genome_taxids: list,
         if b_verbose:
             print(f"{prog_tag} get_host_complete_genome_acc_nr_found(\nhost_complete_genome_taxids,\nhost_complete_genome_acc_numbers,\nleaves_taxids_ints) ran")
 
-        found_complete_genomes = get_host_complete_genome_acc_nr_found(
+        return get_host_complete_genome_acc_nr_found(
             host_complete_genome_taxids,
             host_complete_genome_acc_numbers,
             leave_taxid_ints,
@@ -643,7 +643,7 @@ if b_test_get_host_complete_genome_acc_nr_found:
             print(f"{prog_tag} [TEST] add {len(accnrlisttmptest)} accnr to existing {len(accnrlist_res)} accnr")
             print(f"{prog_tag} [TEST] accnrlisttmptest:{accnrlisttmptest} line {lineno()}")
         except TypeError as nterr:
-            print(f"{prog_tag} [TEST] Nothing returned for global taxid:{glob_taxid}\tname:{nametmp}")
+            print(f"{prog_tag} [TEST] Nothing returned for global taxid:{glob_taxid}\tname:{nametmp}, err:{nterr}")
                 
     # remove redundant accnr
     print(f"accnrlist_res to sort:{accnrlist_res}")
