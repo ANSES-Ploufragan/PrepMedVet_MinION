@@ -23,7 +23,7 @@ frame = inspect.currentframe()
 
 # debug
 test_dir = 'test_TAXID_genusexpand_taxid2acc_offline_searchinhostcompletegenomedb/'
-b_test_load_taxids = False                             # ok 2023 08 25
+b_test_load_taxids = False      # ok 2023 09 11 with rm redundant taxid code
 b_test_get_host_complete_genome_acc_nr_found   = False # ok 2023 09 11
 
 prog_tag = '[' + os.path.basename(__file__) + ']'
@@ -212,7 +212,11 @@ def sort_uniq(sequence) -> list:
 # --------------------------------------------------------------------------
 def load_taxids(taxid_acc_tabular_f: str,
                 taxid_list_l: list,
-                accnr_list_l: list):
+                accnr_list_l: list,
+                # Need to remove identical taxid in megablast res to avoid 
+                # thousand times the same search
+                # Not needed for host_db_complet_genome_file
+                b_rm_duplicated_taxid: bool):
 
     if not path.exists(taxid_acc_tabular_f):
         sys.exit("Error " + taxid_acc_tabular_f +
@@ -226,12 +230,49 @@ def load_taxids(taxid_acc_tabular_f: str,
             taxid_list_l.append(int(k))
             accnr_list_l.append(v)
             # print(f"last item added to accnr_list_l:{accnr_list_l[-1]}, line {str(sys._getframe().f_lineno)}")
-
+    
+    # if asked, keep only non redundant taxids
+    if b_rm_duplicated_taxid:
+        # create set (uniq taxids)
+        taxid_list_uniq_set = set(taxid_list_l)
+        # convert to list
+        taxid_list_uniq     = list(taxid_list_uniq_set)
+        
+        if b_test_load_taxids or b_verbose:
+            print(f"{prog_tag} [load_taxids] number taxids:{len(taxid_list_l)}, uniq_taxids:{len(taxid_list_uniq)}")
+        accnr_list_uniq     = []
+        for taxid_s in list(taxid_list_uniq):
+            # find index of uniq taxid in the original list of taxid
+            taxid_index = taxid_list_l.index(taxid_s)
+            # add deduced related first accession number
+            accnr_list_uniq.append( accnr_list_l[taxid_index] )
+        if b_test_load_taxids or b_verbose:
+            print(f"{prog_tag} [load_taxids] number accnrs:{len(accnr_list_l)}, uniq_accnrs:{len(accnr_list_uniq)}")
+        # replace original taxid accnr lists by the one with non redundant taxids
+        # this syntaxe force copy in original list (write over)
+        taxid_list_l[:] = taxid_list_uniq
+        accnr_list_l[:] = accnr_list_uniq
+        if b_test_load_taxids or b_test:
+            print(f"{prog_tag} [load_taxids] FINAL uniq_taxids:{len(taxid_list_l)} uniq_accnrs:{len(accnr_list_l)}")
 # --------------------------------------------------------------------------
 
 # test load_taxids function
 # display taxidlist, then exit
 if b_test_load_taxids:
+    taxid_acc_tabular_f = test_dir + 'megablast_out_f_taxid_acc_testrmredundanttaxids.tsv'
+    print("START b_test_load_taxids REDUND")
+    print("loading "+taxid_acc_tabular_f+" file")
+    taxid_list = []
+    accnr_list = []
+    load_taxids(taxid_acc_tabular_f,
+                taxid_list,
+                accnr_list,
+                True)
+    for i in range(len(taxid_list)):
+        print(f"{taxid_list[i]}\t{accnr_list[i]}")
+    print(f"{prog_tag} [load_taxids] FINAL taxid_list:{len(taxid_list)} accnr_list:{len(accnr_list)}")
+    print("END b_test_load_taxids REDUND")
+    
     taxid_acc_tabular_f = test_dir + 'megablast_out_f_taxid_acc_host.tsv'
     print("START b_test_load_taxids")
     print("loading "+taxid_acc_tabular_f+" file")
@@ -239,9 +280,10 @@ if b_test_load_taxids:
     accnr_list = []
     load_taxids(taxid_acc_tabular_f,
                 taxid_list,
-                accnr_list)
-    for i in range(len(taxidlist)):
-        print(f"{taxidlist[i]}\t{accnrlist[i]}")
+                accnr_list,
+                False)
+    for i in range(len(taxid_list)):
+        print(f"{taxid_list[i]}\t{accnr_list[i]}")
     print("END b_test_load_taxids")
     if not b_test_get_host_complete_genome_acc_nr_found:
         sys.exit()
@@ -544,12 +586,14 @@ if b_test_get_host_complete_genome_acc_nr_found:
     # load taxid_acc file
     load_taxids(taxid_acc_in_f,
                 taxidlist,
-                accnrlist)
+                accnrlist,
+                True) # remove redundant taxids
 
     # load host db taxid acc
     load_taxids(taxid_acc_hostdb_in_f,
                 taxidlisthosts,
-                accnrlisthosts)
+                accnrlisthosts,
+                False) # no need to remove redundant taxids
     
     # load NCBITaxa
     ncbi = NCBITaxa()   # Install ete3 db in local user file (.ete_toolkit/ directory)
@@ -601,12 +645,14 @@ def __main__():
     # load taxid_acc file
     load_taxids(taxid_acc_in_f,
                 taxidlist,
-                accnrlist)
+                accnrlist,
+                True) # remove redundant taxids (avoid to search n times the same acc nr)
 
     # load host db taxid acc
     load_taxids(taxid_acc_hostdb_in_f,
                 taxidlisthosts,
-                accnrlisthosts)
+                accnrlisthosts,
+                False) # do not try to remove redundancy, there is no redundant taxid in db
     
     # load NCBITaxa
     ncbi = NCBITaxa()   # Install ete3 db in local user file (.ete_toolkit/ directory)
