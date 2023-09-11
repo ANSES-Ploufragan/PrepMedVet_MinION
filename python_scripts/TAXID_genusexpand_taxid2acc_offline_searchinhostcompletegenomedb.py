@@ -19,7 +19,10 @@ from ete3 import NCBITaxa
 
 # to be able to report line number in error messages
 import inspect
-frame = inspect.currentframe()
+def lineno():
+    """Returns the current line number in our program."""
+    return inspect.currentframe().f_back.f_lineno
+
 
 # debug
 test_dir = 'test_TAXID_genusexpand_taxid2acc_offline_searchinhostcompletegenomedb/'
@@ -156,7 +159,7 @@ if ((not b_test)and
                   )
     parser.print_help()
     print(prog_tag + "[Error] we found "+str(len(sys.argv)) +
-          " arguments, exit line "+str(frame.f_lineno))
+          " arguments, exit line "+lineno())
     sys.exit(0)
 
 # print('args:', args)
@@ -220,7 +223,7 @@ def load_taxids(taxid_acc_tabular_f: str,
 
     if not path.exists(taxid_acc_tabular_f):
         sys.exit("Error " + taxid_acc_tabular_f +
-                 " file does not exist, line "+ str(sys._getframe().f_lineno) )
+                 " file does not exist, line "+ lineno() )
 
     cmd = "cut -f 1,2 "+taxid_acc_tabular_f+" | sort -u "
 
@@ -229,7 +232,7 @@ def load_taxids(taxid_acc_tabular_f: str,
             k, v = line.rstrip().split()
             taxid_list_l.append(int(k))
             accnr_list_l.append(v)
-            # print(f"last item added to accnr_list_l:{accnr_list_l[-1]}, line {str(sys._getframe().f_lineno)}")
+            # print(f"last item added to accnr_list_l:{accnr_list_l[-1]}, line {lineno()}")
     
     # if asked, keep only non redundant taxids
     if b_rm_duplicated_taxid:
@@ -319,7 +322,7 @@ def retain_1accnr(accnrlisttmp: list,
     kept_accnr_i       = 0
     p = re.compile("(.*?(\d+)\.(\d+))$")
 
-    print(f"{prog_tag} retain_1accnr({accnrlisttmp}, {speciestmp}, {nametmp}), line {str(frame.f_lineno)}")
+    print(f"{prog_tag} retain_1accnr({accnrlisttmp}, {speciestmp}, {nametmp}), line {lineno()}")
 
     for iacc in range(len(accnrlisttmp)):
         m = p.match( accnrlisttmp[iacc] )
@@ -327,22 +330,22 @@ def retain_1accnr(accnrlisttmp: list,
             curr_accnr = m.group(1)
             curr_accnr_version = int(m.group(3))
             accnr_nr = int(m.group(2))
-            # print(f"curr_accnr_version:{curr_accnr_version} accnr_nr:{accnr_nr}, line {str(frame.f_lineno)}")
+            # print(f"curr_accnr_version:{curr_accnr_version} accnr_nr:{accnr_nr}, line {lineno()}")
             if curr_accnr_version > max_accnr_version:
                 max_accnr_version = curr_accnr_version
                 kept_accnr_i = iacc
-                # print(f"{prog_tag} record kept_accnr_i:{kept_accnr_i} for accnr:{curr_accnr}, line {str(frame.f_lineno)}")
+                # print(f"{prog_tag} record kept_accnr_i:{kept_accnr_i} for accnr:{curr_accnr}, line {lineno()}")
             elif(( curr_accnr_version == max_accnr_version)and
                  (curr_accnr_nr > max_accnr_nr)):
                 max_accnr_nr = curr_accnr_nr
                 kept_accnr_i = iacc
-                # print(f"{prog_tag} record kept_accnr_i:{kept_accnr_i} for accnr:{curr_accnr}, line {str(frame.f_lineno)}")
+                # print(f"{prog_tag} record kept_accnr_i:{kept_accnr_i} for accnr:{curr_accnr}, line {lineno()}")
             elif b_verbose:
-                print(f"{prog_tag} keep   kept_accnr_i:{kept_accnr_i} for accnr:{curr_accnr}, line {str(frame.f_lineno)}")
+                print(f"{prog_tag} keep   kept_accnr_i:{kept_accnr_i} for accnr:{curr_accnr}, line {lineno()}")
             
         else:
-            sys.exit(f"{prog_tag} No version found for accnr:{accnrlisttmp[iacc]}, line {str(frame.f_lineno)}")
-    print(f"{prog_tag} kept_accnr_i:{kept_accnr_i}, line {str(frame.f_lineno)}")     
+            sys.exit(f"{prog_tag} No version found for accnr:{accnrlisttmp[iacc]}, line {lineno()}")
+    print(f"{prog_tag} kept_accnr_i:{kept_accnr_i}, line {lineno()}")     
     print(f"retained accnr:{accnrlisttmp[kept_accnr_i]}\tspecies:{speciestmp[kept_accnr_i]}\tname:{nametmp[kept_accnr_i]}")
     kept_accn = accnrlisttmp[kept_accnr_i]
 
@@ -426,7 +429,7 @@ def get_host_complete_genome_acc_nr_found(  host_complete_genome_taxids: list,
 
     print(f"{prog_tag} We intersect:{len(host_complete_genome_taxids)} host complete genomes with")
     #\n{host_complete_genome_taxids}\n
-    print(f"{prog_tag}             :{len(leaves_taxids)} genomes in result, line {str(frame.f_lineno)}")
+    print(f"{prog_tag}             :{len(leaves_taxids)} genomes in result, line {lineno()}")
     #\n{leaves_taxids}")
 
     # do intersection for taxids shared (host complete genomes found in results)
@@ -434,9 +437,9 @@ def get_host_complete_genome_acc_nr_found(  host_complete_genome_taxids: list,
     host_complete_genomes_taxids_intersect_leaves_list = list(host_complete_genomes_taxids_intersect_leaves_set)
 
     if b_verbose:
-        print(f"{prog_tag} After intersec, we retain set :{len(host_complete_genomes_taxids_intersect_leaves_set)} taxid to get related acc nr, line {str(frame.f_lineno)}") 
+        print(f"{prog_tag} After intersec, we retain set :{len(host_complete_genomes_taxids_intersect_leaves_set)} taxid to get related acc nr, line {lineno()}") 
         #\n{host_complete_genomes_taxids_intersect_leaves_set}")
-        print(f"{prog_tag} After intersec, we retain list:{len(host_complete_genomes_taxids_intersect_leaves_list)} taxid to get related acc nr, line {str(frame.f_lineno)}")
+        print(f"{prog_tag} After intersec, we retain list:{len(host_complete_genomes_taxids_intersect_leaves_list)} taxid to get related acc nr, line {lineno()}")
         #\n{host_complete_genomes_taxids_intersect_leaves_list}")
         
         # get taxid not found to go up in taxonomy, get leave taxids again and cross again with 
@@ -453,30 +456,30 @@ def get_host_complete_genome_acc_nr_found(  host_complete_genome_taxids: list,
             host_complete_genomes_taxids_indexes.append(host_complete_genome_taxids.index(elt))
         # -----------------------------------------------------------
         if len(host_complete_genomes_taxids_intersect_leaves_list) != len(host_complete_genomes_taxids_indexes):
-            sys.exit(f"{prog_tag} number of indexes retained != number of taxids retained: NOT NORMAL, line {str(frame.f_lineno)}")
-        # print(f"{prog_tag} After intersec, nr indexes retained: {len(host_complete_genomes_taxids_indexes)}, line {str(frame.f_lineno)}")  
+            sys.exit(f"{prog_tag} number of indexes retained != number of taxids retained: NOT NORMAL, line {lineno()}")
+        # print(f"{prog_tag} After intersec, nr indexes retained: {len(host_complete_genomes_taxids_indexes)}, line {lineno()}")  
 
         # get acc numbers, sorted
         host_complete_genomes_acc_nr = natsorted( [ host_complete_genome_acc_numbers[i] for i in host_complete_genomes_taxids_indexes ] )
-        print(f"{prog_tag} After intersec, nr accnr retained: {len(host_complete_genomes_acc_nr)}, line {str(frame.f_lineno)}")  
+        print(f"{prog_tag} After intersec, nr accnr retained: {len(host_complete_genomes_acc_nr)}, line {lineno()}")  
         
         if len(host_complete_genomes_acc_nr) == 0:
-            print(f"no acc nr found for provided leaves_taxids_ints, line {str(frame.f_lineno)}")
+            print(f"no acc nr found for provided leaves_taxids_ints, line {lineno()}")
         elif len(host_complete_genomes_acc_nr) == 1:
             accnr = host_complete_genomes_acc_nr
             taxid = host_complete_genomes_taxids_intersect_leaves_list
             name = list(ncbi.get_taxid_translator(host_complete_genomes_taxids_intersect_leaves_list).values())
             species = name
-            print(f"retained accnr:{accnr}\tspecies:{species}\tname:{name}, line {str(frame.f_lineno)}")
+            print(f"retained accnr:{accnr}\tspecies:{species}\tname:{name}, line {lineno()}")
             return host_complete_genomes_acc_nr
         elif len(host_complete_genomes_acc_nr) > 1:
             accnrlisttmp = host_complete_genomes_acc_nr
             nametmp = list(ncbi.get_taxid_translator(host_complete_genomes_taxids_intersect_leaves_list).values())
             speciestmp = nametmp
-            print(f"{prog_tag} retain_1accnr in {accnrlisttmp}, line {str(frame.f_lineno)}")
+            print(f"{prog_tag} retain_1accnr in {accnrlisttmp}, line {lineno()}")
             return retain_1accnr(accnrlisttmp, speciestmp, nametmp)
         else:
-            sys.exit(f"{prog_tag} [Error] Case not treated len of found_complete_genomes:{len(host_complete_genomes_acc_nr)}, curr_index_in_lineage:{curr_index_in_lineage}, line {str(frame.f_lineno)}")
+            sys.exit(f"{prog_tag} [Error] Case not treated len of found_complete_genomes:{len(host_complete_genomes_acc_nr)}, curr_index_in_lineage:{curr_index_in_lineage}, line {lineno()}")
 
     except ValueError:
         """
@@ -491,9 +494,9 @@ def get_host_complete_genome_acc_nr_found(  host_complete_genome_taxids: list,
             curr_index_in_lineage = curr_index_in_lineage - 1
             upper_taxid = lineage[curr_index_in_lineage]
             rank = ncbi.get_rank(upper_taxid[curr_index_in_lineage])
-            print(f"{prog_tag} No chr/complete genome for taxid:{upper_taxid} rank:{rank} (expanding name:{name}), line {str(frame.f_lineno)}")
+            print(f"{prog_tag} No chr/complete genome for taxid:{upper_taxid} rank:{rank} (expanding name:{name}), line {lineno()}")
             if b_verbose:
-                print(f"{prog_tag} ngd_upper_lineage call {curr_index_in_lineage} line {str(sys._getframe().f_lineno)}") 
+                print(f"{prog_tag} ngd_upper_lineage call {curr_index_in_lineage} line {lineno()}") 
             
             # get complete lineage: accept ONLY leave taxid? (species)
             # name = ncbi.get_taxid_translator(upper_taxid)
@@ -519,19 +522,19 @@ def get_host_complete_genome_acc_nr_found(  host_complete_genome_taxids: list,
         # retain only the most recent complete genome for current treated taxid
         # return retain_1accnr(accnrlisttmp_r, speciestmp_r, nametmp_r)
         elif len(host_complete_genomes_acc_nr) == 0:
-            print(f"no acc nr found for provided leaves_taxids_ints, line {str(frame.f_lineno)}")
+            print(f"no acc nr found for provided leaves_taxids_ints, line {lineno()}")
             return ''
         elif len(host_complete_genomes_acc_nr) == 1:
-            print(f"retained accnr:{accnr}\tspecies:{species}\tname:{name}, line {str(frame.f_lineno)}")
+            print(f"retained accnr:{accnr}\tspecies:{species}\tname:{name}, line {lineno()}")
             return host_complete_genomes_acc_nr
         elif len(host_complete_genomes_acc_nr) > 1:
             accnrlisttmp = host_complete_genomes_acc_nr
             speciestmp = list(ncbi.get_taxid_translator(host_complete_genomes_taxids_intersect_leaves_list).values())
             nametmp = speciestmp
-            print(f"{prog_tag} retain_1accnr in {accnrlisttmp}, line {str(frame.f_lineno)}")
+            print(f"{prog_tag} retain_1accnr in {accnrlisttmp}, line {lineno()}")
             return retain_1accnr(accnrlisttmp, speciestmp, nametmp)
         else:
-            sys.exit(f"{prog_tag} [Error] Case not treated len of found_complete_genomes:{len(host_complete_genomes_acc_nr)}, curr_index_in_lineage:{curr_index_in_lineage}, line {str(frame.f_lineno)}")
+            sys.exit(f"{prog_tag} [Error] Case not treated len of found_complete_genomes:{len(host_complete_genomes_acc_nr)}, curr_index_in_lineage:{curr_index_in_lineage}, line {lineno()}")
 
 
     # goes up in taxonomy to get a larger number of taxids to cross with host genome taxids
@@ -541,9 +544,9 @@ def get_host_complete_genome_acc_nr_found(  host_complete_genome_taxids: list,
         upper_taxid = str(upper_taxid_int)
         rank = ncbi.get_rank([upper_taxid_int])
         name = ncbi.get_taxid_translator([upper_taxid_int])
-        print(f"{prog_tag} No chr/complete genome for taxid:{upper_taxid} rank:{rank} (expanding name:{name}), line {str(frame.f_lineno)}")
+        print(f"{prog_tag} No chr/complete genome for taxid:{upper_taxid} rank:{rank} (expanding name:{name}), line {lineno()}")
         if b_verbose:
-            print(f"{prog_tag} ngd_upper_lineage call {curr_index_in_lineage} line {str(sys._getframe().f_lineno)}") 
+            print(f"{prog_tag} ngd_upper_lineage call {curr_index_in_lineage} line {lineno()}") 
         
         # get complete lineage: accept ONLY leave taxid? (species)
         if b_verbose:
@@ -554,7 +557,7 @@ def get_host_complete_genome_acc_nr_found(  host_complete_genome_taxids: list,
                             lineage,
                             ncbi
                             )
-        print(f"{prog_tag} number of leave_taxid_ints obtained for rank:{rank}: {len(leave_taxid_ints)}, line {str(frame.f_lineno)}")
+        print(f"{prog_tag} number of leave_taxid_ints obtained for rank:{rank}: {len(leave_taxid_ints)}, line {lineno()}")
         
         # we search if one of the accession numbers of complete genome is included in leaves_taxids_ints  
         if b_verbose:
@@ -574,12 +577,14 @@ def get_host_complete_genome_acc_nr_found(  host_complete_genome_taxids: list,
 if b_test_get_host_complete_genome_acc_nr_found:
     taxid_acc_in_f = test_dir + 'megablast_out_f_taxid_acc_host.tsv'
     taxid_acc_hostdb_in_f = test_dir + 'host_complete_genomes_taxid_accnr.tsv'
+    acc_out_f = test_dir + 'megablast_out_f_taxid_acc_hostexpanded.tsv'
     # taxid_u = ['4520','4530','9606']
     # we must obtain retained 
     # accnr:GCF_022539505.1	species:Lolium rigidum	name:na
     # accnr:GCF_000231095.2	species:Oryza brachyantha	name:na
     # accnr:GCF_000001405.40	species:Homo sapiens	name:na
-    taxid_u = [126889,4520,4530,9187,9606]
+    taxid_u = [126889,4520,4530,9187,9606] 
+    # taxid_u_str = sorted(map(str, taxid_u), key=int)
     
     # taxid_u = [4530] # oriza
     
@@ -608,9 +613,12 @@ if b_test_get_host_complete_genome_acc_nr_found:
     print(f"{prog_tag} [TEST get_host_complete_genome_acc_nr_found] START")
     # check in ncbi taxonomy which acc number are in and out of given taxid
     
-    accnrlisttmp = []
+    accnrlist_res = accnrlist # we initialize with acc nr already found in results because
+    # we expect to increase the number of res
     for glob_taxid in taxid_u:
 
+        accnrlisttmptest = []
+        
         # important
         curr_index_in_lineage = -1
 
@@ -622,16 +630,28 @@ if b_test_get_host_complete_genome_acc_nr_found:
     
         print(f"{prog_tag} We search for host complete genome related to taxid:{glob_taxid}\tname:{nametmp}")
 
-        accnrlisttmp.append( 
-                        get_host_complete_genome_acc_nr_found(
-                            taxidlisthosts,
-                            accnrlisthosts,
-                            [glob_taxid],
-                            # for further taxonomy analysis
-                            curr_index_in_lineage,
-                            lineage,
-                            ncbi)     
-    )
+        try:
+            accnrlisttmptest = get_host_complete_genome_acc_nr_found(
+                                taxidlisthosts,
+                                accnrlisthosts,
+                                [glob_taxid],
+                                # for further taxonomy analysis
+                                curr_index_in_lineage,
+                                lineage,
+                                ncbi)     
+            accnrlist_res.extend(accnrlisttmptest)
+            print(f"{prog_tag} [TEST] add {len(accnrlisttmptest)} accnr to existing {len(accnrlist_res)} accnr")
+            print(f"{prog_tag} [TEST] accnrlisttmptest:{accnrlisttmptest} line {lineno()}")
+        except TypeError as nterr:
+            print(f"{prog_tag} [TEST] Nothing returned for global taxid:{glob_taxid}\tname:{nametmp}")
+                
+    # remove redundant accnr
+    print(f"accnrlist_res to sort:{accnrlist_res}")
+    accnrlist_res = list(sort_uniq(accnrlist_res))
+    with open(acc_out_f, "w") as record_file:
+        for accnr in accnrlist_res:
+            record_file.write("%s\n" % (accnr))
+    print(f"{prog_tag} {acc_out_f} file created")
     print(f"{prog_tag} [TEST get_host_complete_genome_acc_nr_found] END")
     sys.exit()
 # ----------------------------------------------------------------------
@@ -702,14 +722,14 @@ def __main__():
                         ncbi)     
             accnrlist_res.extend(accnrlisttmp)
         except TypeError as nterr:
-            print(f"{prog_tag} Nothing return for global taxid:{taxid_u}")
+            print(f"{prog_tag} Nothing returned for global taxid:{taxid_u}")
             
         
         """
         # retain only the most recent complete genome for current treated taxid
         if len(accnrlisttmp):
             accnrlist_res.append( retain_1accnr(accnrlisttmp, speciestmp, nametmp) )
-            # print(f"last item added to accnrlist:{accnrlist[-1]}, line {str(sys._getframe().f_lineno)}")
+            # print(f"last item added to accnrlist:{accnrlist[-1]}, line {lineno()}")
         """                      
     # remove redundant accnr
     print(f"accnrlist_res to sort:{accnrlist_res}")
