@@ -19,7 +19,10 @@ from ete3 import NCBITaxa
 
 # to be able to report line number in error messages
 import inspect
-frame = inspect.currentframe()
+def lineno():
+    """Returns the current line number in our program."""
+    return inspect.currentframe().f_back.f_lineno
+
 
 # debug
 test_dir = 'test_TAXID_genusexpand_taxid2acc/'
@@ -143,7 +146,7 @@ if ((not b_test)and
                   '-o accnr_out_list.txt']),"\n\n" ]))
     parser.print_help()
     print(prog_tag + "[Error] we found "+str(len(sys.argv)) +
-          " arguments, exit line "+str(frame.f_lineno))
+          " arguments, exit line "+lineno())
     sys.exit(0)
 
 # print('args:', args)
@@ -195,7 +198,7 @@ def load_taxids(taxid_acc_tabular_f: str):
 
     if not path.exists(taxid_acc_tabular_f):
         sys.exit("Error " + taxid_acc_tabular_f +
-                 " file does not exist, line "+ str(sys._getframe().f_lineno) )
+                 " file does not exist, line "+ lineno() )
 
     cmd = "cut -f 1,2 "+taxid_acc_tabular_f+" | sort -u "
 
@@ -204,7 +207,7 @@ def load_taxids(taxid_acc_tabular_f: str):
             k, v = line.rstrip().split()
             taxidlist.append(k)
             accnrlist.append(v)
-            # print(f"last item added to accnrlist:{accnrlist[-1]}, line {str(sys._getframe().f_lineno)}")
+            # print(f"last item added to accnrlist:{accnrlist[-1]}, line {lineno()}")
 
 # --------------------------------------------------------------------------
 
@@ -325,7 +328,7 @@ def ngd_upper_lineage(curr_index_in_lineage: int,
                 print(f"{prog_tag} No chr/complete genome for taxid:{upper_taxid} rank:{rank} (expanding name:{name})")
                 if curr_index_in_lineage > min_index_in_lineage: # need to go on with upper lineage if not last accepted
                     curr_index_in_lineage = curr_index_in_lineage - 1
-                    print(f"{prog_tag} ngd_upper_lineage call {curr_index_in_lineage} line {str(sys._getframe().f_lineno)}") 
+                    print(f"{prog_tag} ngd_upper_lineage call {curr_index_in_lineage} line {lineno()}") 
                     return ngd_upper_lineage(curr_index_in_lineage,
                                              lineage,
                                              ncbi,                                      
@@ -422,7 +425,7 @@ def add_host_chr_taxids_accnr_from_ori_list(taxidlist: list,
                     print(f"taxid:{taxid_u}\tlineage:{lineage}\tname:{name}")
 
                 # same search but going upper in taxonomy, finding leaves taxid to find new closeley related complete genome
-                # print(f"{prog_tag} ngd_upper_lineage call {curr_index_in_lineage} line {str(sys._getframe().f_lineno)}") 
+                # print(f"{prog_tag} ngd_upper_lineage call {curr_index_in_lineage} line {lineno()}") 
                 new_acc_nr = ngd_upper_lineage(curr_index_in_lineage,
                                                lineage,
                                                ncbi,
@@ -432,10 +435,10 @@ def add_host_chr_taxids_accnr_from_ori_list(taxidlist: list,
                                                nametmp
                                                )
                 if new_acc_nr is None:
-                    print(f"No acc_nr found after going up in taxonomy, line {str(sys._getframe().f_lineno)}")
+                    print(f"No acc_nr found after going up in taxonomy, line {lineno()}")
                 else:
                     accnrlist.append( new_acc_nr )
-                    # print(f"last item added to accnrlist:{accnrlist[-1]}, line {str(sys._getframe().f_lineno)}")
+                    # print(f"last item added to accnrlist:{accnrlist[-1]}, line {lineno()}")
                 
                 # initialize for next search
                 accnrlisttmp = []
@@ -446,7 +449,7 @@ def add_host_chr_taxids_accnr_from_ori_list(taxidlist: list,
                 # print(f"line:{line.rstrip()}")
                 acc_nr, species, name = line.rstrip().split("\t")
                 accnrlisttmp.append(acc_nr)
-                # print(f"last item added to accnrlist:{accnrlist[-1]}, line {str(sys._getframe().f_lineno)}")
+                # print(f"last item added to accnrlist:{accnrlist[-1]}, line {lineno()}")
                             
                 speciestmp.append(species)
                 nametmp.append(name)                                  
@@ -456,7 +459,7 @@ def add_host_chr_taxids_accnr_from_ori_list(taxidlist: list,
         # retain only the most recent complete genome for current treated taxid
         if len(accnrlisttmp):
             accnrlist.append( retain_1accnr(accnrlisttmp, speciestmp, nametmp) )
-            # print(f"last item added to accnrlist:{accnrlist[-1]}, line {str(sys._getframe().f_lineno)}")
+            # print(f"last item added to accnrlist:{accnrlist[-1]}, line {lineno()}")
 
     # remove redundant accnr
     print(f"accnrlist to sort:{accnrlist}")
