@@ -6,6 +6,8 @@ Databank to install and their purpose:
 - nt: general search of small dataset, obtention of fasta references (for host(s) too)
 - nr: general search for unidentified contigs
 
+- host_complete_genome_db: complete genome assemblies for hosts (not found in ncbi nt, needed to remove host reads fastly)
+
 
 ## ref_prok_rep_genomes
 
@@ -33,4 +35,15 @@ Run command:
 
 ```
 ./cmd_install_ncbi_db.pl
+```
+
+## host_complete_genome_db
+
+Go to directory: ```~/PrepMedVet_analyses/perl_scripts```
+
+Run command:
+
+```
+mkdir /db/host_complete_genomes_db
+./get_host_completegenomes.pl -o /db/host_complete_genomes_db/
 ```
