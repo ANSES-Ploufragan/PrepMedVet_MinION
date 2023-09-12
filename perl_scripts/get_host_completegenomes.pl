@@ -43,9 +43,9 @@ If leave taxids already downloaded, avoid to download them again.
 
 To deactivate blastdb creation (merging of fasta files and indexation as ncbi db)
 
-=item [-no_accnr_taxid_list]
+=item [-no_accnr_list_f]
 
-To deactivate the creation of a file listing taxid_accessionnumber couples for each seq of the db 
+To deactivate the creation of a file listing accessionnumber.version for each seq of the db 
 
 =item [-verbose]
 
@@ -116,7 +116,7 @@ GetOptions(
     "no_download"               => sub { $b_download             = 0 },
 #    "no_seqid_taxid_f"          => sub { $b_create_seqid_taxid_f = 0 },
     "no_create_blastdb"         => sub { $b_create_blastdb       = 0 },
-    "no_accnr_taxid_list"       => sub { $b_create_accnr_list_of_db_for_TAXIDGENUSEXPAND = 0 },
+    "no_accnr_list_f"           => sub { $b_create_accnr_list_of_db_for_TAXIDGENUSEXPAND = 0 },
     "d"                         => sub { $b_run                  = 0 },
     "t"                         => sub { $b_test                 = 0 }
     );
