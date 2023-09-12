@@ -21,7 +21,7 @@ from ete3 import NCBITaxa
 import inspect
 def lineno():
     """Returns the current line number in our program."""
-    return inspect.currentframe().f_back.f_lineno
+    return str(inspect.currentframe().f_back.f_lineno)
 
 
 # debug
@@ -158,8 +158,7 @@ if ((not b_test)and
         "For current hostcompletegenome db, taxid_accnr_hostdb_list.tsv file is ../taxid_lists/host_complete_genomes_taxid_accnr.tsv"          
                   )
     parser.print_help()
-    print(prog_tag + "[Error] we found "+str(len(sys.argv)) +
-          " arguments, exit line "+lineno())
+    print(prog_tag + "[Error] we found "+str(len(sys.argv)) + " arguments, exit line "+lineno())
     sys.exit(0)
 
 # print('args:', args)

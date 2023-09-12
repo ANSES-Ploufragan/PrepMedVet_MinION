@@ -21,7 +21,7 @@ from ete3 import NCBITaxa
 import inspect
 def lineno():
     """Returns the current line number in our program."""
-    return inspect.currentframe().f_back.f_lineno
+    return str(inspect.currentframe().f_back.f_lineno)
 
 
 # debug
