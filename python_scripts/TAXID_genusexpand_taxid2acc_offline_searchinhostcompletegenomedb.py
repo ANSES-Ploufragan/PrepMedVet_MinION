@@ -34,10 +34,6 @@ prog_tag = '[' + os.path.basename(__file__) + ']'
 # boolean to know if we dowload ncbi taxonomy file in current env
 b_load_ncbi_tax_f = False
 
-# var
-#taxid_acc_in_f        = ''
-#taxid_acc_hostdb_in_f = ''
-
 # list of interesting taxid (fathers)
 taxidlist_f    = ''
 taxidlist      = []
@@ -572,7 +568,6 @@ def get_host_complete_genome_acc_nr_found(  host_complete_genome_taxids: list,
             ncbi)         
 
 
-    
 if b_test_get_host_complete_genome_acc_nr_found:
     taxid_acc_in_f = test_dir + 'megablast_out_f_taxid_acc_host.tsv'
     taxid_acc_hostdb_in_f = test_dir + 'host_complete_genomes_taxid_accnr.tsv'
@@ -612,7 +607,8 @@ if b_test_get_host_complete_genome_acc_nr_found:
     print(f"{prog_tag} [TEST get_host_complete_genome_acc_nr_found] START")
     # check in ncbi taxonomy which acc number are in and out of given taxid
     
-    accnrlist_res = accnrlist # we initialize with acc nr already found in results because
+    accnrlist_res = [] # we do not want initial acc nr not corresponding to complete genomes
+    # = accnrlist # we initialize with acc nr already found in results because
     # we expect to increase the number of res
     for glob_taxid in taxid_u:
 
@@ -723,13 +719,7 @@ def __main__():
         except TypeError as nterr:
             print(f"{prog_tag} Nothing returned for global taxid:{taxid_u}")
             
-        
-        """
-        # retain only the most recent complete genome for current treated taxid
-        if len(accnrlisttmp):
-            accnrlist_res.append( retain_1accnr(accnrlisttmp, speciestmp, nametmp) )
-            # print(f"last item added to accnrlist:{accnrlist[-1]}, line {lineno()}")
-        """                      
+                    
     # remove redundant accnr
     print(f"accnrlist_res to sort:{accnrlist_res}")
     accnrlist_res = list(sort_uniq(accnrlist_res))
@@ -740,13 +730,6 @@ def __main__():
 
     print(f"{prog_tag} {acc_out_f} file created")
     
-    """
-    add_host_chr_taxids_accnr_from_ori_list(taxidlist,
-                                            accnrlist,                                            
-                                            acc_out_f,
-                                            taxidlisthosts,
-                                            accnrlisthosts)
-    """
     # --------------------------------------------------------------------------
 #### MAIN END
 if __name__ == "__main__": __main__()
