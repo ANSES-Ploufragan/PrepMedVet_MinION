@@ -578,6 +578,9 @@ if b_test_get_host_complete_genome_acc_nr_found:
     # accnr:GCF_000231095.2	species:Oryza brachyantha	name:na
     # accnr:GCF_000001405.40	species:Homo sapiens	name:na
     taxid_u = [126889,4520,4530,9187,9606] 
+    # test case of empty list result, we expect a file with only a endofline
+    # taxid_u = [9187] # ok 2023/09/21
+    
     # taxid_u_str = sorted(map(str, taxid_u), key=int)
     
     # taxid_u = [4530] # oriza
@@ -646,6 +649,11 @@ if b_test_get_host_complete_genome_acc_nr_found:
     with open(acc_out_f, "w") as record_file:
         for accnr in accnrlist_res:
             record_file.write("%s\n" % (accnr))
+    # if empty list, we record a endofline only in the file to avoid a Galaxy error
+    if len(accnrlist_res) == 0:
+        with open(acc_out_f, "w") as record_file:
+            record_file.write("\n")
+
     print(f"{prog_tag} {acc_out_f} file created")
     print(f"{prog_tag} [TEST get_host_complete_genome_acc_nr_found] END")
     sys.exit()
@@ -726,6 +734,12 @@ def __main__():
     with open(acc_out_f, "w") as record_file:
         for accnr in accnrlist_res:
             record_file.write("%s\n" % (accnr))
+    
+    # if empty list, we record a endofline only in the file to avoid a Galaxy error
+    if len(accnrlist_res) == 0:
+        with open(acc_out_f, "w") as record_file:
+            record_file.write("\n")
+
     # ------------------------------------------
 
     print(f"{prog_tag} {acc_out_f} file created")
