@@ -28,7 +28,7 @@ def lineno():
 test_dir = 'test_TAXID_genusexpand_taxid2acc_offline_searchinhostcompletegenomedb/'
 b_test_load_taxids = False      # ok 2023 09 11 with rm redundant taxid code
 b_test_get_host_complete_genome_acc_nr_found   = False # ok 2023 09 11
-b_test_global = False # 2023 11 14
+b_test_global = False # ok 2023 11 14
 
 prog_tag = '[' + os.path.basename(__file__) + ']'
 
@@ -226,7 +226,10 @@ def load_taxids(taxid_acc_tabular_f: str,
     cmd = "cut -f 1,2 "+taxid_acc_tabular_f+" | sort -u "
 
     for line in os.popen(cmd).readlines():
-        if line.rstrip() != "":
+        # to get number of values on the line
+        data_line = line.rstrip().split()
+        # treat only lines with 2 values (taxid accnr) and not empty
+        if ((len(data_line) == 2) and (line.rstrip() != "")):
             k, v = line.rstrip().split()
             taxid_list_l.append(int(k))
             accnr_list_l.append(v)
@@ -665,6 +668,7 @@ if b_test_get_host_complete_genome_acc_nr_found:
 
 if b_test_global:
     taxid_acc_in_f  = test_dir + 'megablast_out_f_taxid_acc_host.tsv'
+
     taxid_acc_hostdb_in_f = test_dir + 'host_complete_genomes_taxid_accnr.tsv'
     taxid_acc_out_f = test_dir + 'megablast_out_f_taxid_acc_hostexpanded.tsv'
     cmd = ' '.join([
@@ -677,6 +681,20 @@ if b_test_global:
     print(f"cmd:{cmd}")
     os.system(cmd)
     print(f"{prog_tag} [TEST global] END")
+
+    # with one line with only 1 value instead of 2
+    taxid_acc_in_f_1val  = test_dir + 'megablast_out_f_taxid_acc_host_1val.tsv'
+    taxid_acc_out_f_1val = test_dir + 'megablast_out_f_taxid_acc_hostexpanded_1val.tsv'
+    cmd = ' '.join([
+        './' + os.path.basename(__file__), # prog name
+        f"-i {taxid_acc_in_f_1val}",
+        f"-d {taxid_acc_hostdb_in_f}",
+        f"-o {taxid_acc_out_f}"
+    ])
+    print(f"\n{prog_tag} [TEST global 1val instead of 2 for 1line in input] START")
+    print(f"cmd:{cmd}")
+    os.system(cmd)
+    print(f"{prog_tag} [TEST global 1val instead of 2 for 1line in input] END")
     sys.exit()
 
 # --------------------------------------------------------------------------
