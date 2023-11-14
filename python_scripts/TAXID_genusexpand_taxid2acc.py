@@ -28,6 +28,7 @@ def lineno():
 test_dir = 'test_TAXID_genusexpand_taxid2acc/'
 b_test_load_taxids = False                             # ok 2023 08 25
 b_test_add_host_chr_taxids_accnr_from_ori_list = False # ok 2023 08 25
+b_test_global = False                                  # 2023 11 14
 
 prog_tag = '[' + os.path.basename(__file__) + ']'
 
@@ -120,12 +121,14 @@ b_test_all = args.b_test_all
 if b_test_all:
     b_test_load_taxids = False
     b_test_add_host_chr_taxids_accnr_from_ori_list = True 
+    b_test_global = True
     b_test = True
     b_acc_in_f = True
     b_acc_out_f = True
 else:
     b_test = (b_test_load_taxids or
-              b_test_add_host_chr_taxids_accnr_from_ori_list)
+              b_test_add_host_chr_taxids_accnr_from_ori_list or
+              b_test_global)
 
 if ((not b_test)and
     ((len(sys.argv) < 2) or (len(sys.argv) > 5))):
@@ -157,7 +160,7 @@ else:
     # ncbi_tax_f = "/nfs/data/db/ete3/taxa.sqlite"
     ncbi_tax_f = os.path.expanduser("~/.etetoolkit/taxa.sqlite")
 if args.taxid_acc_in_f is not None:
-    taxid_acc_in_f = os.path.abspath(args.taxid_acc_f)
+    taxid_acc_in_f = os.path.abspath(args.taxid_acc_in_f)
     b_acc_in_f = True    
 elif(not b_test):
     sys.exit("[Error] You must provide taxid_acc_in_f")
@@ -487,16 +490,27 @@ if b_test_add_host_chr_taxids_accnr_from_ori_list:
                                            accnrlist,
                                            acc_out_f)
    print(f"{prog_tag} END b_test_add_host_chr_taxids_accnr_from_ori_list")
-   sys.exit()
+   if not b_test_global:
+        sys.exit()
 # --------------------------------------------------------------------------
 
+if b_test_global:
+    taxid_acc_in_f = test_dir + 'megablast_out_f_taxid_acc_host.tsv'
+    acc_out_f = test_dir + 'megablast_out_f_taxid_acc_hostexpanded.tsv'
+    print(f"\n{prog_tag} START b_test_global")
+    cmd = ' '.join([ './' + os.path.basename(__file__),
+                    f"-i {taxid_acc_in_f}",
+                    f"-o {acc_out_f}"])
+    os.system(cmd)
+    print(f"{prog_tag} END b_test_global")
+    sys.exit()
 # --------------------------------------------------------------------------
 # MAIN
 # --------------------------------------------------------------------------
 ##### MAIN
 def __main__():
     # load taxid_acc file
-    load_taxids(taxid_acc_tabular_f)
+    load_taxids(taxid_acc_in_f)
     # check in ncbi taxonomy which acc number are in and out of given taxid
     add_host_chr_taxids_accnr_from_ori_list(taxidlist,
                                             accnrlist,                                            
