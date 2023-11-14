@@ -28,6 +28,7 @@ def lineno():
 test_dir = 'test_TAXID_genusexpand_taxid2acc_offline_searchinhostcompletegenomedb/'
 b_test_load_taxids = False      # ok 2023 09 11 with rm redundant taxid code
 b_test_get_host_complete_genome_acc_nr_found   = False # ok 2023 09 11
+b_test_global = False # 2023 11 14
 
 prog_tag = '[' + os.path.basename(__file__) + ']'
 
@@ -129,9 +130,11 @@ if b_test_all:
     b_acc_in_f = True
     b_acc_hostdb_in_f = True    
     b_acc_out_f = True
+    b_test_global = True
 else:
     b_test = (b_test_load_taxids or
-              b_test_get_host_complete_genome_acc_nr_found)
+              b_test_get_host_complete_genome_acc_nr_found or
+              b_test_global)
 
 if ((not b_test)and
     ((len(sys.argv) < 2) or (len(sys.argv) > 7))):
@@ -190,7 +193,7 @@ if args.b_verbose is not None:
 
 if(not b_test):
     if (not b_acc_in_f) and (not b_acc_out_f) and (not b_acc_hostdb_in_f):
-        sys.exit(prog_tag + "[Error] You must provide either --taxid_acc_f <file> and --taxid_acc_hostdb_in_f <file> and -taxid_acc_out_f <file>")
+        sys.exit(prog_tag + "[Error] You must provide --taxid_acc_in_f <file> and --taxid_acc_hostdb_in_f <file> and -taxid_acc_out_f <file>")
 
 # # store index of the rank expected by user
 # rank_num = ranks{ rank }
@@ -656,8 +659,25 @@ if b_test_get_host_complete_genome_acc_nr_found:
 
     print(f"{prog_tag} {acc_out_f} file created")
     print(f"{prog_tag} [TEST get_host_complete_genome_acc_nr_found] END")
-    sys.exit()
+    if not b_test_global:
+        sys.exit()
 # ----------------------------------------------------------------------
+
+if b_test_global:
+    taxid_acc_in_f  = test_dir + 'megablast_out_f_taxid_acc_host.tsv'
+    taxid_acc_hostdb_in_f = test_dir + 'host_complete_genomes_taxid_accnr.tsv'
+    taxid_acc_out_f = test_dir + 'megablast_out_f_taxid_acc_hostexpanded.tsv'
+    cmd = ' '.join([
+        './' + os.path.basename(__file__), # prog name
+        f"-i {taxid_acc_in_f}",
+        f"-d {taxid_acc_hostdb_in_f}",
+        f"-o {taxid_acc_out_f}"
+    ])
+    print(f"\n{prog_tag} [TEST global] START")
+    print(f"cmd:{cmd}")
+    os.system(cmd)
+    print(f"{prog_tag} [TEST global] END")
+    sys.exit()
 
 # --------------------------------------------------------------------------
 # MAIN
