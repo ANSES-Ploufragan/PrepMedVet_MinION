@@ -766,15 +766,36 @@ def __main__():
             print(f"{prog_tag} Nothing returned for global taxid:{taxid_u}")
             
                     
-    # remove redundant accnr
+    # remove redundant accnr: these are ASSEMBLY accnr
     print(f"accnrlist_res to sort:{accnrlist_res}")
     accnrlist_res = list(sort_uniq(accnrlist_res))
+    
+    # --------------------------------------------------
+    # we get SEQ accnr from ASSEMBLY accnr using files of accnr recorded when
+    # creating DB
+    seqaccnrlist_res = []
+    assemblyaccnr_dir = 'assemblyaccnr_seqaccnr/'
+    for accnr in accnrlist_res:
+        
+        # read assemblyaccnr.txt file where we find seq accnr we are interested in (recorded in host_complete_genome_db)
+        assemblyaccnr_f = assemblyaccnr_dir + accnr + '.txt'
+        if not path.exists(assemblyaccnr_f):
+            sys.exit("Error " + assemblyaccnr_f +
+                     " file does not exist (means accnr file of DB maybe not updated in '"+assemblyaccnr_dir+"' dir), line "+ lineno() )
+
+        cmd = "cat "+assemblyaccnr_f
+
+        for line in os.popen(cmd).readlines():
+            # to get seqaccnr of the line
+            seqaccnrlist_res.append(line.rstrip())
+    # --------------------------------------------------
+        
     with open(acc_out_f, "w") as record_file:
-        for accnr in accnrlist_res:
+        for accnr in seqaccnrlist_res:
             record_file.write("%s\n" % (accnr))
     
     # if empty list, we record a endofline only in the file to avoid a Galaxy error
-    if len(accnrlist_res) == 0:
+    if len(seqaccnrlist_res) == 0:
         with open(acc_out_f, "w") as record_file:
             record_file.write("\n")
 
