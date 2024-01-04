@@ -774,7 +774,10 @@ def __main__():
     # we get SEQ accnr from ASSEMBLY accnr using files of accnr recorded when
     # creating DB
     seqaccnrlist_res = []
-    assemblyaccnr_dir = 'assemblyaccnr_seqaccnr/'
+    
+    # get absolute path of the current python script, whatever is the current directory
+    python_script_dir = os.path.dirname(os.path.abspath(sys.argv[0]))
+    assemblyaccnr_dir = python_script_dir + '/assemblyaccnr_seqaccnr/'
     for accnr in accnrlist_res:
         
         # read assemblyaccnr.txt file where we find seq accnr we are interested in (recorded in host_complete_genome_db)
