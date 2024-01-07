@@ -4,7 +4,7 @@ use strict;
 
 my $prog_tag = '[taxid_assemblyaccnr_2_seqaccnr_taxid]';
 my $b_test_get_taxid_4_assemblyaccnr            = 0; # ok 2023 12 21
-my $b_test_taxid_assemblyaccnr_2_seqaccnr_taxid = 1; # ok 2023 12 21
+my $b_test_taxid_assemblyaccnr_2_seqaccnr_taxid = 0; # ok 2023 12 21
 
 # return a hash table key:assemblyaccnr value:taxid:
 sub get_taxid_4_assemblyaccnr($$)
@@ -77,6 +77,10 @@ sub taxid_assemblyaccnr_2_seqaccnr_taxid($$$$$)
             # write seq accnr list for each assembly accnr file
             print $alf "$_\n";
             # write seqaccnr taxid
+	    if(not exists $h_assemblyaccnr_taxid{$assemblyaccnr})
+	    {
+		die "$prog_tag [Error] h_assemblyaccnr_taxid of $assemblyaccnr not found $h_assemblyaccnr_taxid{$assemblyaccnr}, line ".__LINE__."\n";
+	    }
             print $st4b "$_ $h_assemblyaccnr_taxid{$assemblyaccnr}\n";
         }
         close($alf);
@@ -108,3 +112,5 @@ if($b_test_taxid_assemblyaccnr_2_seqaccnr_taxid)
     print("$prog_tag [TEST][taxid_assemblyaccnr_2_seqaccnr_taxid] END\n");
     exit();
 }
+
+return 1;
