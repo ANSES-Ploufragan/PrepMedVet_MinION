@@ -373,7 +373,7 @@ def ngd_upper_lineage(curr_index_in_lineage: int,
     print(f"{prog_tag} [ngd_upper_lineage] test with taxid:{upper_taxid} corresponding to rank:{rank}")
     leaves_taxids_ints = ncbi.get_descendant_taxa(upper_taxid,
                                              intermediate_nodes=True,
-                                             collapse_subspecies=True,
+                                             collapse_subspecies=False,
                                              return_tree=False
                                              )
 
@@ -486,8 +486,9 @@ def get_host_complete_genome_acc_nr_found(  host_complete_genome_taxids: list,
             accnr = host_complete_genomes_acc_nr[0]
             taxid = host_complete_genomes_taxids_intersect_leaves_list[0]
             name = list(ncbi.get_taxid_translator(host_complete_genomes_taxids_intersect_leaves_list).values())[0]
+            # name = ncbi.get_taxid_translator(taxid)
             species = name
-            print(f"retained accnr:{accnr}\tspecies:{species}\tname:{name}, line {lineno()}")
+            print(f"retained accnr:{accnr}\tspecies:{species}\tname:{name}\ttaxid:{taxid}, line {lineno()}")
             return host_complete_genomes_acc_nr
         elif len(host_complete_genomes_acc_nr) > 1:
             accnrlisttmp = host_complete_genomes_acc_nr
