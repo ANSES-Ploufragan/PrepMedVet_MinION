@@ -316,7 +316,7 @@ def retain_1accnr(accnrlisttmp: list,
                   speciestmp: list, 
                   nametmp: list) -> list:
 
-    max_accnr_version  = 0
+    min_accnr_version  = 0
     curr_accnr_version = 0
     max_accnr_nr       = 0
     curr_accnr_nr      = 0
@@ -332,13 +332,13 @@ def retain_1accnr(accnrlisttmp: list,
             curr_accnr_version = int(m.group(3))
             accnr_nr = int(m.group(2))
             # print(f"curr_accnr_version:{curr_accnr_version} accnr_nr:{accnr_nr}, line {lineno()}")
-            if curr_accnr_version > max_accnr_version:
-                max_accnr_version = curr_accnr_version
+            if curr_accnr_nr < min_accnr_nr:
+                max_accnr_nr = curr_accnr_nr
                 kept_accnr_i = iacc
                 # print(f"{prog_tag} record kept_accnr_i:{kept_accnr_i} for accnr:{curr_accnr}, line {lineno()}")
-            elif(( curr_accnr_version == max_accnr_version)and
-                 (curr_accnr_nr > max_accnr_nr)):
-                max_accnr_nr = curr_accnr_nr
+            elif(( curr_accnr_nr == max_accnr_nr)and
+                 (curr_accnr_version > max_accnr_version)):
+                max_accnr_version = curr_accnr_version
                 kept_accnr_i = iacc
                 # print(f"{prog_tag} record kept_accnr_i:{kept_accnr_i} for accnr:{curr_accnr}, line {lineno()}")
             elif b_verbose:
@@ -372,8 +372,8 @@ def ngd_upper_lineage(curr_index_in_lineage: int,
     name = ncbi.get_taxid_translator([lineage[curr_index_in_lineage]])
     print(f"{prog_tag} [ngd_upper_lineage] test with taxid:{upper_taxid} corresponding to rank:{rank}")
     leaves_taxids_ints = ncbi.get_descendant_taxa(upper_taxid,
-                                             intermediate_nodes=False,
-                                             collapse_subspecies=False,
+                                             intermediate_nodes=True,
+                                             collapse_subspecies=True,
                                              return_tree=False
                                              )
 
@@ -425,9 +425,25 @@ def get_host_complete_genome_acc_nr_found(  host_complete_genome_taxids: list,
         
     # get result taxids as a set
     leaves_taxids_set = set() # taxid found in results
-    for res_taxid in leaves_taxids:
-        leaves_taxids_set.add(res_taxid)
 
+    # # for first call, get
+    # first_leaves_taxids = []
+    # for res_taxid in sorted(leaves_taxids):
+    #     first_leaves_taxids.append(ncbi.get_descendant_taxa(res_taxid,
+    #                                          intermediate_nodes=True,
+    #                                          collapse_subspecies=True,
+    #                                          return_tree=False
+    #                                          ))
+    # leaves_taxids = first_leaves_taxids
+    if b_verbose:
+        print(f"--------------\n{prog_tag} leaves_taxids found:")
+    for res_taxid in sorted(leaves_taxids):
+        leaves_taxids_set.add(res_taxid)
+        if b_verbose:
+            print(res_taxid)
+    if b_verbose:
+        print("--------------\n")
+    
     print(f"{prog_tag} We intersect:{len(host_complete_genome_taxids)} host complete genomes with")
     #\n{host_complete_genome_taxids}\n
     print(f"{prog_tag}             :{len(leaves_taxids)} genomes in result, line {lineno()}")
@@ -483,6 +499,7 @@ def get_host_complete_genome_acc_nr_found(  host_complete_genome_taxids: list,
             sys.exit(f"{prog_tag} [Error] Case not treated len of found_complete_genomes:{len(host_complete_genomes_acc_nr)}, curr_index_in_lineage:{curr_index_in_lineage}, line {lineno()}")
 
     except ValueError:
+    
         """
         # specific to retain_1accn to avoid lists are crashed by other ngd call
         accnrlisttmp_r = []
