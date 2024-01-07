@@ -78,7 +78,7 @@ my $b_run     = 1;
 # **********************************************************************
 # variables
 # **********************************************************************
-my $host_types   = 'vertebrate_mammalian,plant,invertebrate';
+my $host_types   = 'vertebrate_mammalian,vertebrate_other,plant,invertebrate';
 my $out_d                    = '';
 my $host_taxid_list_f        = '';
 my $host_taxid_list_leaves_f = '';
