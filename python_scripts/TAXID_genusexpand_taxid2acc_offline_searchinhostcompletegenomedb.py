@@ -223,6 +223,9 @@ def load_taxids(taxid_acc_tabular_f: str,
         sys.exit("Error " + taxid_acc_tabular_f +
                  " file does not exist, line "+ lineno() )
 
+    print(f"{prog_tag} We load taxid_acc_tabular_f:{taxid_acc_tabular_f}")
+    
+    
     cmd = "cut -f 1,2 "+taxid_acc_tabular_f+" | sort -u "
 
     for line in os.popen(cmd).readlines():
@@ -316,9 +319,9 @@ def retain_1accnr(accnrlisttmp: list,
                   speciestmp: list, 
                   nametmp: list) -> list:
 
-    min_accnr_version  = 0
+    max_accnr_version  = 0
     curr_accnr_version = 0
-    max_accnr_nr       = 0
+    min_accnr_nr       = 0
     curr_accnr_nr      = 0
     kept_accnr_i       = 0
     p = re.compile("(.*?(\d+)\.(\d+))$")
@@ -332,11 +335,11 @@ def retain_1accnr(accnrlisttmp: list,
             curr_accnr_version = int(m.group(3))
             accnr_nr = int(m.group(2))
             # print(f"curr_accnr_version:{curr_accnr_version} accnr_nr:{accnr_nr}, line {lineno()}")
-            if curr_accnr_nr < min_accnr_nr:
-                max_accnr_nr = curr_accnr_nr
+            if curr_accnr_nr > min_accnr_nr:
+                min_accnr_nr = curr_accnr_nr
                 kept_accnr_i = iacc
                 # print(f"{prog_tag} record kept_accnr_i:{kept_accnr_i} for accnr:{curr_accnr}, line {lineno()}")
-            elif(( curr_accnr_nr == max_accnr_nr)and
+            elif(( curr_accnr_nr == min_accnr_nr)and
                  (curr_accnr_version > max_accnr_version)):
                 max_accnr_version = curr_accnr_version
                 kept_accnr_i = iacc
@@ -443,15 +446,18 @@ def get_host_complete_genome_acc_nr_found(  host_complete_genome_taxids: list,
             print(res_taxid)
     if b_verbose:
         print("--------------\n")
+    # print(f"leaves_taxids_set:{leaves_taxids_set}, line {lineno()}")
     
     print(f"{prog_tag} We intersect:{len(host_complete_genome_taxids)} host complete genomes with")
     #\n{host_complete_genome_taxids}\n
-    print(f"{prog_tag}             :{len(leaves_taxids)} genomes in result, line {lineno()}")
+    print(f"{prog_tag}             :{len(leaves_taxids)} genomes in results), line {lineno()}")
     #\n{leaves_taxids}")
 
     # do intersection for taxids shared (host complete genomes found in results)
     host_complete_genomes_taxids_intersect_leaves_set = leaves_taxids_set.intersection(host_complete_genome_taxids_set)
     host_complete_genomes_taxids_intersect_leaves_list = list(host_complete_genomes_taxids_intersect_leaves_set)
+    # print(f"host_complete_genomes_taxids_intersect_leaves_set:{host_complete_genomes_taxids_intersect_leaves_set}, line {lineno()}")
+    # print(f"host_complete_genomes_taxids_intersect_leaves_list:{host_complete_genomes_taxids_intersect_leaves_list}, line {lineno()}")
 
     if b_verbose:
         print(f"{prog_tag} After intersec, we retain set :{len(host_complete_genomes_taxids_intersect_leaves_set)} taxid to get related acc nr, line {lineno()}") 
@@ -480,6 +486,8 @@ def get_host_complete_genome_acc_nr_found(  host_complete_genome_taxids: list,
         host_complete_genomes_acc_nr = natsorted( [ host_complete_genome_acc_numbers[i] for i in host_complete_genomes_taxids_indexes ] )
         print(f"{prog_tag} After intersec, nr accnr retained: {len(host_complete_genomes_acc_nr)}, line {lineno()}")  
         
+        # print(f"host_complete_genomes_acc_nr:{host_complete_genomes_acc_nr}, line {lineno()}")
+        
         if len(host_complete_genomes_acc_nr) == 0:
             print(f"no acc nr found for provided leaves_taxids_ints, line {lineno()}")
         elif len(host_complete_genomes_acc_nr) == 1:
@@ -494,6 +502,13 @@ def get_host_complete_genome_acc_nr_found(  host_complete_genome_taxids: list,
             accnrlisttmp = host_complete_genomes_acc_nr
             nametmp = list(ncbi.get_taxid_translator(host_complete_genomes_taxids_intersect_leaves_list).values())
             speciestmp = nametmp
+            
+            # list found display
+            print(f"{prog_tag} potential accnr, line {lineno()}")
+            for i in range(len(accnrlisttmp)):
+                print(f"accnr:{accnrlisttmp[i]}\tname:{nametmp[i]}\tspecies:{speciestmp}")
+            print(f"{prog_tag} potential accnr end")
+            
             print(f"{prog_tag} retain_1accnr in {accnrlisttmp}, line {lineno()}")
             return retain_1accnr(accnrlisttmp, speciestmp, nametmp)
         else:
@@ -576,6 +591,8 @@ def get_host_complete_genome_acc_nr_found(  host_complete_genome_taxids: list,
                             lineage,
                             ncbi
                             )
+        # add current parental taxid because not included by default in search 2024 01 08
+        leave_taxid_ints.append(upper_taxid_int)
         print(f"{prog_tag} number of leave_taxid_ints obtained for rank:{rank}: {len(leave_taxid_ints)}, line {lineno()}")
         
         # we search if one of the accession numbers of complete genome is included in leaves_taxids_ints  
