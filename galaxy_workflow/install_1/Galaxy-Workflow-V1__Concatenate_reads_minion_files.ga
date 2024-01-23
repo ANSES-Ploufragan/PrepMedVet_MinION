@@ -20,14 +20,14 @@
             "name": "Input dataset collection",
             "outputs": [],
             "position": {
-                "bottom": 399.6999969482422,
+                "bottom": 395.6999969482422,
                 "height": 82.19999694824219,
-                "left": 594,
-                "right": 794,
-                "top": 317.5,
+                "left": 846,
+                "right": 1046,
+                "top": 313.5,
                 "width": 200,
-                "x": 594,
-                "y": 317.5
+                "x": 846,
+                "y": 313.5
             },
             "tool_id": null,
             "tool_state": "{\"optional\": false, \"collection_type\": \"list\"}",
@@ -57,14 +57,14 @@
                 }
             ],
             "position": {
-                "bottom": 435.1000061035156,
+                "bottom": 431.1000061035156,
                 "height": 113.60000610351562,
-                "left": 870,
-                "right": 1070,
-                "top": 321.5,
+                "left": 1122,
+                "right": 1322,
+                "top": 317.5,
                 "width": 200,
-                "x": 870,
-                "y": 321.5
+                "x": 1122,
+                "y": 317.5
             },
             "post_job_actions": {},
             "tool_id": "toolshed.g2.bx.psu.edu/repos/mvdbeek/concatenate_multiple_datasets/cat_multiple/0.2",
@@ -82,12 +82,12 @@
                 {
                     "label": null,
                     "output_name": "out_file1",
-                    "uuid": "7d2bf821-87d0-4e37-9a98-31682f9a630f"
+                    "uuid": "84e3b6a3-a063-4958-974f-42c1495269ea"
                 }
             ]
         }
     },
     "tags": [],
-    "uuid": "921baf95-fc67-4011-970b-d5c742df0f9b",
-    "version": 13
+    "uuid": "931ba03a-e0dc-47e0-be4d-14f2105eeb84",
+    "version": 15
 }

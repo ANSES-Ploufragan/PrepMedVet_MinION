@@ -20,14 +20,14 @@
             "name": "Input dataset",
             "outputs": [],
             "position": {
-                "bottom": 189.3000030517578,
+                "bottom": 403.3000030517578,
                 "height": 61.80000305175781,
-                "left": 337,
-                "right": 537,
-                "top": 127.5,
+                "left": 323,
+                "right": 523,
+                "top": 341.5,
                 "width": 200,
-                "x": 337,
-                "y": 127.5
+                "x": 323,
+                "y": 341.5
             },
             "tool_id": null,
             "tool_state": "{\"optional\": false}",
@@ -52,14 +52,14 @@
             "name": "Input dataset",
             "outputs": [],
             "position": {
-                "bottom": 343.6999969482422,
+                "bottom": 557.6999969482422,
                 "height": 82.19999694824219,
-                "left": 337,
-                "right": 537,
-                "top": 261.5,
+                "left": 323,
+                "right": 523,
+                "top": 475.5,
                 "width": 200,
-                "x": 337,
-                "y": 261.5
+                "x": 323,
+                "y": 475.5
             },
             "tool_id": null,
             "tool_state": "{\"optional\": false}",
@@ -89,14 +89,14 @@
                 }
             ],
             "position": {
-                "bottom": 220.6999969482422,
+                "bottom": 434.6999969482422,
                 "height": 93.19999694824219,
-                "left": 615,
-                "right": 815,
-                "top": 127.5,
+                "left": 601,
+                "right": 801,
+                "top": 341.5,
                 "width": 200,
-                "x": 615,
-                "y": 127.5
+                "x": 601,
+                "y": 341.5
             },
             "post_job_actions": {
                 "HideDatasetActionout_file1": {
@@ -107,9 +107,9 @@
             },
             "tool_id": "Cut1",
             "tool_state": "{\"columnList\": \"c2,c4\", \"delimiter\": \"P\", \"input\": {\"__class__\": \"ConnectedValue\"}, \"__page__\": null, \"__rerun_remap_job_id__\": null}",
-            "tool_version": null,
+            "tool_version": "1.0.2",
             "type": "tool",
-            "uuid": "36a1ec22-94a8-4ccd-8154-d80cf22b853b",
+            "uuid": "d15f4835-3606-4d67-9fb0-98e87b57f014",
             "workflow_outputs": []
         },
         "3": {
@@ -138,14 +138,14 @@
                 }
             ],
             "position": {
-                "bottom": 374.6999969482422,
+                "bottom": 588.6999969482422,
                 "height": 93.19999694824219,
-                "left": 615,
-                "right": 815,
-                "top": 281.5,
+                "left": 601,
+                "right": 801,
+                "top": 495.5,
                 "width": 200,
-                "x": 615,
-                "y": 281.5
+                "x": 601,
+                "y": 495.5
             },
             "post_job_actions": {
                 "HideDatasetActionoutfile": {
@@ -161,10 +161,10 @@
                 "owner": "bgruening",
                 "tool_shed": "toolshed.g2.bx.psu.edu"
             },
-            "tool_state": "{\"caseinsensitive\": \"false\", \"find_pattern\": \"gi\\\\|.*\\\\|gb\\\\|(.*)\\\\|\", \"global\": \"false\", \"infile\": {\"__class__\": \"RuntimeValue\"}, \"is_regex\": \"true\", \"replace_pattern\": \"$1\", \"searchwhere\": {\"searchwhere_select\": \"column\", \"__current_case__\": 1, \"column\": \"2\"}, \"skip_first_line\": \"false\", \"wholewords\": \"false\", \"__page__\": null, \"__rerun_remap_job_id__\": null}",
-            "tool_version": null,
+            "tool_state": "{\"caseinsensitive\": \"false\", \"find_pattern\": \"gi\\\\|.*\\\\|(gb|dbj)\\\\|(.*)\\\\|\", \"global\": \"false\", \"infile\": {\"__class__\": \"RuntimeValue\"}, \"is_regex\": \"true\", \"replace_pattern\": \"$2\", \"searchwhere\": {\"searchwhere_select\": \"column\", \"__current_case__\": 1, \"column\": \"2\"}, \"skip_first_line\": \"false\", \"wholewords\": \"false\", \"__page__\": null, \"__rerun_remap_job_id__\": null}",
+            "tool_version": "1.1.3",
             "type": "tool",
-            "uuid": "ec486dfd-5a0e-4d8d-b4d8-7bf5d7934ed0",
+            "uuid": "d6ba6ab4-1dc2-44da-b5c5-e6ca207d0734",
             "workflow_outputs": []
         },
         "4": {
@@ -188,14 +188,14 @@
                 }
             ],
             "position": {
-                "bottom": 270.1000061035156,
+                "bottom": 484.1000061035156,
                 "height": 113.60000610351562,
-                "left": 875,
-                "right": 1075,
-                "top": 156.5,
+                "left": 861,
+                "right": 1061,
+                "top": 370.5,
                 "width": 200,
-                "x": 875,
-                "y": 156.5
+                "x": 861,
+                "y": 370.5
             },
             "post_job_actions": {
                 "HideDatasetActionoutfile": {
@@ -212,9 +212,9 @@
                 "tool_shed": "toolshed.g2.bx.psu.edu"
             },
             "tool_state": "{\"adv_opts\": {\"adv_opts_selector\": \"basic\", \"__current_case__\": 0}, \"ignore_case\": \"false\", \"infile\": {\"__class__\": \"ConnectedValue\"}, \"is_numeric\": \"false\", \"__page__\": null, \"__rerun_remap_job_id__\": null}",
-            "tool_version": null,
+            "tool_version": "1.1.0",
             "type": "tool",
-            "uuid": "1a943a8c-1b7b-4a79-b4e1-ebb6964b698f",
+            "uuid": "46490932-30b4-4613-a0df-fc57dad190c5",
             "workflow_outputs": []
         },
         "5": {
@@ -238,14 +238,14 @@
                 }
             ],
             "position": {
-                "bottom": 426.1000061035156,
+                "bottom": 641.1000061035156,
                 "height": 113.60000610351562,
-                "left": 874,
-                "right": 1074,
-                "top": 312.5,
+                "left": 860,
+                "right": 1060,
+                "top": 527.5,
                 "width": 200,
-                "x": 874,
-                "y": 312.5
+                "x": 860,
+                "y": 527.5
             },
             "post_job_actions": {
                 "HideDatasetActionoutfile": {
@@ -262,9 +262,9 @@
                 "tool_shed": "toolshed.g2.bx.psu.edu"
             },
             "tool_state": "{\"adv_opts\": {\"adv_opts_selector\": \"basic\", \"__current_case__\": 0}, \"ignore_case\": \"false\", \"infile\": {\"__class__\": \"ConnectedValue\"}, \"is_numeric\": \"false\", \"__page__\": null, \"__rerun_remap_job_id__\": null}",
-            "tool_version": null,
+            "tool_version": "1.1.0",
             "type": "tool",
-            "uuid": "e15d8866-a306-450d-b5a2-45fb69b85a62",
+            "uuid": "19302e84-98c1-4e9a-9d14-5d5f34ca2fe7",
             "workflow_outputs": []
         },
         "6": {
@@ -292,14 +292,14 @@
                 }
             ],
             "position": {
-                "bottom": 356.1000061035156,
+                "bottom": 570.1000061035156,
                 "height": 123.60000610351562,
-                "left": 1154,
-                "right": 1354,
-                "top": 232.5,
+                "left": 1140,
+                "right": 1340,
+                "top": 446.5,
                 "width": 200,
-                "x": 1154,
-                "y": 232.5
+                "x": 1140,
+                "y": 446.5
             },
             "post_job_actions": {
                 "HideDatasetActionoutput": {
@@ -316,7 +316,7 @@
                 "tool_shed": "toolshed.g2.bx.psu.edu"
             },
             "tool_state": "{\"column1\": \"2\", \"column2\": \"2\", \"empty_string_filler\": \"0\", \"header\": \"false\", \"ignore_case\": \"false\", \"infile1\": {\"__class__\": \"ConnectedValue\"}, \"infile2\": {\"__class__\": \"ConnectedValue\"}, \"jointype\": \"-a 1 -a 2\", \"__page__\": null, \"__rerun_remap_job_id__\": null}",
-            "tool_version": null,
+            "tool_version": "1.1.2",
             "type": "tool",
             "uuid": "fe1f6900-45e5-4148-a4da-c900fd3b1f3a",
             "workflow_outputs": []
@@ -342,14 +342,14 @@
                 }
             ],
             "position": {
-                "bottom": 407.1000061035156,
-                "height": 113.60000610351562,
-                "left": 1410,
-                "right": 1610,
-                "top": 293.5,
+                "bottom": 600.6999969482422,
+                "height": 93.19999694824219,
+                "left": 1396,
+                "right": 1596,
+                "top": 507.5,
                 "width": 200,
-                "x": 1410,
-                "y": 293.5
+                "x": 1396,
+                "y": 507.5
             },
             "post_job_actions": {
                 "HideDatasetActionout_file1": {
@@ -360,7 +360,7 @@
             },
             "tool_id": "Cut1",
             "tool_state": "{\"columnList\": \"c2,c3\", \"delimiter\": \"T\", \"input\": {\"__class__\": \"ConnectedValue\"}, \"__page__\": null, \"__rerun_remap_job_id__\": null}",
-            "tool_version": null,
+            "tool_version": "1.0.2",
             "type": "tool",
             "uuid": "c4abce00-4799-49c5-ac92-25ae62f2cf5b",
             "workflow_outputs": []
@@ -386,14 +386,14 @@
                 }
             ],
             "position": {
-                "bottom": 446.6999969482422,
+                "bottom": 660.6999969482422,
                 "height": 93.19999694824219,
-                "left": 1658,
-                "right": 1858,
-                "top": 353.5,
+                "left": 1644,
+                "right": 1844,
+                "top": 567.5,
                 "width": 200,
-                "x": 1658,
-                "y": 353.5
+                "x": 1644,
+                "y": 567.5
             },
             "post_job_actions": {
                 "ChangeDatatypeActionoutput": {
@@ -412,19 +412,19 @@
                 "tool_shed": "toolshed.g2.bx.psu.edu"
             },
             "tool_state": "{\"adv_opts\": {\"adv_opts_selector\": \"basic\", \"__current_case__\": 0}, \"code\": \"s/(.*)\\\\t(.*)/\\\\2\\\\t\\\\1/\", \"infile\": {\"__class__\": \"ConnectedValue\"}, \"__page__\": null, \"__rerun_remap_job_id__\": null}",
-            "tool_version": null,
+            "tool_version": "1.1.1",
             "type": "tool",
             "uuid": "136d99c8-2b2c-4533-9e78-91fd39d16e3f",
             "workflow_outputs": [
                 {
                     "label": null,
                     "output_name": "output",
-                    "uuid": "75d2bd00-2538-43cb-8566-a2f0279c737a"
+                    "uuid": "aa64bebb-1f64-4327-ac4b-904be2a37821"
                 }
             ]
         }
     },
     "tags": [],
-    "uuid": "f5d26e07-0d76-4fff-8e5f-a0506ef197c3",
-    "version": 2
+    "uuid": "28a690ef-ef6b-435a-a519-7702772b22c7",
+    "version": 6
 }

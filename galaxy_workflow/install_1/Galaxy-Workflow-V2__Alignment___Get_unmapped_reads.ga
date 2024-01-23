@@ -20,14 +20,14 @@
             "name": "Input dataset",
             "outputs": [],
             "position": {
-                "bottom": 485.1999969482422,
+                "bottom": 487.1999969482422,
                 "height": 82.19999694824219,
-                "left": 682.316650390625,
-                "right": 882.316650390625,
-                "top": 403,
+                "left": 555.316650390625,
+                "right": 755.316650390625,
+                "top": 405,
                 "width": 200,
-                "x": 682.316650390625,
-                "y": 403
+                "x": 555.316650390625,
+                "y": 405
             },
             "tool_id": null,
             "tool_state": "{\"optional\": false}",
@@ -52,14 +52,14 @@
             "name": "Input dataset",
             "outputs": [],
             "position": {
-                "bottom": 573.8000030517578,
+                "bottom": 575.8000030517578,
                 "height": 61.80000305175781,
-                "left": 687.316650390625,
-                "right": 887.316650390625,
-                "top": 512,
+                "left": 560.316650390625,
+                "right": 760.316650390625,
+                "top": 514,
                 "width": 200,
-                "x": 687.316650390625,
-                "y": 512
+                "x": 560.316650390625,
+                "y": 514
             },
             "tool_id": null,
             "tool_state": "{\"optional\": false}",
@@ -93,14 +93,14 @@
                 }
             ],
             "position": {
-                "bottom": 641.6000061035156,
+                "bottom": 643.6000061035156,
                 "height": 225.60000610351562,
-                "left": 980.316650390625,
-                "right": 1180.316650390625,
-                "top": 416,
+                "left": 853.316650390625,
+                "right": 1053.316650390625,
+                "top": 418,
                 "width": 200,
-                "x": 980.316650390625,
-                "y": 416
+                "x": 853.316650390625,
+                "y": 418
             },
             "post_job_actions": {
                 "HideDatasetActionalignment_output": {
@@ -133,12 +133,7 @@
                     "output_name": "alignment_output"
                 }
             },
-            "inputs": [
-                {
-                    "description": "runtime parameter for tool Samtools fastx",
-                    "name": "input"
-                }
-            ],
+            "inputs": [],
             "label": "extract unmapped reads of host",
             "name": "Samtools fastx",
             "outputs": [
@@ -148,14 +143,14 @@
                 }
             ],
             "position": {
-                "bottom": 672.6000061035156,
+                "bottom": 675.6000061035156,
                 "height": 113.60000610351562,
-                "left": 1226.316650390625,
-                "right": 1426.316650390625,
-                "top": 559,
+                "left": 1103.316650390625,
+                "right": 1303.316650390625,
+                "top": 562,
                 "width": 200,
-                "x": 1226.316650390625,
-                "y": 559
+                "x": 1103.316650390625,
+                "y": 562
             },
             "post_job_actions": {
                 "RenameDatasetActionoutput": {
@@ -173,7 +168,7 @@
                 "owner": "iuc",
                 "tool_shed": "toolshed.g2.bx.psu.edu"
             },
-            "tool_state": "{\"copy_arb_tags\": \"\", \"copy_tags\": \"false\", \"exclusive_filter\": null, \"exclusive_filter_all\": null, \"idxout_cond\": {\"idxout_select\": \"no\", \"__current_case__\": 0}, \"inclusive_filter\": [\"4\"], \"input\": {\"__class__\": \"RuntimeValue\"}, \"output_fmt_cond\": {\"output_fmt_select\": \"fastqsanger\", \"__current_case__\": 0, \"default_quality\": null, \"output_quality\": \"false\", \"ilumina_casava\": \"false\"}, \"outputs\": null, \"read_numbering\": \"\", \"__page__\": null, \"__rerun_remap_job_id__\": null}",
+            "tool_state": "{\"copy_arb_tags\": \"\", \"copy_tags\": \"false\", \"exclusive_filter\": null, \"exclusive_filter_all\": null, \"idxout_cond\": {\"idxout_select\": \"no\", \"__current_case__\": 0}, \"inclusive_filter\": [\"4\"], \"input\": {\"__class__\": \"ConnectedValue\"}, \"output_fmt_cond\": {\"output_fmt_select\": \"fastqsanger\", \"__current_case__\": 0, \"default_quality\": null, \"output_quality\": \"false\", \"ilumina_casava\": \"false\"}, \"outputs\": null, \"read_numbering\": \"\", \"__page__\": null, \"__rerun_remap_job_id__\": null}",
             "tool_version": "1.13",
             "type": "tool",
             "uuid": "76da57ed-9cf3-4a7d-9aad-69f109e4dbe6",
@@ -181,12 +176,12 @@
                 {
                     "label": "UNMAPPED HOST",
                     "output_name": "output",
-                    "uuid": "747d4274-b091-49a6-bfa2-0e32042c3473"
+                    "uuid": "131fbb53-6c15-4ce0-b908-7480a08522dd"
                 }
             ]
         }
     },
     "tags": [],
-    "uuid": "5fa2199b-ceee-4eaf-867e-4f28c44902de",
-    "version": 10
+    "uuid": "e56bed6b-528e-4182-9e96-1213a928fcd2",
+    "version": 11
 }
