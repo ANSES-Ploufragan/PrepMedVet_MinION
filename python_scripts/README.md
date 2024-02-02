@@ -66,6 +66,8 @@ and have one script by Galaxy task.
 
 ## TAXID_genusexpand_taxid2acc.py
 
+* __not used currently__, except as command line tool (therefore __not in Galaxy__) because __REQUIRES NETWORK__ (TAXID_genusexpand_taxid2acc_offline_searchinhostcompletegenomedb.py_ replace it without needs of connexion during analysis)
+
 * conda env: TAXID_genusexpand_taxid2acc.yaml
 
 * aim: __find accession numbers of complete genomes related to provided taxids__ 
@@ -74,7 +76,28 @@ and have one script by Galaxy task.
 
 * in: tabular file (tsv) of (leave) taxids and accession numbers found __IN__ taxid ncbi taxonomy tree(s)
 
-* out: txt file of accession numbers of __complete genomes__ of species 
+* out: txt file of __assembly accession numbers__ of __complete genomes__ of species 
+
+> Note: before first use, need to be ran with two specific options to load ete3 databank : --load_ncbi_tax_f --ncbi_tax_f file_path_to_ete3_db
+
+
+## TAXID_genusexpand_taxid2acc_offline_searchinhostcompletegenomedb.py
+
+* conda env: TAXID_genusexpand_taxid2acc_offline_searchinhostcomp.yaml
+
+
+* aim: __find accession numbers of complete genomes related to provided taxids__ 
+
+    Search accession number of complete genome of the species linked to taxid provided. Starts at species rank, goes upstream in taxonomy until order level if needed: stop when at less 1 ref accession of complete genome is found. __Retains the one with the lowest accession number then the highest version number__.
+
+    This first step get __assembly accession number__ while host_complete_genomes_db has sequence accession numbers (linked to assembly accession numbers). To make the liink and get the __sequences accession numbers__, the script:
+    - reads the files in __assemblyaccnr_seqaccnr__ directory where each file [assemblyaccessionnumber].[version].txt (ex: GCF_949774975.1.txt) stores all __sequences accession numbers__ found in host_complete_genomes_db
+
+* in _--taxid_acc_in_f_: tabular file (tsv) of (leave) taxids and accession numbers found __IN__ taxid ncbi taxonomy tree(s) from which we want to find host complete genomes related to
+
+* in _--taxid_acc_hostdb_in_f_:  tabular file (tsv) of (leave) assembly taxids and accession numbers found in host_complete_genomes_db
+
+* out: txt file of __sequences accession numbers__ of __complete genomes__ of species 
 
 > Note: before first use, need to be ran with two specific options to load ete3 databank : --load_ncbi_tax_f --ncbi_tax_f file_path_to_ete3_db
 
