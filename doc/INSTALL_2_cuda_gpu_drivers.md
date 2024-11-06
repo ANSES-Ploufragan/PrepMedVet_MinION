@@ -5,6 +5,8 @@
 
 Use the advised proprietary tested driver (510 for RTX3080 on ubuntu 20.04.6 LTS) using Ubuntu Graphical Software Installer.
 > 510 drivers means CUDA 11.6
+>
+> 535.183.01 drivers with CUDA 12.2 currently (2024 11 06)
 
 # Instructions to install CUDA (nvidia GPU computing) on a laptop running Ubuntu 20.04
 
@@ -23,7 +25,9 @@ sudo apt install nvidia-cuda-toolkit
 
 * When you update/upgrade ubuntu, you may have different nvidia/cuda drivers updated
 
-* Currently guppy_gpu is __supporting CUDA 11.8__, __not CUDA 12__
+## Procedure to downgrade CUDA when guppy_gpu was not compatible with CUDA 12: __deprecated__
+
+* At a moment, guppy_gpu was __supporting CUDA 11.8__, __not CUDA 12__
 * To downgrade CUDA to CUDA 11.8, do this:
 
   - remove current nvidia/cuda drivers: 

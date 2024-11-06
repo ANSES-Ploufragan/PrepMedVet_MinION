@@ -3,7 +3,7 @@ use strict;
 use warnings;
 
 my $dbdir='/db/'
-my $ntdb="${db_dir}nt_blast"
+my $ntdb="${db_dir}core_nt_db"
 my $nrdb="${db_dir}nr_blast"
 
 my $cmd = "eval \"\$(conda shell.bash hook)\"
@@ -11,7 +11,7 @@ conda activate blast-v2.12.0
 sudo mkdir $ntdb
 sudo chown pmv:galaxy $ntdb
 cd $ntdb
-update_blastdb.pl --passive --decompress --num_threads 4 nt
+update_blastdb.pl --passive --decompress --num_threads 4 core_nt
 
 sudo mkdir $nrdb
 sudo chown pmv:galaxy $nrdb

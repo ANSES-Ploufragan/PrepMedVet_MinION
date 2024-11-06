@@ -2,7 +2,7 @@
   - [ref\_prok\_rep\_genomes](#ref_prok_rep_genomes)
   - [ref\_viruses\_rep\_genome](#ref_viruses_rep_genome)
   - [rvcg\_blast\_db and rbcg\_blast\_db](#rvcg_blast_db-and-rbcg_blast_db)
-  - [nt and nr](#nt-and-nr)
+  - [core\_nt and nr](#nt-and-nr)
   - [host\_complete\_genome\_db](#host_complete_genome_db)
 - [Location of databank on an external USB-C plugged ssd](#location-of-databank-on-an-external-usb-c-plugged-ssd)
 
@@ -13,7 +13,7 @@
 Databank to install and their purpose:
 - rvcg_blast_db: ref/type complete genomes of virus/phages pathogens for first analyses
 - rbcg_blast_db: ref/type complete genomes of bacteria/fungal/archae pathogens for first analyses
-- nt: general search of small dataset, obtention of fasta references (for host(s) too)
+- core_nt: general search of small dataset, obtention of fasta references (for host(s) too), core\_nt is smaller and less redundant than nt
 - nr: general search for unidentified contigs
 
 - host_complete_genome_db: complete genome assemblies for hosts (not found in ncbi nt, needed to remove host reads fastly)
@@ -36,7 +36,7 @@ Run command:
 ./cmd_install_pathogens_completegenomes_db.bash
 ```
 
-## nt and nr
+## core\_nt and nr
 
 
 Go to directory: ```~/PrepMedVet_analyses/perl_scripts```

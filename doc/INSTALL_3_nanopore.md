@@ -71,7 +71,7 @@ scheme://[username:password@]host:port or "http://domain\\username:password@host
 
 
 
-# guppy_gpu
+# guppy_gpu -> __now (2024 11 06) updated to dorado (gpu) 7.4.14 automatically__, for first installation, follow the [nanopore documentation](https://community.nanoporetech.com/downloads)
 
 > The GPU version (nvidia) of Guppy must be installed on the same system to which the MinION is connected
 
@@ -216,7 +216,7 @@ You may then need to enable the service as described above.
                                                   
 
 
-### Setting GPU parameters for lower-memory graphics cards.
+### Setting GPU parameters for lower-memory graphics cards. __deprecated, not needed with dorado GPU__
 
 When using GPUs with 8 GB of memory or less, larger basecall models (such as HAC and Sup) may not run. In this case it is recommended to lower the chunks_per_runner parameter of the basecall server to reduce memory use. This parameter is set when launching the basecall server.
 
@@ -487,10 +487,19 @@ must provide the same version as
 
 # Update MinKNOW
 
+## __Following commmands deprecated, with nanopore channel (if not changed), it is automated with system update/upgrade__
+
 * To update MinKNOW (with gpu usage), you need to type:
 ```
 sudo apt clean
 sudo apt update
 sudo apt install ont-standalone-minknow-gpu-release
 sudo reboot
+```
+
+* __Now (2024 11 06), just do__
+
+```
+sudo apt update
+sudo apt upgrade
 ```
