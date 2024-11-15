@@ -8,3 +8,5 @@
 /planemo_cmd/**
 /galaxy_workflow/install*/*.yml
 *.pyc
+/galaxy_workflow/virt/lib/python3.8
+/python_scripts/taxdump.tar.gz
