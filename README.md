@@ -33,6 +33,10 @@ NO GARANTY can be given because of the specificities of hardwares used in your o
 
 * Soon available at: ...
 
+## Licence
+
+All programs of this repository those are not already under licence (like Galaxy system files, Nanopore programs) are under GPL3 licence (terms in _LICENCE_ file).
+
 ## Citation
 
 Soon available. If you use this work and publish, please cite this github repository:
